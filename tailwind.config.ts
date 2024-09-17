@@ -13,8 +13,10 @@ const config: Config = {
         heading: ['var(--font-roboto)', ...fontFamily.sans],
         body: ['var(--font-roboto)', ...fontFamily.mono],
       },
+      borderRadius: {},
+      colors: {},
     },
   },
-  plugins: [],
+  plugins: [require('tailwindcss-animate')],
 };
 export default config;
