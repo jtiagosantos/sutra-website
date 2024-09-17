@@ -1,8 +1,13 @@
 import LogoImage from '@/assets/logo.svg';
 import { Button } from '@/components/ui/button';
 import { Gamepad2, Trophy, ScrollText, Crown } from 'lucide-react';
+import Link from 'next/link';
+import { auth } from '@/auth';
+import { AuthButton } from './auth-button';
 
-export const Main = () => {
+export const Main = async () => {
+  const session = await auth();
+
   return (
     <main className="w-full flex flex-col items-center mt-10 mb-5 px-4">
       <LogoImage />
@@ -17,10 +22,12 @@ export const Main = () => {
       </h3>
 
       <div className="max-w-[300px] w-full flex flex-col items-center justify-center gap-2">
-        <Button className="w-full py-[13px] rounded-xl flex items-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
-          <Gamepad2 size={28} />
-          Jogar Quiz
-        </Button>
+        {!session ? <AuthButton /> : (
+          <Link href="/jogar" className="tracking-wide font-medium text-white w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
+            <Gamepad2 size={28} />
+            Jogar Quiz
+          </Link>
+        )}
         <Button className="text-[#8381D9] w-full py-[13px] rounded-xl flex items-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]">
           <Trophy size={28} />
           Classificação
