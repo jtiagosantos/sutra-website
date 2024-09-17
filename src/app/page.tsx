@@ -1,5 +1,3 @@
 export default function Page() {
-  return (
-    <h1>Book Quiz</h1>
-  );
+  return <h1 className="font-body">Book Quiz</h1>;
 }
