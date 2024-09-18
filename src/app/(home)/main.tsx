@@ -36,10 +36,10 @@ export const Main = async () => {
           <ScrollText size={28} />
           Como Jogar
         </Link>
-        <Button className="text-yellow-500 w-full py-[13px] rounded-xl flex items-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-yellow-500 hover:text-white hover:bg-yellow-500 transition-all duration-300">
+        <Link href="/planos" className="tracking-wide font-medium text-yellow-500 w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-yellow-500 hover:text-white hover:bg-yellow-500 transition-all duration-300">
           <Crown size={28} />
           Seja Premium
-        </Button>
+        </Link>
       </div>
     </main>
   );
