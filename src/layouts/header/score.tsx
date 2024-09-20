@@ -3,7 +3,7 @@
 import { getUserScoreAction } from "@/actions/get-user-score";
 import { Zap } from "lucide-react";
 import { useAction } from "next-safe-action/hooks";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { ThreeDots } from "react-loader-spinner";
 
 type ScoreProps = {
@@ -13,11 +13,13 @@ type ScoreProps = {
 }
 
 export const Score: FC<ScoreProps> = ({ user }) => {
-  const { execute, result, isPending, status } = useAction(getUserScoreAction);
-
-  useEffect(() => {
-    execute({ email: user.email });
-  }, []);
+  const { result, isPending, status } = useAction(getUserScoreAction, {
+    executeOnMount: {
+      input: {
+        email: user.email,
+      },
+    },
+  });
 
   return (
     <div className="w-[76px] border-[2px] border-yellow-500 flex items-center justify-center gap-2 py-[10px] px-3 rounded-xl">
