@@ -17,7 +17,7 @@ export const AuthButton = () => {
         <Gamepad2 size={28} />
         Jogar Quiz
       </Button>
-      <AuthModal open={open} onOpenChange={setOpen} />
+      <AuthModal open={open} onOpenChange={setOpen} redirectTo="/jogar" />
     </>
   );
 }

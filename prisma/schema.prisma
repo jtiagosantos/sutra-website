@@ -1,0 +1,69 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  CANCELED
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  email            String       @unique
+  firstName        String       @map("first_name")
+  lastName         String       @map("last_name")
+  avatar           String
+  subscription     Subscription
+  score            Int          @default(0)
+  dailyQuizCount   Int          @default(0) @map("daily_quiz_count")
+  lastQuizPlayedAt DateTime?    @map("last_quiz_played_at")
+  customerId       String       @map("customer_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  quizzes Quiz[]
+
+  @@map("users")
+}
+
+model Quiz {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  book      Book
+  questions Question[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id") @db.ObjectId
+
+  @@map("quizzes")
+}
+
+type Subscription {
+  status SubscriptionStatus
+}
+
+type Book {
+  title  String
+  author String
+}
+
+type Question {
+  title   String
+  answers Answer[]
+  correct String
+}
+
+type Answer {
+  id   String
+  text String
+}

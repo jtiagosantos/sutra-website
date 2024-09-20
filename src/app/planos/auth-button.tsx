@@ -14,7 +14,7 @@ export const AuthButton = () => {
       >
         Escolher Plano
       </button>
-      <AuthModal open={open} onOpenChange={setOpen} />
+      <AuthModal open={open} onOpenChange={setOpen} redirectTo="/planos" />
     </>
   );
 }
