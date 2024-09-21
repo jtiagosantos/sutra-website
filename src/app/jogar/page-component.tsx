@@ -23,6 +23,8 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
   const [book, setBook] = useState<Book | null>(null);
   const [quiz, setQuiz] = useState<Quiztype | null>(null);
 
+  console.log({ createQuizStatus })
+
   const { result, isPending, status } = useAction(userCanPlayQuizAction, {
     executeOnMount: {
       input: {
@@ -50,7 +52,7 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
           subscriptionStatus={result.data?.subscriptionStatus!}
           onSubmit={() => setIsCreatingQuiz(true)}
           onCreateQuiz={() => setIsCreatingQuiz(false)}
-          createQuizStatus={createQuizStatus as any}
+          createQuizStatus={createQuizStatus!}
           setCreateQuizStatus={setCreateQuizStatus}
           setQuiz={setQuiz}
           setBook={setBook}

@@ -48,9 +48,12 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       return;
     }
 
-    onSubmit();
+    if (subscriptionStatus !== 'ACTIVE' && Number(quantifyOfQuestions) > 5) {
+      alert('Você precisa ser usuário premium para criar quizzes com mais de 5 perguntas');
+      return;
+    }
 
-    //TODO: validate quantity of questions based on subscription status
+    onSubmit();
 
     const result = await createQuizAction({
       bookName,

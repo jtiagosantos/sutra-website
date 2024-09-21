@@ -19,11 +19,13 @@ export const getUserAction = actionClient
 
     if (!user) {
       return {
+        user: null,
         code: 404,
       };
     }
 
     return {
+      user,
       code: 200,
     };
   });
