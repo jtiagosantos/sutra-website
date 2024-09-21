@@ -1,3 +1,5 @@
+'use client'
+
 import LogoImage from '@/assets/logo.svg';
 import { MoveLeft } from 'lucide-react';
 import Link from 'next/link';

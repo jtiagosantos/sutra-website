@@ -94,6 +94,14 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
     }
   };
 
+  const handleShareResult = () => {
+    navigator.share({
+      title: 'Book Quiz',
+      text: 'Junte-se a mim e descubra o quanto você conhece sobre seus livros favoritos!',
+      url: process.env.NEXT_PUBLIC_WEBSITE_URL,
+    });
+  }
+
   return (
     <div className="max-w-[600px] w-full mx-auto">
       {!isQuizFinished && (
@@ -145,9 +153,11 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
               </span>
             </div>
           </div>
-          {/* TODO: implement function to this button */}
           <div className="w-full flex justify-center">
-            <Button className="mt-6 text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]">
+            <Button
+              onClick={handleShareResult}
+              className="mt-6 text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]"
+            >
               <Share2 size={24} />
               Compartilhar resultado
             </Button>
