@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { actionClient } from "@/lib/safe-action";
-import { openai } from "@/lib/openai";
+import { z } from 'zod';
+import { actionClient } from '@/lib/safe-action';
+import { openai } from '@/lib/openai';
 import { zodResponseFormat } from 'openai/helpers/zod';
 
 const schema = z.object({
@@ -36,7 +36,7 @@ export const createQuizAction = actionClient
       Coisas importantes:
       - Eu quero que o id de cada answer seja um id do tipo cuid
       - Eu quero que o campo "correct" seja o id da alternativa correta
-    `
+    `;
 
     const formatSchema = z.object({
       questions: z.array(
@@ -45,12 +45,12 @@ export const createQuizAction = actionClient
           answers: z.array(
             z.object({
               id: z.string(),
-              text: z.string()
-            })
+              text: z.string(),
+            }),
           ),
-          correct: z.string()
-        })
-      )
+          correct: z.string(),
+        }),
+      ),
     });
 
     const completion = await openai.chat.completions.create({

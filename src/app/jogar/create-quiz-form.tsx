@@ -1,21 +1,21 @@
-import { createQuizAction } from "@/actions/create-quiz-action";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
+import { createQuizAction } from '@/actions/create-quiz-action';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Quiz } from "@/types/quiz";
-import { Crown, MoveLeft } from "lucide-react";
-import Link from "next/link";
-import { FC, useState } from "react";
-import { CreateQuizError } from "./create-quiz-error";
-import { CreateQuizSuccess } from "./create-quiz-success";
-import { Book } from "@/types/book";
+} from '@/components/ui/select';
+import { Quiz } from '@/types/quiz';
+import { Crown, MoveLeft } from 'lucide-react';
+import Link from 'next/link';
+import { FC, useState } from 'react';
+import { CreateQuizError } from './create-quiz-error';
+import { CreateQuizSuccess } from './create-quiz-success';
+import { Book } from '@/types/book';
 
 type CreateQuizFormProps = {
   subscriptionStatus: 'ACTIVE' | 'INACTIVE' | 'CANCELED';
@@ -25,7 +25,7 @@ type CreateQuizFormProps = {
   setCreateQuizStatus: (status: 'SUCCESS' | 'ERROR' | 'CAN_PLAY' | null) => void;
   setQuiz: (quiz: Quiz) => void;
   setBook: (book: Book) => void;
-}
+};
 
 export const CreateQuizForm: FC<CreateQuizFormProps> = ({
   subscriptionStatus,
@@ -49,7 +49,9 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     }
 
     if (subscriptionStatus !== 'ACTIVE' && Number(quantifyOfQuestions) > 5) {
-      alert('Você precisa ser usuário premium para criar quizzes com mais de 5 perguntas');
+      alert(
+        'Você precisa ser usuário premium para criar quizzes com mais de 5 perguntas',
+      );
       return;
     }
 
@@ -58,7 +60,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     const result = await createQuizAction({
       bookName,
       authorName,
-      quantifyOfQuestions: Number(quantifyOfQuestions)
+      quantifyOfQuestions: Number(quantifyOfQuestions),
     });
 
     if (!result?.data) {
@@ -75,14 +77,14 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     setQuiz(result.data.quiz);
     setBook({ title: bookName, author: authorName });
     onCreateQuiz();
-  }
+  };
 
   if (createQuizStatus === 'SUCCESS') {
-    return <CreateQuizSuccess onPlay={() => setCreateQuizStatus('CAN_PLAY')} />
+    return <CreateQuizSuccess onPlay={() => setCreateQuizStatus('CAN_PLAY')} />;
   }
 
   if (createQuizStatus === 'ERROR') {
-    return <CreateQuizError tryAgain={handleCreateQuiz} />
+    return <CreateQuizError tryAgain={handleCreateQuiz} />;
   }
 
   return (
@@ -97,7 +99,9 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       <form className="max-w-[340px] w-full mt-10">
         <div className="w-full flex flex-col gap-5">
           <div className="w-full space-y-0.5">
-            <Label htmlFor="bookName" className="font-body text-base text-gray-600">Nome do livro</Label>
+            <Label htmlFor="bookName" className="font-body text-base text-gray-600">
+              Nome do livro
+            </Label>
             <Input
               type="text"
               id="bookName"
@@ -108,7 +112,9 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
             />
           </div>
           <div className="w-full space-y-0.5">
-            <Label htmlFor="authorName" className="font-body text-base text-gray-600">Nome do autor</Label>
+            <Label htmlFor="authorName" className="font-body text-base text-gray-600">
+              Nome do autor
+            </Label>
             <Input
               type="text"
               id="authorName"
@@ -119,11 +125,14 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
             />
           </div>
           <div className="w-full space-y-0.5">
-            <Label htmlFor="quantifyOfQuestions" className="font-body text-base text-gray-600">Quantidade de perguntas</Label>
+            <Label
+              htmlFor="quantifyOfQuestions"
+              className="font-body text-base text-gray-600">
+              Quantidade de perguntas
+            </Label>
             <Select
               value={quantifyOfQuestions}
-              onValueChange={(value) => setQuantifyOfQuestions(value)}
-            >
+              onValueChange={(value) => setQuantifyOfQuestions(value)}>
               <SelectTrigger className="h-11" id="quantifyOfQuestions">
                 <SelectValue placeholder="Selecione a quantidade de perguntas" />
               </SelectTrigger>
@@ -131,17 +140,19 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
                 <SelectItem value="5">5 perguntas</SelectItem>
                 <SelectItem value="10" disabled={subscriptionStatus !== 'ACTIVE'}>
                   <span>10 perguntas </span>
-                  <span className="inline-flex items-center text-yellow-500">(
+                  <span className="inline-flex items-center text-yellow-500">
+                    (
                     <Crown size={20} className="mr-1" />
-                    Premium
-                    )</span>
+                    Premium )
+                  </span>
                 </SelectItem>
                 <SelectItem value="15" disabled={subscriptionStatus !== 'ACTIVE'}>
                   <span>15 perguntas </span>
-                  <span className="inline-flex items-center text-yellow-500">(
+                  <span className="inline-flex items-center text-yellow-500">
+                    (
                     <Crown size={20} className="mr-1" />
-                    Premium
-                    )</span>
+                    Premium )
+                  </span>
                 </SelectItem>
               </SelectContent>
             </Select>
@@ -161,11 +172,10 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       <Link
         href="/"
         className="mt-10 text-[#8381D9] w-fit flex items-center gap-[6px] font-heading font-medium text-[18px] hover:underline hover:text-accent underline-offset-4"
-        prefetch={false}
-      >
+        prefetch={false}>
         <MoveLeft className="w-5 h-5 pt-[3px]" />
         voltar
       </Link>
     </>
   );
-}
+};

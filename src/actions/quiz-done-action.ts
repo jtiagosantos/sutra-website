@@ -1,9 +1,9 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { actionClient } from "@/lib/safe-action";
-import { prisma } from "@/lib/prisma";
-import dayjs from "dayjs";
+import { z } from 'zod';
+import { actionClient } from '@/lib/safe-action';
+import { prisma } from '@/lib/prisma';
+import dayjs from 'dayjs';
 
 const schema = z.object({
   email: z.string().email(),

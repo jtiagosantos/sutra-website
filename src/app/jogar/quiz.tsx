@@ -1,16 +1,16 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import { Progress } from "@/components/ui/progress";
-import { useToast } from "@/hooks/use-toast";
-import { MoveLeft, Share2 } from "lucide-react";
-import Link from "next/link";
-import { FC, useRef, useState } from "react";
-import { CalculationAnswersLoading } from "./calculation-answers-loading";
-import { Quiz as QuizType } from "@/types/quiz";
-import { quizDoneAction } from "@/actions/quiz-done-action";
-import { saveQuizAction } from "@/actions/save-quiz-action";
-import { Book } from "@/types/book";
+import { Button } from '@/components/ui/button';
+import { Progress } from '@/components/ui/progress';
+import { useToast } from '@/hooks/use-toast';
+import { MoveLeft, Share2 } from 'lucide-react';
+import Link from 'next/link';
+import { FC, useRef, useState } from 'react';
+import { CalculationAnswersLoading } from './calculation-answers-loading';
+import { Quiz as QuizType } from '@/types/quiz';
+import { quizDoneAction } from '@/actions/quiz-done-action';
+import { saveQuizAction } from '@/actions/save-quiz-action';
+import { Book } from '@/types/book';
 
 const FULL_PROGRESS_BAR = 100;
 const ONE_SECOND = 1000;
@@ -20,8 +20,8 @@ type QuizProps = {
   book: Book;
   user: {
     email: string;
-  }
-}
+  };
+};
 
 export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
   const { toast, dismiss } = useToast();
@@ -49,7 +49,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
         book,
         questions,
         email: user.email,
-      })
+      });
     } finally {
       setIsCalculatingAnswers(false);
     }
@@ -100,7 +100,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
       text: 'Junte-se a mim e descubra o quanto você conhece sobre seus livros favoritos!',
       url: process.env.NEXT_PUBLIC_WEBSITE_URL,
     });
-  }
+  };
 
   return (
     <div className="max-w-[600px] w-full mx-auto">
@@ -156,8 +156,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
           <div className="w-full flex justify-center">
             <Button
               onClick={handleShareResult}
-              className="mt-6 text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]"
-            >
+              className="mt-6 text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]">
               <Share2 size={24} />
               Compartilhar resultado
             </Button>
@@ -170,11 +169,10 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
       <Link
         href="/"
         className="mt-10 text-[#8381D9] w-full flex items-center justify-center gap-[6px] font-heading font-medium text-[18px] hover:underline hover:text-accent underline-offset-4"
-        prefetch={false}
-      >
+        prefetch={false}>
         <MoveLeft className="w-5 h-5 pt-[3px]" />
         Sair do quiz
       </Link>
     </div>
   );
-}
+};

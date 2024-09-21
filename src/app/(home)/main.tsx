@@ -22,8 +22,12 @@ export const Main = async () => {
       </h3>
 
       <div className="max-w-[300px] w-full flex flex-col items-center justify-center gap-2">
-        {!session ? <AuthButton /> : (
-          <Link href="/jogar" className="tracking-wide font-medium text-white w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
+        {!session ? (
+          <AuthButton />
+        ) : (
+          <Link
+            href="/jogar"
+            className="tracking-wide font-medium text-white w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
             <Gamepad2 size={28} />
             Jogar Quiz
           </Link>
@@ -32,11 +36,15 @@ export const Main = async () => {
           <Trophy size={28} />
           Classificação
         </Button>
-        <Link href="/instrucoes" className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]">
+        <Link
+          href="/instrucoes"
+          className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]">
           <ScrollText size={28} />
           Como Jogar
         </Link>
-        <Link href="/planos" className="tracking-wide font-medium text-yellow-500 w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-yellow-500 hover:text-white hover:bg-yellow-500 transition-all duration-300">
+        <Link
+          href="/planos"
+          className="tracking-wide font-medium text-yellow-500 w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-yellow-500 hover:text-white hover:bg-yellow-500 transition-all duration-300">
           <Crown size={28} />
           Seja Premium
         </Link>

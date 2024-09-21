@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from "react";
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { CircleUserRound } from 'lucide-react';
 import { AuthModal } from '@/components/auth-modal';
@@ -20,4 +20,4 @@ export const UnauthenticatedHeader = () => {
       <AuthModal open={open} onOpenChange={setOpen} />
     </>
   );
-}
+};

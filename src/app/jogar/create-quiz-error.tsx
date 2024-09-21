@@ -1,10 +1,10 @@
-import { RotateCw, ZapOff } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { FC } from "react";
+import { RotateCw, ZapOff } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { FC } from 'react';
 
 type CreateQuizErrorProps = {
   tryAgain: () => void;
-}
+};
 
 export const CreateQuizError: FC<CreateQuizErrorProps> = ({ tryAgain }) => {
   return (
@@ -20,11 +20,10 @@ export const CreateQuizError: FC<CreateQuizErrorProps> = ({ tryAgain }) => {
 
       <Button
         onClick={tryAgain}
-        className="text-white max-w-[300px] w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300"
-      >
+        className="text-white max-w-[300px] w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
         <RotateCw size={24} />
         Tentar novamente
       </Button>
     </>
   );
-}
+};

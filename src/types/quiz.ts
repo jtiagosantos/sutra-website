@@ -7,4 +7,4 @@ export type Quiz = {
     }[];
     correct: string;
   }[];
-}
+};

@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { actionClient } from "@/lib/safe-action";
-import { stripe } from "@/lib/stripe";
+import { z } from 'zod';
+import { actionClient } from '@/lib/safe-action';
+import { stripe } from '@/lib/stripe';
 
 const schema = z.object({
   name: z.string(),
@@ -17,7 +17,7 @@ export const registerCustomerAction = actionClient
     return {
       code: 202,
       customer: {
-        id: customer.id
+        id: customer.id,
       },
-    }
+    };
   });

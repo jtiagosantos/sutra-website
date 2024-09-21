@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { auth } from '@/auth';
 import { UnauthenticatedHeader } from './unauthenticated-header';
 import { AuthenticatedHeader } from './authenticated-header';
 

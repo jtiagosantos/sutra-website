@@ -1,15 +1,12 @@
 'use client';
 
-import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-} from "@/components/ui/dialog";
-import LogoImage from '@/assets/logo.svg'
-import { GoogleIcon } from "@/components/icons/google";
-import { FC, useState } from "react";
+import { Button } from '@/components/ui/button';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import LogoImage from '@/assets/logo.svg';
+import { GoogleIcon } from '@/components/icons/google';
+import { FC, useState } from 'react';
 import { signIn } from 'next-auth/react';
-import { ThreeDots } from "react-loader-spinner";
+import { ThreeDots } from 'react-loader-spinner';
 
 type AuthModalProps = {
   open: boolean;
@@ -17,14 +14,18 @@ type AuthModalProps = {
   redirectTo?: string;
 };
 
-export const AuthModal: FC<AuthModalProps> = ({ open, onOpenChange, redirectTo = '/' }) => {
+export const AuthModal: FC<AuthModalProps> = ({
+  open,
+  onOpenChange,
+  redirectTo = '/',
+}) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const handleSign = async () => {
     setIsLoading(true);
     await signIn('google', { redirectTo });
     setIsLoading(false);
-  }
+  };
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -32,9 +33,15 @@ export const AuthModal: FC<AuthModalProps> = ({ open, onOpenChange, redirectTo =
         <div className="w-full flex flex-col items-center">
           <LogoImage />
           <div className="mt-2 mb-4">
-            <p className="font-body text-gray-600 text-base text-center">Gamifique sua leitura</p>
-            <p className="font-body text-gray-600 text-base text-center my-[2px]">Teste sua paixão pelos livros</p>
-            <p className="font-body text-gray-600 text-base text-center">Participe da classificação</p>
+            <p className="font-body text-gray-600 text-base text-center">
+              Gamifique sua leitura
+            </p>
+            <p className="font-body text-gray-600 text-base text-center my-[2px]">
+              Teste sua paixão pelos livros
+            </p>
+            <p className="font-body text-gray-600 text-base text-center">
+              Participe da classificação
+            </p>
           </div>
           <Button
             disabled={isLoading}
@@ -62,4 +69,4 @@ export const AuthModal: FC<AuthModalProps> = ({ open, onOpenChange, redirectTo =
       </DialogContent>
     </Dialog>
   );
-}
+};
