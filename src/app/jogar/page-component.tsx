@@ -25,8 +25,6 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
   const [book, setBook] = useState<Book | null>(null);
   const [quiz, setQuiz] = useState<Quiztype | null>(null);
 
-  console.log({ createQuizStatus });
-
   const { result, isPending, status } = useAction(userCanPlayQuizAction, {
     executeOnMount: {
       input: {
