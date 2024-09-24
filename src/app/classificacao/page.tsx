@@ -52,7 +52,7 @@ export default function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {result.data?.leaderboard.map((user: User, index) => (
+            {result.data?.leaderboard.map((user: User, index: number) => (
               <TableRow key={user.id}>
                 {index < 3 ? (
                   <TableCell className="font-medium text-left px-1 text-xl">
