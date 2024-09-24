@@ -57,26 +57,30 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
 
     onSubmit();
 
-    const result = await createQuizAction({
-      bookName,
-      authorName,
-      quantifyOfQuestions: Number(quantifyOfQuestions),
-    });
+    try {
+      const result = await createQuizAction({
+        bookName,
+        authorName,
+        quantifyOfQuestions: Number(quantifyOfQuestions),
+      });
 
-    if (!result?.data) {
+      if (!result?.data) {
+        setCreateQuizStatus('ERROR');
+        return;
+      }
+
+      if (result.data.code === 500) {
+        setCreateQuizStatus('ERROR');
+        return;
+      }
+
+      setCreateQuizStatus('SUCCESS');
+      setQuiz(result.data.quiz);
+      setBook({ title: bookName, author: authorName });
+      onCreateQuiz();
+    } catch {
       setCreateQuizStatus('ERROR');
-      return;
     }
-
-    if (result.data.code === 500) {
-      setCreateQuizStatus('ERROR');
-      return;
-    }
-
-    setCreateQuizStatus('SUCCESS');
-    setQuiz(result.data.quiz);
-    setBook({ title: bookName, author: authorName });
-    onCreateQuiz();
   };
 
   if (createQuizStatus === 'SUCCESS') {
