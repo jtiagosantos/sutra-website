@@ -27,7 +27,7 @@ export const CheckoutButton: FC<CheckoutButtonProps> = ({ user }) => {
       customerId: currentUser?.user?.customerId!,
       priceId: PRICE_ID,
       cancelURL: window.location.href,
-      successURL: `${window.location.origin}/pagamento/processamento`,
+      successURL: `${window.location.origin}/pagamento/processando`,
     }))!;
 
     if (!data?.url) {

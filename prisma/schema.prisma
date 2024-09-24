@@ -24,7 +24,7 @@ model User {
   score            Int          @default(0)
   dailyQuizCount   Int          @default(0) @map("daily_quiz_count")
   lastQuizPlayedAt DateTime?    @map("last_quiz_played_at")
-  customerId       String       @map("customer_id")
+  customerId       String       @unique @map("customer_id")
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
