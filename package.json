@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "prettier:check": "npx prettier . --check",
-    "prettier:fix": "npx prettier . --write"
+    "prettier:fix": "npx prettier . --write",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
