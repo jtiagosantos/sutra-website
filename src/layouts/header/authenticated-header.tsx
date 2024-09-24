@@ -22,7 +22,7 @@ export const AuthenticatedHeader = async () => {
           <AvatarImage
             className="scale-75 rounded-full border-[3px] border-[#8381D9]"
             src={session.user?.image ?? ''}
-            alt=""
+            alt={session.user?.name ?? ''}
           />
           <AvatarFallback>{getFallback()}</AvatarFallback>
         </Avatar>

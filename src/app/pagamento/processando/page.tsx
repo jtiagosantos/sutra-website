@@ -63,7 +63,7 @@ const PageComponent = () => {
       )}
 
       {successfulPayment === undefined && (
-        <p className="font-body text-base text-gray-500 mt-4">
+        <p className="font-body text-base text-gray-500 mt-4 text-center">
           Estamos processando seu pagamento, aguarde...
         </p>
       )}

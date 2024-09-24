@@ -1,5 +1,4 @@
 import LogoImage from '@/assets/logo.svg';
-import { Button } from '@/components/ui/button';
 import { Gamepad2, Trophy, ScrollText, Crown } from 'lucide-react';
 import Link from 'next/link';
 import { auth } from '@/auth';
@@ -32,10 +31,13 @@ export const Main = async () => {
             Jogar Quiz
           </Link>
         )}
-        <Button className="text-[#8381D9] w-full py-[13px] rounded-xl flex items-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]">
+        <Link
+          href="/classificacao"
+          className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]"
+        >
           <Trophy size={28} />
           Classificação
-        </Button>
+        </Link>
         <Link
           href="/instrucoes"
           className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]">
