@@ -9,7 +9,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Quiz } from '@/types/quiz';
+import { Question, Quiz } from '@/types/quiz';
 import { Crown, MoveLeft } from 'lucide-react';
 import Link from 'next/link';
 import { FC, useState } from 'react';
@@ -75,7 +75,17 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       }
 
       setCreateQuizStatus('SUCCESS');
-      setQuiz(result.data.quiz);
+
+      const questions = result.data.quiz.questions.map((question: Question) => ({
+        title: question.title,
+        correct: question.correct,
+        answers: question.answers.sort(() => Math.random() - 0.5).map((answer) => ({
+          id: answer.id,
+          text: answer.text
+        })),
+      }));
+
+      setQuiz({ questions });
       setBook({ title: bookName, author: authorName });
       onCreateQuiz();
     } catch {
