@@ -6,7 +6,7 @@ import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ThreeDots } from 'react-loader-spinner';
 
-const PRICE_ID = 'price_1Q1aMHJSJfF3PcrgibBuJDxL';
+const PRICE_ID = 'price_1Q2XPFJSJfF3PcrgxvshYuoO';
 
 type CheckoutButtonProps = {
   user: {
