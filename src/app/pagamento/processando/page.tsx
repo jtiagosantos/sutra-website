@@ -12,7 +12,9 @@ const ONE_SECOND = 1000;
 
 const PageComponent = () => {
   const session = useSession();
-  const [successfulPayment, setSuccessfulPayment] = useState<boolean | undefined>(undefined);
+  const [successfulPayment, setSuccessfulPayment] = useState<boolean | undefined>(
+    undefined,
+  );
   const pollingRef = useRef<NodeJS.Timeout>();
   const fetchingUser = useRef(false);
 
@@ -38,7 +40,7 @@ const PageComponent = () => {
     } finally {
       fetchingUser.current = false;
     }
-  }
+  };
 
   useEffect(() => {
     if (session.data?.user?.email) {
@@ -69,12 +71,10 @@ const PageComponent = () => {
       )}
 
       <div className="mt-[70px]">
-        {successfulPayment === undefined ? <BubbleAnimation /> : (
-          <PartyPopper
-            color="#8381D9"
-            size={80}
-            strokeWidth={1.7}
-          />
+        {successfulPayment === undefined ? (
+          <BubbleAnimation />
+        ) : (
+          <PartyPopper color="#8381D9" size={80} strokeWidth={1.7} />
         )}
       </div>
 
@@ -89,7 +89,7 @@ const PageComponent = () => {
       )}
     </main>
   );
-}
+};
 
 export default function Page() {
   return (

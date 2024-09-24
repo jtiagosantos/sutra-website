@@ -1,14 +1,14 @@
-import { createPortalSessionAction } from "@/actions/create-portal-session-action";
-import { getUserAction } from "@/actions/get-user-action";
-import { useRouter } from "next/navigation";
-import { FC, useState } from "react";
-import { ThreeDots } from "react-loader-spinner";
+import { createPortalSessionAction } from '@/actions/create-portal-session-action';
+import { getUserAction } from '@/actions/get-user-action';
+import { useRouter } from 'next/navigation';
+import { FC, useState } from 'react';
+import { ThreeDots } from 'react-loader-spinner';
 
 type ManageSubscriptionButtonProps = {
   user: {
     email: string;
-  }
-}
+  };
+};
 
 export const ManageSubscriptionButton: FC<ManageSubscriptionButtonProps> = ({ user }) => {
   const router = useRouter();
@@ -32,14 +32,13 @@ export const ManageSubscriptionButton: FC<ManageSubscriptionButtonProps> = ({ us
     }
 
     router.push(data.url);
-  }
+  };
 
   return (
     <button
       onClick={handleCreatePortal}
       disabled={isLoading}
-      className="w-full bg-yellow-500 font-body font-medium text-[18px] text-white tracking-wide py-1 flex justify-center disabled:pointer-events-none disabled:opacity-40"
-    >
+      className="w-full bg-yellow-500 font-body font-medium text-[18px] text-white tracking-wide py-1 flex justify-center disabled:pointer-events-none disabled:opacity-40">
       {isLoading ? (
         <ThreeDots
           height="27"
@@ -49,7 +48,9 @@ export const ManageSubscriptionButton: FC<ManageSubscriptionButtonProps> = ({ us
           ariaLabel="three-dots-loading"
           visible={true}
         />
-      ) : 'Gerenciar Assinatura'}
-    </button >
+      ) : (
+        'Gerenciar Assinatura'
+      )}
+    </button>
   );
-}
+};

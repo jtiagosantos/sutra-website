@@ -1,18 +1,18 @@
 'use client';
 
-import { createCheckoutSessionAction } from "@/actions/create-checkout-session-action";
-import { getUserAction } from "@/actions/get-user-action";
-import { FC, useState } from "react";
-import { useRouter } from "next/navigation";
-import { ThreeDots } from "react-loader-spinner";
+import { createCheckoutSessionAction } from '@/actions/create-checkout-session-action';
+import { getUserAction } from '@/actions/get-user-action';
+import { FC, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { ThreeDots } from 'react-loader-spinner';
 
 const PRICE_ID = 'price_1Q1aMHJSJfF3PcrgibBuJDxL';
 
 type CheckoutButtonProps = {
   user: {
     email: string;
-  }
-}
+  };
+};
 
 export const CheckoutButton: FC<CheckoutButtonProps> = ({ user }) => {
   const router = useRouter();
@@ -37,14 +37,13 @@ export const CheckoutButton: FC<CheckoutButtonProps> = ({ user }) => {
     }
 
     router.push(data.url);
-  }
+  };
 
   return (
     <button
       onClick={handleSubscribe}
       disabled={isLoading}
-      className="w-full bg-yellow-500 font-body font-medium text-[18px] text-white tracking-wide py-1 flex justify-center disabled:pointer-events-none disabled:opacity-40"
-    >
+      className="w-full bg-yellow-500 font-body font-medium text-[18px] text-white tracking-wide py-1 flex justify-center disabled:pointer-events-none disabled:opacity-40">
       {isLoading ? (
         <ThreeDots
           height="27"
@@ -54,7 +53,9 @@ export const CheckoutButton: FC<CheckoutButtonProps> = ({ user }) => {
           ariaLabel="three-dots-loading"
           visible={true}
         />
-      ) : 'Escolher Plano'}
-    </button >
+      ) : (
+        'Escolher Plano'
+      )}
+    </button>
   );
-}
+};

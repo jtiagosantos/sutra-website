@@ -1,7 +1,9 @@
 import { auth } from '@/auth';
 
 export default auth((request) => {
-  const isProtectedRoute = ['/jogar', '/pagamento/processando'].includes(request.nextUrl.pathname);
+  const isProtectedRoute = ['/jogar', '/pagamento/processando'].includes(
+    request.nextUrl.pathname,
+  );
   const isUserAutehnticated = !!request.auth;
 
   if (isProtectedRoute && !isUserAutehnticated) {
@@ -11,5 +13,5 @@ export default auth((request) => {
 });
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
-}
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};

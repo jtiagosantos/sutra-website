@@ -8,7 +8,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import Link from 'next/link';
 import { MoveLeft } from 'lucide-react';
@@ -18,7 +18,7 @@ import BubbleAnimation from '@/assets/bubble-spinner.svg';
 
 export default function Page() {
   const { result, isPending, status } = useAction(getLeaderboardAction, {
-    executeOnMount: {}
+    executeOnMount: {},
   });
 
   return (
@@ -29,7 +29,7 @@ export default function Page() {
         Classificação dos top 10 usuários com mais pontos na plataforma
       </p>
 
-      {(isPending || status !== 'hasSucceeded') ? (
+      {isPending || status !== 'hasSucceeded' ? (
         <div className="my-[100px]">
           <BubbleAnimation />
         </div>
@@ -63,20 +63,23 @@ export default function Page() {
                       alt={user.firstName.concat(' ').concat(user.lastName)}
                     />
                     <AvatarFallback>
-                      {user.firstName[0].toUpperCase().concat(user.lastName[0].toUpperCase())}
+                      {user.firstName[0]
+                        .toUpperCase()
+                        .concat(user.lastName[0].toUpperCase())}
                     </AvatarFallback>
                   </Avatar>
                 </TableCell>
                 <TableCell className="text-center">
                   {user.firstName.concat(' ').concat(user.lastName)}
                 </TableCell>
-                <TableCell className="text-right text-[#8381D9] px-1">{user.score}</TableCell>
+                <TableCell className="text-right text-[#8381D9] px-1">
+                  {user.score}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       )}
-
 
       <Link
         href="/"

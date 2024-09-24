@@ -64,4 +64,4 @@ export const UnauthenticatedPage = () => {
       </div>
     </div>
   );
-}
+};

@@ -1,6 +1,6 @@
-import { NextRequest, NextResponse } from "next/server";
-import { stripe } from "@/lib/stripe";
-import { updateUserSubscriptionStatusAction } from "@/actions/update-user-subscription-status-action";
+import { NextRequest, NextResponse } from 'next/server';
+import { stripe } from '@/lib/stripe';
+import { updateUserSubscriptionStatusAction } from '@/actions/update-user-subscription-status-action';
 
 const relevantEvents = new Set([
   'invoice.paid',
@@ -14,7 +14,7 @@ export const POST = async (request: NextRequest) => {
   try {
     const payload = await request.text();
 
-    const signature = request.headers.get("stripe-signature")!;
+    const signature = request.headers.get('stripe-signature')!;
 
     const event = stripe.webhooks.constructEvent(payload, signature, secret);
 
@@ -29,26 +29,26 @@ export const POST = async (request: NextRequest) => {
           case 'invoice.paid': {
             await updateUserSubscriptionStatusAction({
               customerId,
-              status: 'ACTIVE'
+              status: 'ACTIVE',
             });
             break;
-          };
+          }
 
           case 'invoice.payment_failed': {
             await updateUserSubscriptionStatusAction({
               customerId,
-              status: 'INACTIVE'
+              status: 'INACTIVE',
             });
             break;
-          };
+          }
 
           case 'customer.subscription.deleted': {
             await updateUserSubscriptionStatusAction({
               customerId,
-              status: 'CANCELED'
+              status: 'CANCELED',
             });
             break;
-          };
+          }
 
           default: {
             return NextResponse.json(
@@ -56,7 +56,7 @@ export const POST = async (request: NextRequest) => {
                 message: `[Webhook] Unhandled event: ${event}`,
                 ok: false,
               },
-              { status: 500 }
+              { status: 500 },
             );
           }
         }
@@ -67,7 +67,7 @@ export const POST = async (request: NextRequest) => {
             ok: false,
             error,
           },
-          { status: 500 }
+          { status: 500 },
         );
       }
     }
@@ -80,7 +80,7 @@ export const POST = async (request: NextRequest) => {
         ok: false,
         error,
       },
-      { status: 500 }
+      { status: 500 },
     );
   }
-}
+};

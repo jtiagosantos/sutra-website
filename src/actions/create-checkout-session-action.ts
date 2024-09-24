@@ -1,8 +1,8 @@
-"use server";
+'use server';
 
-import { z } from "zod";
-import { actionClient } from "@/lib/safe-action";
-import { stripe } from "@/lib/stripe";
+import { z } from 'zod';
+import { actionClient } from '@/lib/safe-action';
+import { stripe } from '@/lib/stripe';
 
 const schema = z.object({
   customerId: z.string(),
@@ -22,13 +22,13 @@ export const createCheckoutSessionAction = actionClient
           quantity: 1,
         },
       ],
-      mode: "subscription",
+      mode: 'subscription',
       cancel_url: cancelURL,
       success_url: successURL,
-      locale: "pt-BR",
+      locale: 'pt-BR',
     });
 
     return {
       url: checkoutSession.url,
-    }
+    };
   });

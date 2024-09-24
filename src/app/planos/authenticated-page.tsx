@@ -11,7 +11,7 @@ import { ManageSubscriptionButton } from './manage-subscription-button';
 
 type AuthenticatedPageProps = {
   session: Session;
-}
+};
 
 export const AuthenticatedPage: FC<AuthenticatedPageProps> = ({ session }) => {
   const { result, isPending, status } = useAction(getUserAction, {
@@ -102,4 +102,4 @@ export const AuthenticatedPage: FC<AuthenticatedPageProps> = ({ session }) => {
       </div>
     </div>
   );
-}
+};

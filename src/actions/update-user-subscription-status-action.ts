@@ -37,6 +37,6 @@ export const updateUserSubscriptionStatusAction = actionClient
 
     return {
       code: 200,
-      user: userData
+      user: userData,
     };
   });

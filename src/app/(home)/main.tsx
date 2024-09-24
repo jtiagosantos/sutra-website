@@ -33,8 +33,7 @@ export const Main = async () => {
         )}
         <Link
           href="/classificacao"
-          className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]"
-        >
+          className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9]">
           <Trophy size={28} />
           Classificação
         </Link>
