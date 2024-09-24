@@ -17,7 +17,7 @@ export const CreateQuizSuccess: FC<CreateQuizSuccessProps> = ({ onPlay }) => {
       </p>
 
       <PartyPopper
-        color="#50B2C0"
+        color="#8381D9"
         size={80}
         strokeWidth={1.7}
         className="mt-14 mb-[70px]"

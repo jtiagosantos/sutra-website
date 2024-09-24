@@ -31,7 +31,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
   const [isCalculatingAnswers, setIsCalculatingAnswers] = useState(false);
   const totalCorrectAnswers = useRef(0);
 
-  const totalQuestions = 5;
+  const totalQuestions = questions.length;
   const progress = questionIndex * (FULL_PROGRESS_BAR / totalQuestions);
   const isLastQuestion = questionIndex === totalQuestions;
   const question = questions[questionIndex - 1];

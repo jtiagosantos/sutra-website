@@ -109,6 +109,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
               className="w-full"
               value={bookName}
               onChange={(e) => setBookName(e.target.value)}
+              autoComplete="off"
             />
           </div>
           <div className="w-full space-y-0.5">
@@ -122,6 +123,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
               className="w-full"
               value={authorName}
               onChange={(e) => setAuthorName(e.target.value)}
+              autoComplete="off"
             />
           </div>
           <div className="w-full space-y-0.5">
