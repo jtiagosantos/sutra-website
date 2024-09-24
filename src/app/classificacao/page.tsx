@@ -16,6 +16,14 @@ import { getLeaderboardAction } from '@/actions/get-leaderboard';
 import { useAction } from 'next-safe-action/hooks';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
 
+type User = {
+  score: number;
+  id: string;
+  firstName: string;
+  lastName: string;
+  avatar: string;
+}
+
 export default function Page() {
   const { result, isPending, status } = useAction(getLeaderboardAction, {
     executeOnMount: {},
@@ -44,7 +52,7 @@ export default function Page() {
             </TableRow>
           </TableHeader>
           <TableBody>
-            {result.data?.leaderboard.map((user, index) => (
+            {result.data?.leaderboard.map((user: User, index) => (
               <TableRow key={user.id}>
                 {index < 3 ? (
                   <TableCell className="font-medium text-left px-1 text-xl">
