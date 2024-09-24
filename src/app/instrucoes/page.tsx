@@ -12,7 +12,7 @@ export default function Page() {
       <p className="font-body text-base text-gray-500 mt-4">
         Cada quiz é uma nova diversão!
       </p>
-      <p className="font-body text-base text-gray-500 mt-1">
+      <p className="font-body text-base text-gray-500 mt-1 text-center">
         Descubra segredos, curiosidades e fatos sobre seus livros favoritos.
       </p>
 
