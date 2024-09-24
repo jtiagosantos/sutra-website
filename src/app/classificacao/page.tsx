@@ -19,9 +19,6 @@ import BubbleAnimation from '@/assets/bubble-spinner.svg';
 export default function Page() {
   const { result, isPending, status } = useAction(getLeaderboardAction, {
     executeOnMount: {},
-    onError: (error) => {
-      console.log('Error -> ', error);
-    }
   });
 
   return (
