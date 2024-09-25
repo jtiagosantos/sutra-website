@@ -116,7 +116,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       <h1 className="font-heading text-3xl text-center mt-8 text-[#8381D9] font-semibold">
         Vamos Jogar?
       </h1>
-      <p className="font-body text-base text-gray-500 mt-4">
+      <p className="font-body text-base text-gray-500 mt-4 text-center">
         Forneça as informações abaixo para criarmos o seu quiz
       </p>
 
