@@ -39,6 +39,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
   const [bookName, setBookName] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [quantifyOfQuestions, setQuantifyOfQuestions] = useState('');
+  const [isOpenSelect, setIsOpenSelect] = useState(false);
 
   const isFilledForm = !!bookName && !!authorName && !!quantifyOfQuestions;
 
@@ -148,7 +149,8 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
             </Label>
             <Select
               value={quantifyOfQuestions}
-              onValueChange={(value) => setQuantifyOfQuestions(value)}>
+              onValueChange={(value) => setQuantifyOfQuestions(value)}
+              onOpenChange={() => setIsOpenSelect((state) => !state)}>
               <SelectTrigger className="h-11" id="quantifyOfQuestions">
                 <SelectValue placeholder="Selecione a quantidade de perguntas" />
               </SelectTrigger>
@@ -179,7 +181,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
           variant="outline"
           type="button"
           onClick={handleCreateQuiz}
-          disabled={!isFilledForm}
+          disabled={!isFilledForm || isOpenSelect}
           className="mt-10 w-full text-[#8381D9] text-base px-4 py-[10px] font-body bg-transparent border-[2px] border-[#8381D9] tracking-wider hover:border-white hover:bg-[#8381D9] hover:text-white flex flex-row items-center gap-2 rounded-xl transition-all duration-300">
           Continuar
         </Button>
