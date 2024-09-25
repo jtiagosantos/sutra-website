@@ -11,10 +11,12 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: 'Book Quiz',
-  description: 'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
+  description:
+    'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
   openGraph: {
     title: 'Book Quiz',
-    description: 'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
+    description:
+      'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
     url: 'www.bookquiz.com.br',
     type: 'website',
   },

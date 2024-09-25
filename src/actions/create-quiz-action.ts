@@ -8,14 +8,14 @@ import { zodResponseFormat } from 'openai/helpers/zod';
 const schema = z.object({
   bookName: z.string(),
   authorName: z.string(),
-  quantifyOfQuestions: z.number(),
+  quantityOfQuestions: z.number(),
 });
 
 export const createQuizAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { bookName, authorName, quantifyOfQuestions } }) => {
+  .action(async ({ parsedInput: { bookName, authorName, quantityOfQuestions } }) => {
     const prompt = `
-      Eu quero um conjunto de ${quantifyOfQuestions} perguntas bem detalhadas e profundas sobre o livro "${bookName}", do(a) autor(a) ${authorName}. 
+      Eu quero uma lista com exatamente ${quantityOfQuestions} perguntas, nem mais e nem menos, bem detalhadas e profundas sobre o livro "${bookName}", do(a) autor(a) ${authorName}. 
 
       Me retorne em um json baseado no seguinte schema do zod:
         z.object({
@@ -36,6 +36,10 @@ export const createQuizAction = actionClient
       Coisas importantes:
       - Eu quero que o id de cada answer seja um id do tipo cuid
       - Eu quero que o campo "correct" seja o id da alternativa correta
+      - É importante que as respostas façam sentido com o livro
+      - É importante que as perguntas sejam bem detalhadas e profundas
+      - É importante que a lista de perguntas seja variada e não repetitiva
+      - É importante que a lista de perguntas tenha exatamente ${quantityOfQuestions} perguntas
     `;
 
     const formatSchema = z.object({
@@ -61,7 +65,7 @@ export const createQuizAction = actionClient
         },
       ],
       model: 'gpt-4o-mini',
-      temperature: 0.5,
+      temperature: 0.7,
       response_format: zodResponseFormat(formatSchema, 'quiz'),
     });
 

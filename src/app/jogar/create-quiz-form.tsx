@@ -38,11 +38,11 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
 }) => {
   const [bookName, setBookName] = useState('');
   const [authorName, setAuthorName] = useState('');
-  const [quantifyOfQuestions, setQuantifyOfQuestions] = useState('');
+  const [quantityOfQuestions, setQuantityOfQuestions] = useState('');
   const [isOpenSelect, setIsOpenSelect] = useState(false);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const isFilledForm = !!bookName && !!authorName && !!quantifyOfQuestions;
+  const isFilledForm = !!bookName && !!authorName && !!quantityOfQuestions;
 
   const handleCreateQuiz = async () => {
     if (!isFilledForm) {
@@ -50,46 +50,110 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       return;
     }
 
-    if (subscriptionStatus !== 'ACTIVE' && Number(quantifyOfQuestions) > 5) {
+    if (subscriptionStatus !== 'ACTIVE' && Number(quantityOfQuestions) > 5) {
       alert(
         'Você precisa ser usuário premium para criar quizzes com mais de 5 perguntas',
       );
       return;
     }
 
+    console.time();
+
     onSubmit();
 
-    try {
-      const result = await createQuizAction({
-        bookName,
-        authorName,
-        quantifyOfQuestions: Number(quantifyOfQuestions),
-      });
+    const promises = [];
 
-      if (!result?.data) {
-        setCreateQuizStatus('ERROR');
-        return;
+    try {
+      if (quantityOfQuestions === '5') {
+        promises.push(
+          createQuizAction({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
+          }),
+        );
+      } else if (quantityOfQuestions === '10') {
+        promises.push(
+          createQuizAction({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
+          }),
+        );
+        promises.push(
+          createQuizAction({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
+          }),
+        );
+      } else if (quantityOfQuestions === '15') {
+        promises.push(
+          createQuizAction({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
+          }),
+        );
+        promises.push(
+          createQuizAction({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
+          }),
+        );
+        promises.push(
+          createQuizAction({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
+          }),
+        );
       }
 
-      if (result.data.code === 500) {
+      const [batch1, batch2, batch3] = await Promise.all([...promises]);
+
+      if (quantityOfQuestions === '5' && !batch1?.data?.quiz) {
+        setCreateQuizStatus('ERROR');
+        return;
+      } else if (
+        quantityOfQuestions === '10' &&
+        (!batch1?.data?.quiz || !batch2?.data?.quiz)
+      ) {
+        setCreateQuizStatus('ERROR');
+        return;
+      } else if (
+        quantityOfQuestions === '15' &&
+        (!batch1?.data?.quiz || !batch2?.data?.quiz || !batch3?.data?.quiz)
+      ) {
         setCreateQuizStatus('ERROR');
         return;
       }
 
       setCreateQuizStatus('SUCCESS');
 
-      const questions = result.data.quiz.questions.map((question: Question) => ({
+      const result: Question[] = [
+        ...batch1?.data?.quiz?.questions,
+        ...(batch2?.data?.quiz?.questions ?? []),
+        ...(batch3?.data?.quiz?.questions ?? []),
+      ];
+
+      const questions = result.map((question: Question) => ({
         title: question.title,
         correct: question.correct,
-        answers: question.answers.sort(() => Math.random() - 0.5).map((answer) => ({
-          id: answer.id,
-          text: answer.text
-        })),
+        answers: question.answers
+          .sort(() => Math.random() - 0.5)
+          .map((answer) => ({
+            id: answer.id,
+            text: answer.text,
+          })),
       }));
 
       setQuiz({ questions });
       setBook({ title: bookName, author: authorName });
       onCreateQuiz();
+
+      console.timeEnd();
     } catch {
       setCreateQuizStatus('ERROR');
     }
@@ -157,8 +221,8 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
               Quantidade de perguntas
             </Label>
             <Select
-              value={quantifyOfQuestions}
-              onValueChange={(value) => setQuantifyOfQuestions(value)}
+              value={quantityOfQuestions}
+              onValueChange={(value) => setQuantityOfQuestions(value)}
               onOpenChange={(open) => {
                 timeoutRef.current = setTimeout(() => {
                   setIsOpenSelect(open);

@@ -22,7 +22,7 @@ type User = {
   firstName: string;
   lastName: string;
   avatar: string;
-}
+};
 
 export default function Page() {
   const { result, isPending, status } = useAction(getLeaderboardAction, {

@@ -8,7 +8,7 @@ export const getLeaderboardAction = actionClient.action(async () => {
     where: {
       score: {
         gt: 0,
-      }
+      },
     },
     select: {
       id: true,
