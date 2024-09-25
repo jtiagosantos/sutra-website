@@ -1,4 +1,3 @@
-import { createQuizAction } from '@/actions/create-quiz-action';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -57,8 +56,6 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       return;
     }
 
-    console.time();
-
     onSubmit();
 
     const promises = [];
@@ -66,65 +63,84 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     try {
       if (quantityOfQuestions === '5') {
         promises.push(
-          createQuizAction({
-            bookName,
-            authorName,
-            quantityOfQuestions: 5,
+          fetch(`${window.location.origin}/api/quiz/create`, {
+            method: 'POST',
+            body: JSON.stringify({
+              bookName,
+              authorName,
+              quantityOfQuestions: 5,
+            }),
           }),
         );
       } else if (quantityOfQuestions === '10') {
         promises.push(
-          createQuizAction({
-            bookName,
-            authorName,
-            quantityOfQuestions: 5,
+          fetch(`${window.location.origin}/api/quiz/create`, {
+            method: 'POST',
+            body: JSON.stringify({
+              bookName,
+              authorName,
+              quantityOfQuestions: 5,
+            }),
           }),
         );
         promises.push(
-          createQuizAction({
-            bookName,
-            authorName,
-            quantityOfQuestions: 5,
+          fetch(`${window.location.origin}/api/quiz/create`, {
+            method: 'POST',
+            body: JSON.stringify({
+              bookName,
+              authorName,
+              quantityOfQuestions: 5,
+            }),
           }),
         );
       } else if (quantityOfQuestions === '15') {
         promises.push(
-          createQuizAction({
-            bookName,
-            authorName,
-            quantityOfQuestions: 5,
+          fetch(`${window.location.origin}/api/quiz/create`, {
+            method: 'POST',
+            body: JSON.stringify({
+              bookName,
+              authorName,
+              quantityOfQuestions: 5,
+            }),
           }),
         );
         promises.push(
-          createQuizAction({
-            bookName,
-            authorName,
-            quantityOfQuestions: 5,
+          fetch(`${window.location.origin}/api/quiz/create`, {
+            method: 'POST',
+            body: JSON.stringify({
+              bookName,
+              authorName,
+              quantityOfQuestions: 5,
+            }),
           }),
         );
         promises.push(
-          createQuizAction({
-            bookName,
-            authorName,
-            quantityOfQuestions: 5,
+          fetch(`${window.location.origin}/api/quiz/create`, {
+            method: 'POST',
+            body: JSON.stringify({
+              bookName,
+              authorName,
+              quantityOfQuestions: 5,
+            }),
           }),
         );
       }
 
-      const [batch1, batch2, batch3] = await Promise.all([...promises]);
+      const [rawBatch1, rawBatch2, rawBatch3] = await Promise.all([...promises]);
 
-      if (quantityOfQuestions === '5' && !batch1?.data?.quiz) {
+      const batch1 = await rawBatch1?.json();
+      const batch2 = await rawBatch2?.json();
+      const batch3 = await rawBatch3?.json();
+
+      if (quantityOfQuestions === '5' && !batch1?.data) {
         setCreateQuizStatus('ERROR');
         return;
-      } else if (
-        quantityOfQuestions === '10' &&
-        (!batch1?.data?.quiz || !batch2?.data?.quiz)
-      ) {
+      } else if (quantityOfQuestions === '10' && (!batch1?.data || !batch2?.data)) {
         setCreateQuizStatus('ERROR');
         return;
       } else if (
         quantityOfQuestions === '15' &&
-        (!batch1?.data?.quiz || !batch2?.data?.quiz || !batch3?.data?.quiz)
+        (!batch1?.data || !batch2?.data || !batch3?.data)
       ) {
         setCreateQuizStatus('ERROR');
         return;
@@ -133,9 +149,9 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       setCreateQuizStatus('SUCCESS');
 
       const result: Question[] = [
-        ...batch1?.data?.quiz?.questions,
-        ...(batch2?.data?.quiz?.questions ?? []),
-        ...(batch3?.data?.quiz?.questions ?? []),
+        ...batch1?.data?.questions,
+        ...(batch2?.data?.questions ?? []),
+        ...(batch3?.data?.questions ?? []),
       ];
 
       const questions = result.map((question: Question) => ({
@@ -152,8 +168,6 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       setQuiz({ questions });
       setBook({ title: bookName, author: authorName });
       onCreateQuiz();
-
-      console.timeEnd();
     } catch {
       setCreateQuizStatus('ERROR');
     }

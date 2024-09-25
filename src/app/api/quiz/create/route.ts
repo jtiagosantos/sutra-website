@@ -1,19 +1,35 @@
-'use server';
-
-import { z } from 'zod';
-import { actionClient } from '@/lib/safe-action';
 import { openai } from '@/lib/openai';
-import { zodResponseFormat } from 'openai/helpers/zod';
+import { NextRequest, NextResponse } from 'next/server';
+import { zodResponseFormat } from 'openai/helpers/zod.mjs';
+import { z } from 'zod';
 
-const schema = z.object({
+const bodySchema = z.object({
+  quantityOfQuestions: z.number(),
   bookName: z.string(),
   authorName: z.string(),
-  quantityOfQuestions: z.number(),
 });
 
-export const createQuizAction = actionClient
-  .schema(schema)
-  .action(async ({ parsedInput: { bookName, authorName, quantityOfQuestions } }) => {
+const outputSchema = z.object({
+  questions: z.array(
+    z.object({
+      title: z.string(),
+      answers: z.array(
+        z.object({
+          id: z.string(),
+          text: z.string(),
+        }),
+      ),
+      correct: z.string(),
+    }),
+  ),
+});
+
+export const POST = async (request: NextRequest) => {
+  try {
+    const body = await request.json();
+
+    const { quantityOfQuestions, bookName, authorName } = bodySchema.parse(body);
+
     const prompt = `
       Eu quero uma lista com exatamente ${quantityOfQuestions} perguntas, nem mais e nem menos, bem detalhadas e profundas sobre o livro "${bookName}", do(a) autor(a) ${authorName}. 
 
@@ -42,21 +58,6 @@ export const createQuizAction = actionClient
       - É importante que a lista de perguntas tenha exatamente ${quantityOfQuestions} perguntas
     `;
 
-    const formatSchema = z.object({
-      questions: z.array(
-        z.object({
-          title: z.string(),
-          answers: z.array(
-            z.object({
-              id: z.string(),
-              text: z.string(),
-            }),
-          ),
-          correct: z.string(),
-        }),
-      ),
-    });
-
     const completion = await openai.chat.completions.create({
       messages: [
         {
@@ -66,20 +67,18 @@ export const createQuizAction = actionClient
       ],
       model: 'gpt-4o-mini',
       temperature: 0.7,
-      response_format: zodResponseFormat(formatSchema, 'quiz'),
+      response_format: zodResponseFormat(outputSchema, 'quiz'),
     });
 
     const quiz = completion.choices[0].message.content;
 
-    if (!quiz) {
-      return {
-        code: 500,
-        quiz: null,
-      };
-    }
-
-    return {
-      code: 200,
-      quiz: JSON.parse(quiz),
-    };
-  });
+    return NextResponse.json({
+      data: JSON.parse(quiz!),
+    });
+  } catch (error) {
+    return NextResponse.json({
+      data: null,
+      error,
+    });
+  }
+};
