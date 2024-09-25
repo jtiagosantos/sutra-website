@@ -12,7 +12,7 @@ import {
 import { Question, Quiz } from '@/types/quiz';
 import { Crown, MoveLeft } from 'lucide-react';
 import Link from 'next/link';
-import { FC, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import { CreateQuizError } from './create-quiz-error';
 import { CreateQuizSuccess } from './create-quiz-success';
 import { Book } from '@/types/book';
@@ -40,6 +40,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
   const [authorName, setAuthorName] = useState('');
   const [quantifyOfQuestions, setQuantifyOfQuestions] = useState('');
   const [isOpenSelect, setIsOpenSelect] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isFilledForm = !!bookName && !!authorName && !!quantifyOfQuestions;
 
@@ -93,6 +94,14 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       setCreateQuizStatus('ERROR');
     }
   };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   if (createQuizStatus === 'SUCCESS') {
     return <CreateQuizSuccess onPlay={() => setCreateQuizStatus('CAN_PLAY')} />;
@@ -150,7 +159,11 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
             <Select
               value={quantifyOfQuestions}
               onValueChange={(value) => setQuantifyOfQuestions(value)}
-              onOpenChange={() => setIsOpenSelect((state) => !state)}>
+              onOpenChange={(open) => {
+                timeoutRef.current = setTimeout(() => {
+                  setIsOpenSelect(open);
+                }, 1);
+              }}>
               <SelectTrigger className="h-11" id="quantifyOfQuestions">
                 <SelectValue placeholder="Selecione a quantidade de perguntas" />
               </SelectTrigger>
