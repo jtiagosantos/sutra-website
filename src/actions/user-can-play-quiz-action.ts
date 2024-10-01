@@ -57,7 +57,7 @@ export const userCanPlayQuizAction = actionClient
       };
     }
 
-    const limitOfQuizzesPerDay = user.subscription.status === 'ACTIVE' ? 10 : 1;
+    const limitOfQuizzesPerDay = user.subscription.status === 'ACTIVE' ? 15 : 3;
 
     if (user.dailyQuizCount >= limitOfQuizzesPerDay) {
       return {

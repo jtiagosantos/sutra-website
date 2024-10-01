@@ -50,7 +50,7 @@ export const AuthenticatedPage: FC<AuthenticatedPageProps> = ({ session }) => {
           <ul className="flex flex-col gap-2">
             <li className="font-body font-medium text-base text-gray-600 flex items-center gap-1">
               <Check className="w-5 h-5 text-[#50B2C0]" />
-              Apenas 1 quiz por dia
+              Apenas 3 quizzes por dia
             </li>
             <li className="font-body font-medium text-base text-gray-600 flex items-center gap-1">
               <Check className="w-5 h-5 text-[#50B2C0]" />
@@ -78,7 +78,7 @@ export const AuthenticatedPage: FC<AuthenticatedPageProps> = ({ session }) => {
           <ul className="flex flex-col gap-2">
             <li className="font-body font-medium text-base text-gray-600 flex items-center gap-1">
               <BadgeCheck className="w-5 h-5 text-yellow-500" />
-              Acesso a 10 quizzes por dia
+              Acesso a 15 quizzes por dia
             </li>
             <li className="font-body font-medium text-base text-gray-600 flex items-center gap-1">
               <BadgeCheck className="w-5 h-5 text-yellow-500" />
