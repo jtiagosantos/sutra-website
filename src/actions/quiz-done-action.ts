@@ -5,6 +5,8 @@ import { actionClient } from '@/lib/safe-action';
 import { prisma } from '@/lib/prisma';
 import dayjs from 'dayjs';
 
+const SCORES_TO_INCREMENT_LEVEL = 20;
+
 const schema = z.object({
   email: z.string().email(),
   score: z.number(),
@@ -25,6 +27,14 @@ export const quizDoneAction = actionClient
       };
     }
 
+    let level = user.level;
+    let leveledUp = false;
+
+    if ((user.score + score) >= (level + 1) * SCORES_TO_INCREMENT_LEVEL) {
+      level = 1;
+      leveledUp = true;
+    }
+
     await prisma.user.update({
       where: {
         email,
@@ -33,6 +43,7 @@ export const quizDoneAction = actionClient
         score: {
           increment: score,
         },
+        level,
         dailyQuizCount: {
           increment: 1,
         },
@@ -42,5 +53,7 @@ export const quizDoneAction = actionClient
 
     return {
       code: 200,
+      leveledUp,
+      level,
     };
   });

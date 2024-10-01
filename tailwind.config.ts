@@ -13,6 +13,9 @@ const config: Config = {
         heading: ['var(--font-roboto)', ...fontFamily.sans],
         body: ['var(--font-roboto)', ...fontFamily.mono],
       },
+      transitionDuration: {
+        '2000': '2000ms',
+      },
       borderRadius: {},
       colors: {},
     },

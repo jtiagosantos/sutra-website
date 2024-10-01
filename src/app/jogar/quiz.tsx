@@ -11,6 +11,7 @@ import { Quiz as QuizType } from '@/types/quiz';
 import { quizDoneAction } from '@/actions/quiz-done-action';
 import { saveQuizAction } from '@/actions/save-quiz-action';
 import { Book } from '@/types/book';
+import { LevelUpModal } from '@/components/level-up-modal';
 
 const FULL_PROGRESS_BAR = 100;
 const ONE_SECOND = 1000;
@@ -29,6 +30,8 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
   const [areAnswersDisabled, setAreAnswersDisabled] = useState(false);
   const [isQuizFinished, setIsQuizFinished] = useState(false);
   const [isCalculatingAnswers, setIsCalculatingAnswers] = useState(false);
+  const [isOpenLevelUpModal, setIsOpenLevelUpModal] = useState(false);
+  const [level, setLevel] = useState(0);
   const totalCorrectAnswers = useRef(0);
 
   const totalQuestions = questions.length;
@@ -40,7 +43,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
     try {
       setIsCalculatingAnswers(true);
 
-      await quizDoneAction({
+      const result = await quizDoneAction({
         email: user.email,
         score: totalCorrectAnswers.current,
       });
@@ -50,6 +53,11 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
         questions,
         email: user.email,
       });
+
+      if (result?.data?.leveledUp) {
+        setIsOpenLevelUpModal(true);
+        setLevel(result.data.level);
+      }
     } finally {
       setIsCalculatingAnswers(false);
     }
@@ -165,6 +173,13 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
       )}
 
       {isCalculatingAnswers && <CalculationAnswersLoading />}
+
+      {!isCalculatingAnswers && isOpenLevelUpModal && (
+        <LevelUpModal
+          level={level}
+          onContinue={() => setIsOpenLevelUpModal(false)}
+        />
+      )}
 
       <Link
         href="/"

@@ -1,5 +1,13 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  images: {
+    remotePatterns: [
+      {
+        hostname: 'lh3.googleusercontent.com'
+      }
+    ]
+  },
+
   webpack(config) {
     config.module.rules.push({
       test: /\.svg$/,

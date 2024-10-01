@@ -9,7 +9,7 @@ export const UnauthenticatedHeader = () => {
   const [open, setOpen] = useState(false);
 
   return (
-    <>
+    <div className="ml-auto">
       <Button
         onClick={() => setOpen(true)}
         variant="outline"
@@ -18,6 +18,6 @@ export const UnauthenticatedHeader = () => {
         Entrar
       </Button>
       <AuthModal open={open} onOpenChange={setOpen} />
-    </>
+    </div>
   );
 };
