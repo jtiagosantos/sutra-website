@@ -7,7 +7,11 @@ const bodySchema = z.object({
   quantityOfQuestions: z.number(),
   bookName: z.string(),
   authorName: z.string(),
-});
+}).transform((data) => ({
+  quantityOfQuestions: data.quantityOfQuestions,
+  bookName: data.bookName.trim(),
+  authorName: data.authorName.trim(),
+}));
 
 const outputSchema = z.object({
   questions: z.array(

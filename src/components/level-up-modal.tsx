@@ -46,7 +46,7 @@ export const LevelUpModal: FC<LevelUpModalProps> = ({ level, onContinue }) => {
   return (
     <Modal.Root>
       <Modal.Content>
-        <div className="max-w-[400px] w-full flex flex-col items-center justify-center bg-white rounded-lg p-8">
+        <div className="max-w-[400px] w-full h-[360px] flex flex-col items-center justify-center bg-white rounded-lg p-8">
           <div className="flex flex-col items-center">
             <h1 className="font-heading font-medium text-gray-600 text-3xl mb-1">Parabéns!</h1>
             <h2 className="font-heading font-medium text-gray-600 text-xl flex items-start gap-2">

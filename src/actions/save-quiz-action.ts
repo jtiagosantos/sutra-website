@@ -41,7 +41,10 @@ export const saveQuizAction = actionClient
 
     await prisma.quiz.create({
       data: {
-        book,
+        book: {
+          title: book.title.trim(),
+          author: book.author.trim(),
+        },
         questions,
         userId: user.id,
       },
