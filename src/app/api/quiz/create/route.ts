@@ -56,6 +56,7 @@ export const POST = async (request: NextRequest) => {
       Coisas importantes:
       - Eu quero que o id de cada answer seja um id do tipo cuid
       - Eu quero que o campo "correct" seja o id da alternativa correta
+      - É importante que as perguntas sejam bem formuladas e fiéis ao conteúdo do livro
       - É importante que as respostas façam sentido com o livro
       - É importante que as perguntas sejam bem detalhadas e profundas
       - É importante que a lista de perguntas seja variada e não repetitiva
@@ -69,8 +70,8 @@ export const POST = async (request: NextRequest) => {
           content: prompt,
         },
       ],
-      model: 'gpt-4o-mini',
-      temperature: 0.7,
+      model: 'gpt-4o-2024-08-06',
+      temperature: 0.4,
       response_format: zodResponseFormat(outputSchema, 'quiz'),
     });
 
