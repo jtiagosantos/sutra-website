@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { resend } from "@/lib/resend";
+import Email from '@/email/daily-remainder';
 
 export const POST = async () => {
   try {
@@ -7,7 +8,7 @@ export const POST = async () => {
       from: 'Book Quiz <onboarding@resend.dev>',
       to: ['tiagosan040@gmail.com'],
       subject: 'Hello world',
-      html: '<h1>Hello world</h1>',
+      react: <Email userName="Tiago Santos" quizLink="https://www.bookquiz.com.br/jogar" />,
     });
 
     if (error) {
