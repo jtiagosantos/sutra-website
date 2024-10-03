@@ -5,7 +5,6 @@ import {
   Font,
   Heading,
   Html,
-  Preview,
   Section,
   Tailwind,
   Text,
@@ -15,11 +14,17 @@ import * as React from 'react';
 interface EmailProps {
   userName: string;
   quizLink: string;
+  firstText: string;
+  secondText: string;
+  thirdText: string;
 }
 
 export const Email = ({
   userName = 'John Doe',
   quizLink = 'https://exemplo.com/quiz',
+  firstText = 'Que tal reservar um momento hoje para testar seu conhecimento sobre seus livros favoritos e se divertir? 🤩',
+  secondText = 'Lembre-se de acessar a Book Quiz e fazer seu quiz diário. Cada resposta certa te aproxima ainda mais do topo do ranking dos leitores mais afiados! 🚀',
+  thirdText = 'Acesse agora e veja como você se sai hoje!'
 }: EmailProps) => (
   <Html>
     <Tailwind>
@@ -43,19 +48,17 @@ export const Email = ({
         fontWeight={700}
         fontStyle="normal"
       />
-      <Preview>É hora de testar seu conhecimento! 🧠📚</Preview>
       <Body style={main}>
         <Container style={container}>
           <Heading style={greetings}>Olá {userName} :)</Heading>
           <Text style={text}>
-            Que tal reservar um momento hoje para testar seu conhecimento sobre seus livros favoritos e se divertir? 🤩
+            {firstText}
           </Text>
           <Text style={text}>
-            Lembre-se de acessar a Book Quiz e fazer seu quiz diário. Cada resposta certa te aproxima ainda mais do topo
-            do ranking dos leitores mais afiados! 🚀
+            {secondText}
           </Text>
           <Text style={{ ...text, marginTop: 30 }}>
-            Acesse agora e veja como você se sai hoje!
+            {thirdText}
           </Text>
           <Section style={buttonContainer}>
             <Button
@@ -80,15 +83,12 @@ export default Email;
 const main = {
   backgroundColor: '#f4f4f4',
   fontFamily: 'Roboto, Helvetica, sans-serif',
-  paddingTop: '30px',
-  paddingBottom: '30px',
 };
 
 const container = {
   margin: '0 auto',
   padding: '30px 20px',
   backgroundColor: '#ffffff',
-  borderRadius: '8px',
   maxWidth: '600px',
   boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
 };
