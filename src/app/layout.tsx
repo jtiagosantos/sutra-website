@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     description:
       'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
     url: 'www.bookquiz.com.br',
+    images: 'https://bookquiz.s3.amazonaws.com/assets/thumbnail.png',
     type: 'website',
   },
 };
