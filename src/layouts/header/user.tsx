@@ -16,18 +16,21 @@ import {
 } from "@/components/ui/menubar";
 import { LogOut } from 'lucide-react';
 import { signOut } from 'next-auth/react';
+import { ToggleDailyRemainder } from './toggle-daily-remainder';
 
 const FULL_PROGRESS_BAR = 10;
 
 type UserProps = {
+  email: string;
   avatar: string;
   firstName: string;
   lastName: string;
   score: number;
   level: number;
+  activeDailyRemainder: boolean;
 }
 
-export const User: FC<UserProps> = ({ avatar, firstName, lastName, score, level }) => {
+export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score, level, activeDailyRemainder }) => {
   const [progress, setProgress] = useState(0);
 
   const calculateProgress = () => {
@@ -78,6 +81,10 @@ export const User: FC<UserProps> = ({ avatar, firstName, lastName, score, level 
           </div>
         </MenubarTrigger>
         <MenubarContent>
+          <ToggleDailyRemainder
+            email={email}
+            activeDailyRemainder={activeDailyRemainder}
+          />
           <MenubarItem
             className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300"
             onClick={() => signOut({ callbackUrl: '/' })}

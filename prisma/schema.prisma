@@ -2,6 +2,10 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator json {
+  provider = "prisma-json-types-generator"
+}
+
 datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
@@ -26,6 +30,9 @@ model User {
   dailyQuizCount   Int          @default(0) @map("daily_quiz_count")
   lastQuizPlayedAt DateTime?    @map("last_quiz_played_at")
   customerId       String       @unique @map("customer_id")
+
+  /// [Preferences]
+  preferences      Json
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")

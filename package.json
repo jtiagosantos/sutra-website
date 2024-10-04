@@ -8,7 +8,10 @@
     "prettier:check": "npx prettier . --check",
     "prettier:fix": "npx prettier . --write",
     "postinstall": "prisma generate",
-    "email:dev": "email dev"
+    "email:dev": "email dev",
+    "prisma:format": "npx prisma format",
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio"
   },
   "dependencies": {
     "@prisma/client": "^5.19.1",
@@ -48,6 +51,7 @@
     "@types/react-dom": "^18",
     "postcss": "^8",
     "prisma": "^5.19.1",
+    "prisma-json-types-generator": "^3.1.1",
     "react-email": "3.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"

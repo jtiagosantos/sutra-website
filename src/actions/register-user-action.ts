@@ -37,6 +37,9 @@ export const registerUserAction = actionClient
         subscription: {
           status: 'INACTIVE',
         },
+        preferences: {
+          active_daily_reminder: true,
+        }
       },
     });
 

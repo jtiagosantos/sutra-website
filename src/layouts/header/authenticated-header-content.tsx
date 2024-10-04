@@ -50,11 +50,13 @@ export const AuthenticatedHeaderContent: FC<AuthenticatedHeaderContentProps> = (
     <>
       <Score score={result.data?.user?.score!} />
       <User
+        email={result.data?.user?.email!}
         avatar={result.data?.user?.avatar!}
         firstName={result.data?.user?.firstName!}
         lastName={result.data?.user?.lastName!}
         score={result.data?.user?.score!}
         level={result.data?.user?.level!}
+        activeDailyRemainder={result.data?.user?.preferences?.active_daily_reminder!}
       />
     </>
   );
