@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   title: 'Book Quiz',
   description:
     'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
+  keywords: ['book', 'quiz', 'leitura', 'gamificação', 'desafio', 'interativo'],
   openGraph: {
     title: 'Book Quiz',
     description:
