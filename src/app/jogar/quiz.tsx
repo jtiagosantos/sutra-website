@@ -3,7 +3,7 @@
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { useToast } from '@/hooks/use-toast';
-import { MoveLeft, Share2 } from 'lucide-react';
+import { Gamepad2, MoveLeft, Share2 } from 'lucide-react';
 import Link from 'next/link';
 import { FC, useRef, useState } from 'react';
 import { CalculationAnswersLoading } from './calculation-answers-loading';
@@ -28,7 +28,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
   const { toast, dismiss } = useToast();
   const [questionIndex, setQuestionIndex] = useState(1);
   const [areAnswersDisabled, setAreAnswersDisabled] = useState(false);
-  const [isQuizFinished, setIsQuizFinished] = useState(false);
+  const [isQuizDone, setIsQuizDone] = useState(false);
   const [isCalculatingAnswers, setIsCalculatingAnswers] = useState(false);
   const [isOpenLevelUpModal, setIsOpenLevelUpModal] = useState(false);
   const [level, setLevel] = useState(0);
@@ -98,9 +98,13 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
 
     if (isLastQuestion) {
       await handleQuizDone();
-      setIsQuizFinished(true);
+      setIsQuizDone(true);
     }
   };
+
+  const handlePlayAgain = () => {
+    window.location.reload();
+  }
 
   const handleShareResult = () => {
     navigator.share({
@@ -112,7 +116,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
 
   return (
     <div className="max-w-[600px] w-full mx-auto">
-      {!isQuizFinished && (
+      {!isQuizDone && (
         <>
           <div className="flex flex-col items-center gap-2">
             <p className="font-body font-semibold text-[18px] text-gray-500">
@@ -139,7 +143,7 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
         </>
       )}
 
-      {isQuizFinished && (
+      {isQuizDone && (
         <>
           <div className="w-full flex items-center gap-4 max-[430px]:flex-col">
             <div className="w-full bg-white rounded-[12px] overflow-hidden border border-gray-200 shadow-md shadow-gray-200 p-4 py-6 flex flex-col items-center gap-2">
@@ -161,10 +165,16 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
               </span>
             </div>
           </div>
-          <div className="w-full flex justify-center">
+          <div className="w-full flex flex-col justify-center gap-3 mt-6">
+            <Button
+              onClick={handlePlayAgain}
+              className="text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]">
+              <Gamepad2 size={24} />
+              Jogar novamente
+            </Button>
             <Button
               onClick={handleShareResult}
-              className="mt-6 text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]">
+              className="text-white w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0]">
               <Share2 size={24} />
               Compartilhar resultado
             </Button>

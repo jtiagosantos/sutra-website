@@ -1,4 +1,4 @@
-import { PartyPopper, Zap } from 'lucide-react';
+import { Gamepad2, PartyPopper } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { FC } from 'react';
 
@@ -26,7 +26,7 @@ export const CreateQuizSuccess: FC<CreateQuizSuccessProps> = ({ onPlay }) => {
       <Button
         onClick={onPlay}
         className="text-white max-w-[300px] w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
-        <Zap size={24} />
+        <Gamepad2 size={24} />
         Jogar
       </Button>
     </>
