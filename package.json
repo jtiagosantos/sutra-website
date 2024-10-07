@@ -8,6 +8,10 @@
     "prettier:check": "npx prettier . --check",
     "prettier:fix": "npx prettier . --write",
     "postinstall": "prisma generate",
+    "email:dev": "email dev",
+    "prisma:format": "npx prisma format",
+    "prisma:generate": "npx prisma generate",
+    "prisma:studio": "npx prisma studio",
     "generate-sitemap": "next-sitemap"
   },
   "dependencies": {
@@ -20,6 +24,8 @@
     "@radix-ui/react-select": "^2.1.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-toast": "^1.2.1",
+    "@react-email/components": "0.0.25",
+    "@react-email/tailwind": "0.1.0",
     "@svgr/webpack": "^8.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
@@ -35,6 +41,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "^18",
     "react-loader-spinner": "^6.1.6",
+    "resend": "^4.0.0",
     "stripe": "^16.12.0",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7",
@@ -46,6 +53,8 @@
     "@types/react-dom": "^18",
     "postcss": "^8",
     "prisma": "^5.19.1",
+    "prisma-json-types-generator": "^3.1.1",
+    "react-email": "3.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   }
