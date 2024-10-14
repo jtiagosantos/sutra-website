@@ -38,7 +38,7 @@ const textsByDay = {
     thirdText: 'Está na hora de mostrar todo o seu conhecimento. Vamos nessa?'
   },
   6: {
-    subject: 'Pronto para mais um quiz literário? 🕵️‍♂️📖',
+    subject: 'Pronto para desbloquear o conhecimento de hoje? 🔓📚',
     firstText: 'Que tal aproveitar o sábado para relaxar e testar seus conhecimentos literários? 🤩',
     secondText: 'A Book Quiz está te esperando com um quiz especial para você. 🎯',
     thirdText: 'Acesse agora e divirta-se!'
