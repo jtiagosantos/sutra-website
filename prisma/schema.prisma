@@ -32,7 +32,7 @@ model User {
   customerId       String       @unique @map("customer_id")
 
   /// [Preferences]
-  preferences      Json
+  preferences Json
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -54,6 +54,19 @@ model Quiz {
   userId String @map("user_id") @db.ObjectId
 
   @@map("quizzes")
+}
+
+model Medal {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name          String
+  description   String
+  image         String
+  levelRequired Int    @unique @map("level_required")
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@map("medals")
 }
 
 type Subscription {
