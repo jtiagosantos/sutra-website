@@ -14,9 +14,10 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { LogOut } from 'lucide-react';
+import { LogOut, Medal } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { ToggleDailyRemainder } from './toggle-daily-remainder';
+import Link from 'next/link';
 
 const FULL_PROGRESS_BAR = 10;
 
@@ -81,6 +82,12 @@ export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score,
           </div>
         </MenubarTrigger>
         <MenubarContent>
+          <Link href="/medalhas">
+            <MenubarItem className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300">
+              <Medal size={18} />
+              Minhas medalhas
+            </MenubarItem>
+          </Link>
           <ToggleDailyRemainder
             email={email}
             activeDailyRemainder={activeDailyRemainder}

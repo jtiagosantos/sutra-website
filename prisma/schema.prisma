@@ -38,6 +38,7 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   quizzes Quiz[]
+  medals  UserMedal[]
 
   @@map("users")
 }
@@ -66,7 +67,24 @@ model Medal {
 
   createdAt DateTime @default(now()) @map("created_at")
 
+  usersMedals UserMedal[]
+
   @@map("medals")
+}
+
+model UserMedal {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  viewedAt  DateTime? @map("viewed_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id") @db.ObjectId
+
+  medal   Medal  @relation(fields: [medalId], references: [id])
+  medalId String @map("medal_id") @db.ObjectId
+
+  @@map("users_medals")
 }
 
 type Subscription {

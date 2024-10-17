@@ -4,6 +4,9 @@ const nextConfig = {
     remotePatterns: [
       {
         hostname: 'lh3.googleusercontent.com'
+      },
+      {
+        hostname: 'bookquiz.s3.amazonaws.com'
       }
     ]
   },

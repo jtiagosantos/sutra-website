@@ -6,7 +6,7 @@ export default function Page() {
   return (
     <main className="w-full flex flex-col items-center mt-10 mb-5 px-4">
       <LogoImage />
-      <h1 className="font-heading text-3xl text-center mt-8 text-[#8381D9] font-semibold">
+      <h1 className="font-heading text-[26px] text-center mt-8 text-[#8381D9] font-semibold">
         Como Jogar?
       </h1>
       <p className="font-body text-base text-gray-500 mt-4">
