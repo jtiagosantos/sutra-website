@@ -31,7 +31,7 @@ export const quizDoneAction = actionClient
     let leveledUp = false;
 
     if ((user.score + score) >= (level + 1) * SCORES_TO_INCREMENT_LEVEL) {
-      level = 1;
+      level = level + 1;
       leveledUp = true;
     }
 
