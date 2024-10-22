@@ -12,6 +12,8 @@ import { saveQuizAction } from '@/actions/save-quiz-action';
 import { Book } from '@/types/book';
 import { LevelUpModal } from '@/components/level-up-modal';
 import clsx from 'clsx';
+import { assignMedalToUserAction } from '@/actions/assign-medal-to-user-action';
+import { saveQuizInHistoryAction } from '@/actions/save-quiz-in-history-action';
 
 const FULL_PROGRESS_BAR = 100;
 
@@ -46,6 +48,12 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
     try {
       setIsCalculatingAnswers(true);
 
+      saveQuizInHistoryAction({
+        email: user.email,
+        numberOfCorrect: totalCorrectAnswers.current,
+        numberOfIncorrect: totalQuestions - totalCorrectAnswers.current,
+      });
+
       const result = await quizDoneAction({
         email: user.email,
         score: totalCorrectAnswers.current,
@@ -61,6 +69,11 @@ export const Quiz: FC<QuizProps> = ({ quiz: { questions }, book, user }) => {
         setIsOpenLevelUpModal(true);
         setLevel(result.data.level);
       }
+
+      await assignMedalToUserAction({
+        email: user.email,
+        level: result?.data?.level!,
+      });
     } finally {
       setIsCalculatingAnswers(false);
     }

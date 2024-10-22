@@ -1,7 +1,7 @@
 import { auth } from '@/auth';
 
 export default auth((request) => {
-  const isProtectedRoute = ['/jogar', '/pagamento/processando'].includes(
+  const isProtectedRoute = ['/jogar', '/pagamento/processando', '/medalhas'].includes(
     request.nextUrl.pathname,
   );
   const isUserAutehnticated = !!request.auth;
