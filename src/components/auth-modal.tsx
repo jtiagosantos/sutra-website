@@ -47,7 +47,7 @@ export const AuthModal: FC<AuthModalProps> = ({
             disabled={isLoading}
             onClick={handleSign}
             variant="outline"
-            className="w-[210px] text-[#8381D9] text-base px-4 py-[10px] font-body bg-transparent border-[2px] border-[#8381D9] hover:border-white hover:bg-[#8381D9] hover:text-white tracking-wider gap-2 flex flex-row items-center rounded-xl transition-all duration-300 group">
+            className="w-[210px] text-tropicalIndigo text-base px-4 py-[10px] font-body bg-transparent border-[2px] border-tropicalIndigo hover:border-white hover:bg-tropicalIndigo hover:text-white tracking-wider gap-2 flex flex-row items-center rounded-xl transition-all duration-300 group">
             {!isLoading ? (
               <>
                 <GoogleIcon className="h-5 w-5 group-hover:hidden" />

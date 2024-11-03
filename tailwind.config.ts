@@ -17,9 +17,16 @@ const config: Config = {
         '2000': '2000ms',
       },
       borderRadius: {},
-      colors: {},
+      colors: {
+        davysGray: '#5B5B5D',
+        dimGray: '#71717A',
+        antiFlashWhite: '#F4F4F5',
+        slateGray: '#6B7280',
+        tropicalIndigo: '#8381D9',
+        moonstone: '#50B2C0'
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('daisyui')],
 };
 export default config;

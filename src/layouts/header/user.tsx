@@ -18,23 +18,24 @@ import { LogOut, Medal } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { ToggleDailyRemainder } from './toggle-daily-remainder';
 import Link from 'next/link';
+import { Session } from 'next-auth';
+import { useAction } from 'next-safe-action/hooks';
+import { getUserAction } from '@/actions/get-user-action';
+import { Oval } from 'react-loader-spinner';
 
 const FULL_PROGRESS_BAR = 10;
 
 type UserProps = {
-  email: string;
-  avatar: string;
-  firstName: string;
-  lastName: string;
-  score: number;
-  level: number;
-  activeDailyRemainder: boolean;
+  session: Session | null;
 }
 
-export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score, level, activeDailyRemainder }) => {
+export const User: FC<UserProps> = ({ session }) => {
+  const { result, isExecuting, execute } = useAction(getUserAction);
   const [progress, setProgress] = useState(0);
 
   const calculateProgress = () => {
+    const { score, level } = result.data?.user!;
+
     let progress = (score / 2) * FULL_PROGRESS_BAR;
 
     if (level > 0) {
@@ -45,14 +46,40 @@ export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score,
   }
 
   useEffect(() => {
-    const timeoutId = setTimeout(() => {
-      calculateProgress();
-    }, 250);
+    let timeoutId: NodeJS.Timeout;
+
+    if (!!session && !!result.data) {
+      timeoutId = setTimeout(() => {
+        calculateProgress();
+      }, 250);
+    }
 
     return () => {
       clearTimeout(timeoutId);
     }
-  }, []);
+  }, [session, result]);
+
+  useEffect(() => {
+    if (!!session) {
+      execute({
+        email: session.user?.email!,
+      });
+    }
+  }, [session]);
+
+  if (isExecuting || !result.data) {
+    return (
+      <Oval
+        visible={true}
+        height="47"
+        width="47"
+        color="#8381d9"
+        ariaLabel="oval-loading"
+        secondaryColor="#e5e7eb "
+        strokeWidth={4.5}
+      />
+    );
+  }
 
   return (
     <Menubar>
@@ -60,7 +87,7 @@ export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score,
         <MenubarTrigger>
           <div className="w-[47px] h-[47px] flex items-center justify-center relative cursor-pointer">
             <div className="w-5 h-5 rounded-full bg-[#8381d9] flex items-center justify-center absolute z-10 -top-2.5">
-              <span className="text-white text-[12px] font-body font-medium">{level}</span>
+              <span className="text-white text-[12px] font-body font-medium">{result.data?.user?.level!}</span>
             </div>
             <CircularProgressbarWithChildren
               value={progress}
@@ -75,8 +102,8 @@ export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score,
                 height={39.5}
                 className="rounded-full"
                 quality={100}
-                src={avatar}
-                alt={firstName.concat(' ').concat(lastName)}
+                src={result.data?.user?.avatar!}
+                alt={result.data?.user?.firstName!.concat(' ').concat(result.data?.user?.lastName!)!}
               />
             </CircularProgressbarWithChildren>
           </div>
@@ -89,8 +116,8 @@ export const User: FC<UserProps> = ({ email, avatar, firstName, lastName, score,
             </MenubarItem>
           </Link>
           <ToggleDailyRemainder
-            email={email}
-            activeDailyRemainder={activeDailyRemainder}
+            email={result.data?.user?.email!}
+            activeDailyRemainder={result.data?.user?.preferences?.active_daily_reminder!}
           />
           <MenubarItem
             className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300"
