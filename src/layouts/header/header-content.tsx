@@ -23,7 +23,7 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
   const pathname = usePathname();
 
   return (
-    <div className="max-w-[1440px] w-full h-full mx-auto flex items-center justify-between max-[1470px]:px-2">
+    <div className="max-w-[1464px] w-full h-full mx-auto px-3 flex items-center justify-between">
       <div className="w-full flex items-center gap-8 max-[1000px]:gap-5 max-[600px]:gap-2">
         <DrawerMenu session={session} />
 

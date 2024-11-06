@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useUser } from '@/hooks/use-user';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
+import { QuizCard } from '@/components/quiz-card';
 
 export const Main = () => {
   const { user, loading } = useUser();
@@ -17,7 +18,7 @@ export const Main = () => {
         </div>
       ) : (
         <>
-          <div className="max-w-[1440px] w-full mx-auto px-3">
+          <div className="max-w-[1464px] w-full mx-auto px-3">
             <p className="font-body font-medium text-base text-dimGray">
               {user ? `Olá, ${user!.firstName} ${user!.lastName}` : 'Olá, visitante'} :)
             </p>
@@ -25,7 +26,7 @@ export const Main = () => {
             <p className="font-body font-medium text-base text-tropicalIndigo">Descubra com Nossos Quizzes!</p>
           </div>
 
-          <div className="flex items-center gap-[10px] mt-5 max-w-[1440px] w-full mx-auto px-3 overflow-x-auto">
+          <div className="flex items-center gap-[10px] mt-5 max-w-[1464px] w-full mx-auto px-3 overflow-x-auto">
             <Link href="/quiz-personalizado" className="mb-[10px] min-w-[183px] font-body text-tropicalIndigo font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-tropicalIndigo rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
               <Bot size={22} />
               Quiz Personalizado
@@ -47,7 +48,7 @@ export const Main = () => {
       )}
 
       <div className="w-full mt-10 flex flex-col gap-[50px]">
-        <section className="w-full max-w-[1440px] mx-auto px-3">
+        <section className="w-full max-w-[1464px] mx-auto px-3">
           <div className="mb-2 flex items-center gap-3">
             <h2 className="font-heading font-bold text-[22px] text-davysGray leading-[22px] max-[800px]:text-[18px]">
               Recentes
@@ -85,32 +86,20 @@ export const Main = () => {
         </section>
 
         <div className="w-ful bg-lavenderBlush py-10 pb-[30px]">
-          <section className="w-full max-w-[1440px] mx-auto px-3">
+          <section className="w-full max-w-[1464px] mx-auto px-3">
             <h2 className="font-heading font-bold text-[22px] text-indianRed leading-[22px] mb-3 max-[800px]:text-[18px]">
               🤩 Em alta na plataforma
             </h2>
             <div className="w-full overflow-x-auto scrollbar-thin px-[1px]">
               <div className="flex items-center gap-3 w-max mb-2">
                 {[...new Array(10)].map((_, index) => (
-                  <Link href="/quiz/jogar/id-do-quiz" key={index}>
-                    <div className="max-w-[240px] min-h-[270px] bg-white rounded-lg shadow-sm shadow-gray-300 overflow-hidden max-[800px]:max-w-[200px] max-[800px]:max-h-[230px] max-[800px]:min-h-[230px]">
-                      <div className="w-full h-[180px] relative max-[800px]:h-[140px]">
-                        <Image
-                          src="https://bookquiz.s3.us-east-1.amazonaws.com/covers/ultra-aprendizado-1730739645248.png"
-                          alt=""
-                          fill
-                          style={{ objectFit: 'cover' }}
-                        />
-                      </div>
-                      <div className="w-full p-2">
-                        <p className="font-body font-normal text-sm text-dimGray">Scott Young</p>
-                        <p className="font-body font-medium text-sm text-jet overflow-hidden line-clamp-2 mt-[6px]">
-                          Ultra Aprendizado: Aprenda Mais em Menos Tempo
-                          do autor Scott Young
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
+                  <QuizCard
+                    key={index}
+                    href="/quiz/jogar/id-do-quiz"
+                    image="https://bookquiz.s3.us-east-1.amazonaws.com/covers/ultra-aprendizado-1730739645248.png"
+                    author="Scott Young"
+                    title="Ultra Aprendizado: Aprenda Mais em Menos Tempo"
+                  />
                 ))}
               </div>
             </div>

@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import LogoImage from '@/assets/logo.svg';
 import { Session } from "next-auth";
 import { FC } from "react";
+import { useUser } from "@/hooks/use-user";
 
 type DrawerMenuProps = {
   session: Session | null;
@@ -13,6 +14,7 @@ type DrawerMenuProps = {
 
 export const DrawerMenu: FC<DrawerMenuProps> = ({ session }) => {
   const pathname = usePathname();
+  const { user } = useUser();
 
   return (
     <div className="drawer w-fit hidden max-[1000px]:block">
@@ -55,7 +57,7 @@ export const DrawerMenu: FC<DrawerMenuProps> = ({ session }) => {
             </form>
 
             <p className="font-body text-gray-600 text-base font-normal">
-              {session ? `Olá, ${session?.user?.name} :)` : 'Olá, visitante :)'}
+              {user ? `Olá, ${user!.firstName} ${user!.lastName}` : 'Olá, visitante'} :)
             </p>
             <p className="font-body text-moonstone text-base font-normal">Que tal navegar pela plataforma?</p>
 

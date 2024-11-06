@@ -1,12 +1,11 @@
 import { Header } from '../../layouts/header/header';
+import { Main } from './main';
 
 export default function Page() {
   return (
     <>
       <Header />
-      <main>
-        <h1>Content here...</h1>
-      </main>
+      <Main />
     </>
   );
 }
