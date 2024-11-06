@@ -23,10 +23,20 @@ const config: Config = {
         antiFlashWhite: '#F4F4F5',
         slateGray: '#6B7280',
         tropicalIndigo: '#8381D9',
-        moonstone: '#50B2C0'
+        moonstone: '#50B2C0',
+        silver: '#A9A9A9',
+        xanthous: '#EAB308',
+        jet: '#333333',
+        platinum: '#D9D9D9',
+        lavenderBlush: '#FDEDED',
+        indianRed: '#EB5D5F'
       },
     },
   },
-  plugins: [require('tailwindcss-animate'), require('daisyui')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('daisyui'),
+    require('tailwind-scrollbar'),
+  ],
 };
 export default config;

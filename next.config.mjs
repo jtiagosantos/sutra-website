@@ -7,6 +7,9 @@ const nextConfig = {
       },
       {
         hostname: 'bookquiz.s3.amazonaws.com'
+      },
+      {
+        hostname: 'bookquiz.s3.us-east-1.amazonaws.com'
       }
     ]
   },
