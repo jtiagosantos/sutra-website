@@ -1,39 +1,50 @@
-import LogoImage from '@/assets/logo.svg';
-import { Gamepad2, Trophy, ScrollText, Crown, Bot, ArrowRight } from 'lucide-react';
-import Link from 'next/link';
-import { auth } from '@/auth';
-import { AuthButton } from './auth-button';
-import Image from 'next/image';
+'use client';
 
-export const Main = async () => {
-  const session = await auth();
+import { Trophy, ScrollText, Crown, Bot, ArrowRight } from 'lucide-react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { useUser } from '@/hooks/use-user';
+import BubbleAnimation from '@/assets/bubble-spinner.svg';
+
+export const Main = () => {
+  const { user, loading } = useUser();
 
   return (
     <main className="w-full mx-auto my-6">
-      <div className="max-w-[1440px] w-full mx-auto px-3">
-        <p className="font-body font-medium text-base text-dimGray">Olá, visitante :)</p>
-        <p className="font-body font-medium text-base text-moonstone">Você Conhece Mesmo seus Livros Favoritos?</p>
-        <p className="font-body font-medium text-base text-tropicalIndigo">Descubra com Nossos Quizzes!</p>
-      </div>
+      {loading ? (
+        <div className="mx-auto w-fit my-[30px]">
+          <BubbleAnimation />
+        </div>
+      ) : (
+        <>
+          <div className="max-w-[1440px] w-full mx-auto px-3">
+            <p className="font-body font-medium text-base text-dimGray">
+              {user ? `Olá, ${user!.firstName} ${user!.lastName}` : 'Olá, visitante'} :)
+            </p>
+            <p className="font-body font-medium text-base text-moonstone">Você Conhece Mesmo seus Livros Favoritos?</p>
+            <p className="font-body font-medium text-base text-tropicalIndigo">Descubra com Nossos Quizzes!</p>
+          </div>
 
-      <div className="flex items-center gap-[10px] mt-5 max-w-[1440px] w-full mx-auto px-3 overflow-x-auto">
-        <Link href="/quiz-personalizado" className="mb-[10px] min-w-[183px] font-body text-tropicalIndigo font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-tropicalIndigo rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
-          <Bot size={22} />
-          Quiz Personalizado
-        </Link>
-        <Link href="/classificacao" className="mb-[10px] font-body text-dimGray font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-silver rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
-          <Trophy size={22} />
-          Classificação
-        </Link>
-        <Link href="/instrucoes" className="mb-[10px] font-body text-dimGray font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-silver rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
-          <ScrollText size={22} />
-          Instruções
-        </Link>
-        <Link href="/planos" className="mb-[10px] min-w-[148px] font-body text-xanthous font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-xanthous rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
-          <Crown size={22} />
-          Seja Premium
-        </Link>
-      </div>
+          <div className="flex items-center gap-[10px] mt-5 max-w-[1440px] w-full mx-auto px-3 overflow-x-auto">
+            <Link href="/quiz-personalizado" className="mb-[10px] min-w-[183px] font-body text-tropicalIndigo font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-tropicalIndigo rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
+              <Bot size={22} />
+              Quiz Personalizado
+            </Link>
+            <Link href="/classificacao" className="mb-[10px] font-body text-dimGray font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-silver rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
+              <Trophy size={22} />
+              Classificação
+            </Link>
+            <Link href="/instrucoes" className="mb-[10px] font-body text-dimGray font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-silver rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
+              <ScrollText size={22} />
+              Instruções
+            </Link>
+            <Link href="/planos" className="mb-[10px] min-w-[148px] font-body text-xanthous font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-xanthous rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
+              <Crown size={22} />
+              Seja Premium
+            </Link>
+          </div>
+        </>
+      )}
 
       <div className="w-full mt-10 flex flex-col gap-[50px]">
         <section className="w-full max-w-[1440px] mx-auto px-3">
@@ -108,50 +119,4 @@ export const Main = async () => {
       </div>
     </main>
   )
-
-  /* return (
-    <main className="w-full flex flex-col items-center mt-10 mb-5 px-4">
-      <LogoImage />
-      <h1 className="absolute text-transparent">Book Quiz</h1>
-      <h2 className="font-heading text-2xl text-center mt-8 text-[#50B2C0] font-medium">
-        Você Conhece Mesmo seus Livros Favoritos?
-        <span className="block text-[#8381D9]">Descubra com Nossos Quizzes!</span>
-      </h2>
-      <h3 className="font-body text-[18px] my-6 max-w-[500px] text-center text-gray-500 leading-6">
-        Gamifique sua leitura ao participar de quizzes interativos e transforme cada
-        página em um desafio!
-      </h3>
-
-      <div className="max-w-[300px] w-full flex flex-col items-center justify-center gap-2">
-        {!session ? (
-          <AuthButton />
-        ) : (
-          <Link
-            href="/jogar"
-            className="tracking-wide font-medium text-white w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
-            <Gamepad2 size={28} />
-            Jogar Quiz
-          </Link>
-        )}
-        <Link
-          href="/classificacao"
-          className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9] hover:text-white hover:bg-[#8381D9] transition-all duration-300">
-          <Trophy size={28} />
-          Classificação
-        </Link>
-        <Link
-          href="/instrucoes"
-          className="tracking-wide font-medium text-[#8381D9] w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-[#8381D9] hover:text-white hover:bg-[#8381D9] transition-all duration-300">
-          <ScrollText size={28} />
-          Como Jogar
-        </Link>
-        <Link
-          href="/planos"
-          className="tracking-wide font-medium text-yellow-500 w-full py-[13px] rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-transparent border-[2px] border-yellow-500 hover:text-white hover:bg-yellow-500 transition-all duration-300">
-          <Crown size={28} />
-          Seja Premium
-        </Link>
-      </div>
-    </main>
-  ); */
 };

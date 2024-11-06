@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { FC, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {
   buildStyles,
   CircularProgressbarWithChildren,
@@ -18,23 +18,16 @@ import { LogOut, Medal } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { ToggleDailyRemainder } from './toggle-daily-remainder';
 import Link from 'next/link';
-import { Session } from 'next-auth';
-import { useAction } from 'next-safe-action/hooks';
-import { getUserAction } from '@/actions/get-user-action';
 import { Oval } from 'react-loader-spinner';
+import { useUser } from '@/hooks/use-user';
 
 const FULL_PROGRESS_BAR = 10;
 
-type UserProps = {
-  session: Session | null;
-}
-
-export const User: FC<UserProps> = ({ session }) => {
-  const { result, isExecuting, execute } = useAction(getUserAction);
-  const [progress, setProgress] = useState(0);
+export const User = () => {
+  const { user, setUser, loading, progress, setProgress } = useUser();
 
   const calculateProgress = () => {
-    const { score, level } = result.data?.user!;
+    const { score, level } = user!;
 
     let progress = (score / 2) * FULL_PROGRESS_BAR;
 
@@ -45,29 +38,26 @@ export const User: FC<UserProps> = ({ session }) => {
     setProgress(progress);
   }
 
+  const handleSignOut = async () => {
+    await signOut({ callbackUrl: '/' });
+    setUser(null);
+  }
+
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;
 
-    if (!!session && !!result.data) {
+    if (!!user && progress === undefined) {
       timeoutId = setTimeout(() => {
         calculateProgress();
-      }, 250);
+      }, 150);
     }
 
     return () => {
       clearTimeout(timeoutId);
     }
-  }, [session, result]);
+  }, [user]);
 
-  useEffect(() => {
-    if (!!session) {
-      execute({
-        email: session.user?.email!,
-      });
-    }
-  }, [session]);
-
-  if (isExecuting || !result.data) {
+  if (loading || !user) {
     return (
       <Oval
         visible={true}
@@ -87,10 +77,10 @@ export const User: FC<UserProps> = ({ session }) => {
         <MenubarTrigger>
           <div className="w-[47px] h-[47px] flex items-center justify-center relative cursor-pointer">
             <div className="w-5 h-5 rounded-full bg-[#8381d9] flex items-center justify-center absolute z-10 -top-2.5">
-              <span className="text-white text-[12px] font-body font-medium">{result.data?.user?.level!}</span>
+              <span className="text-white text-[12px] font-body font-medium">{user!.level}</span>
             </div>
             <CircularProgressbarWithChildren
-              value={progress}
+              value={progress ?? 0}
               strokeWidth={10}
               styles={buildStyles({
                 trailColor: "#e5e7eb",
@@ -102,8 +92,8 @@ export const User: FC<UserProps> = ({ session }) => {
                 height={39.5}
                 className="rounded-full"
                 quality={100}
-                src={result.data?.user?.avatar!}
-                alt={result.data?.user?.firstName!.concat(' ').concat(result.data?.user?.lastName!)!}
+                src={user!.avatar}
+                alt={user!.firstName.concat(' ').concat(user!.lastName)!}
               />
             </CircularProgressbarWithChildren>
           </div>
@@ -116,12 +106,12 @@ export const User: FC<UserProps> = ({ session }) => {
             </MenubarItem>
           </Link>
           <ToggleDailyRemainder
-            email={result.data?.user?.email!}
-            activeDailyRemainder={result.data?.user?.preferences?.active_daily_reminder!}
+            email={user!.email}
+            activeDailyRemainder={user!.activeDailyRemainder}
           />
           <MenubarItem
             className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300"
-            onClick={() => signOut({ callbackUrl: '/' })}
+            onClick={handleSignOut}
           >
             <LogOut size={18} className="rotate-180" />
             Sair da conta

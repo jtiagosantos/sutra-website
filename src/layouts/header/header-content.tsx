@@ -83,6 +83,7 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
               <CircleUserRound size={24} className="max-[600px]:hidden" />
               Entrar
             </Button>
+            <AuthModal open={open} onOpenChange={setOpen} />
           </>
         )}
         {!!session && (
@@ -95,12 +96,10 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
                 Jogar Quiz
               </Button>
             </Link>
-            <User session={session} />
+            <User />
           </>
         )}
       </div>
-
-      <AuthModal open={open} onOpenChange={setOpen} />
     </div>
   );
 };
