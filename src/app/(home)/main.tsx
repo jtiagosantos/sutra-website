@@ -11,7 +11,7 @@ export const Main = () => {
   const { user, loading } = useUser();
 
   return (
-    <main className="w-full mx-auto my-6">
+    <main className="w-full mx-auto mt-6 mb-10">
       {loading ? (
         <div className="mx-auto w-fit my-[30px]">
           <BubbleAnimation />
@@ -95,7 +95,7 @@ export const Main = () => {
                 {[...new Array(10)].map((_, index) => (
                   <QuizCard
                     key={index}
-                    href="/quiz/jogar/id-do-quiz"
+                    href="/quiz/id-do-quiz"
                     image="https://bookquiz.s3.us-east-1.amazonaws.com/covers/ultra-aprendizado-1730739645248.png"
                     author="Scott Young"
                     title="Ultra Aprendizado: Aprenda Mais em Menos Tempo"

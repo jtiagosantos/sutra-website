@@ -10,7 +10,7 @@ export const Main = () => {
   const { user, loading } = useUser();
 
   return (
-    <main className="max-w-[1464px] w-full mx-auto my-6 px-3">
+    <main className="max-w-[1464px] w-full mx-auto mt-6 mb-10 px-3">
       {loading ? (
         <div className="mx-auto w-fit my-[30px]">
           <BubbleAnimation />
@@ -60,10 +60,10 @@ export const Main = () => {
       </div>
 
       <section className="mt-10 grid grid-cols-5 gap-3 max-w-fit mx-auto max-[1245px]:grid-cols-4 max-[1000px]:grid-cols-3 max-[630px]:grid-cols-2">
-        {[...new Array(15)].map((_, index) => (
+        {[...new Array(10)].map((_, index) => (
           <QuizCard
             key={index}
-            href="/quiz/jogar/id-do-quiz"
+            href="/quiz/id-do-quiz"
             image="https://bookquiz.s3.us-east-1.amazonaws.com/covers/ultra-aprendizado-1730739645248.png"
             author="Scott Young"
             title="Ultra Aprendizado: Aprenda Mais em Menos Tempo"
