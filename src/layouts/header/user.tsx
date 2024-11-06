@@ -12,9 +12,10 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
+  MenubarSeparator,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { LogOut, Medal } from 'lucide-react';
+import { LogOut, Medal, Zap } from 'lucide-react';
 import { signOut } from 'next-auth/react';
 import { ToggleDailyRemainder } from './toggle-daily-remainder';
 import Link from 'next/link';
@@ -99,6 +100,13 @@ export const User = () => {
           </div>
         </MenubarTrigger>
         <MenubarContent>
+          <MenubarItem disabled className="flex items-center gap-2 text-yellow-500 data-[disabled]:opacity-100">
+            <Zap size={18} />
+            Meus pontos - {user!.score}
+          </MenubarItem>
+
+          <MenubarSeparator />
+
           <Link href="/medalhas">
             <MenubarItem className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300">
               <Medal size={18} />
