@@ -1,9 +1,8 @@
 'use client';
 
-import { FC, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { findMedalsAction } from '@/actions/find-medals-action';
 import { findUserMedalsAction } from '@/actions/find-user-medals-action';
-import { useAction } from 'next-safe-action/hooks';
 import Image from 'next/image'
 import {
   Popover,
@@ -15,6 +14,7 @@ import BadgeImage from '@/assets/badge.svg';
 import dayjs from 'dayjs';
 import { MedalModal } from './medal-modal';
 import { BackButton } from '@/components/back-button';
+import { useUser } from '@/hooks/use-user';
 
 type Medal = {
   id: string;
@@ -26,25 +26,17 @@ type Medal = {
   viewedAt: string | null;
 };
 
-type PageComponentProps = {
-  user: {
-    email: string;
-  };
-};
-
-export const PageComponent: FC<PageComponentProps> = ({ user }) => {
+export const Main = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [medalsData, setMedalsData] = useState<Medal[]>([]);
   const [selectedMedal, setSelectedMedal] = useState<Medal | null>(null);
-
-  const { executeAsync: findMedalsActionExecute } = useAction(findMedalsAction);
-  const { executeAsync: findUserMedalsActionExecute } = useAction(findUserMedalsAction);
+  const { user, loading } = useUser();
 
   const handleFetchMedals = async () => {
     try {
       const [findMedalsActionResult, findUserMedalsActionResult] = await Promise.all([
-        findMedalsActionExecute(),
-        findUserMedalsActionExecute({ email: user.email })
+        findMedalsAction(),
+        findUserMedalsAction({ id: user!.id })
       ]);
 
       const medals = findMedalsActionResult?.data?.medals!;
@@ -80,24 +72,36 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
   }
 
   useEffect(() => {
-    handleFetchMedals()
-  }, []);
+    if (!!user) {
+      handleFetchMedals();
+    }
+  }, [user]);
 
   return (
-    <main className="w-full flex flex-col items-center mt-5 mb-5 px-4">
-      <h1 className="font-heading text-[26px] text-center mt-8 text-[#8381D9] font-semibold">
-        Minhas Medalhas
-      </h1>
-      <p className="font-body text-base text-gray-500 mt-4 max-w-[400px] text-center">
-        Confira abaixo as medalhas conquistadas ao longo da sua jornada com quizzes literários
-      </p>
-
-      {isLoading ? (
-        <div className="my-[100px]">
+    <main className="max-w-[1464px] w-full mx-auto mt-6 mb-10 px-3">
+      {loading ? (
+        <div className="mx-auto w-fit my-[30px]">
           <BubbleAnimation />
         </div>
       ) : (
-        <div className={`mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6`}>
+        <>
+          <div className="w-full mx-auto">
+            <p className="font-body font-medium text-base text-dimGray">
+              {user ? `Olá, ${user!.firstName} ${user!.lastName}` : 'Olá, visitante'} :)
+            </p>
+            <p className="max-w-[330px] font-body font-medium text-base text-moonstone leading-[22px] mt-1">
+              Confira as medalhas conquistadas ao longo da sua jornada com quizzes literários
+            </p>
+          </div>
+        </>
+      )}
+
+      {isLoading ? (
+        <div className="mx-auto w-fit my-[30px]">
+          <BubbleAnimation />
+        </div>
+      ) : (
+        <div className={`max-w-fit mx-auto mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6`}>
           {medalsData.map((medal) => {
             if (!medal.earnedAt) {
               return (
