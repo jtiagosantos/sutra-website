@@ -3,10 +3,8 @@
 import { FC, useEffect, useState } from 'react';
 import { findMedalsAction } from '@/actions/find-medals-action';
 import { findUserMedalsAction } from '@/actions/find-user-medals-action';
-import { MoveLeft } from 'lucide-react';
 import { useAction } from 'next-safe-action/hooks';
 import Image from 'next/image'
-import Link from 'next/link'
 import {
   Popover,
   PopoverContent,
@@ -16,6 +14,7 @@ import BubbleAnimation from '@/assets/bubble-spinner.svg';
 import BadgeImage from '@/assets/badge.svg';
 import dayjs from 'dayjs';
 import { MedalModal } from './medal-modal';
+import { BackButton } from '@/components/back-button';
 
 type Medal = {
   id: string;
@@ -181,13 +180,7 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
         />
       )}
 
-      <Link
-        href="/"
-        className="mt-14 text-[#8381D9] w-fit flex items-center gap-[6px] font-heading font-medium text-[18px] hover:underline hover:text-accent underline-offset-4"
-        prefetch={false}>
-        <MoveLeft className="w-5 h-5 pt-[3px]" />
-        voltar
-      </Link>
+      <BackButton />
     </main>
   );
 }

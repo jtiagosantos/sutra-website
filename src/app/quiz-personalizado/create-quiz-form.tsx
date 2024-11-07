@@ -9,12 +9,12 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Question, Quiz } from '@/types/quiz';
-import { Crown, MoveLeft } from 'lucide-react';
-import Link from 'next/link';
+import { Crown } from 'lucide-react';
 import { FC, useEffect, useRef, useState } from 'react';
 import { CreateQuizError } from './create-quiz-error';
 import { CreateQuizSuccess } from './create-quiz-success';
 import { Book } from '@/types/book';
+import { BackButton } from '@/components/back-button';
 
 type CreateQuizFormProps = {
   subscriptionStatus: 'ACTIVE' | 'INACTIVE' | 'CANCELED';
@@ -278,13 +278,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
         </Button>
       </form>
 
-      <Link
-        href="/"
-        className="mt-10 text-[#8381D9] w-fit flex items-center gap-[6px] font-heading font-medium text-[18px] hover:underline hover:text-accent underline-offset-4"
-        prefetch={false}>
-        <MoveLeft className="w-5 h-5 pt-[3px]" />
-        voltar
-      </Link>
+      <BackButton />
     </>
   );
 };

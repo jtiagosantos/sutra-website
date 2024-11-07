@@ -9,12 +9,11 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import Link from 'next/link';
-import { MoveLeft } from 'lucide-react';
 import { getLeaderboardAction } from '@/actions/get-leaderboard';
 import { useAction } from 'next-safe-action/hooks';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
 import { useUser } from '@/hooks/use-user';
+import { BackButton } from '@/components/back-button';
 
 type User = {
   score: number;
@@ -101,13 +100,7 @@ export const Main = () => {
         </Table>
       )}
 
-      <Link
-        href="/"
-        className="w-full mt-10 text-[#8381D9] flex items-center justify-center gap-[6px] font-heading font-medium text-[18px] hover:underline hover:text-accent underline-offset-4"
-        prefetch={false}>
-        <MoveLeft className="w-5 h-5 pt-[3px]" />
-        voltar
-      </Link>
+      <BackButton />
     </main>
   );
 }

@@ -9,6 +9,7 @@ import {
   MenubarTrigger,
 } from "@/components/ui/menubar";
 import Link from "next/link";
+import { BackButton } from "@/components/back-button";
 
 export const Main = () => {
   return (
@@ -94,6 +95,8 @@ export const Main = () => {
           </div>
         </div>
       </section>
+
+      <BackButton />
     </main>
   );
 }
