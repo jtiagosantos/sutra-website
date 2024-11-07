@@ -62,7 +62,7 @@ export const Main = () => {
         </div>
       </section>
 
-      <section className="w-full max-w-[1464px] mx-auto mt-[50px]">
+      <section className="w-full max-w-[1464px] mx-auto mt-[80px]">
         <div className="mb-2 flex items-center gap-3">
           <h2 className="font-heading font-bold text-[22px] text-davysGray leading-[22px] max-[800px]:text-[18px]">
             🎯 Quizzes relacionados

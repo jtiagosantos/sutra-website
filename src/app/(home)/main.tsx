@@ -61,7 +61,7 @@ export const Main = () => {
           <div className="w-full overflow-x-auto scrollbar-thin px-[1px]">
             <div className="flex items-center gap-3 w-max mb-2">
               {[...new Array(10)].map((_, index) => (
-                <Link href="/quiz/jogar/id-do-quiz" key={index}>
+                <Link href="/quiz/id-do-quiz" key={index}>
                   <div className="max-w-[240px] min-h-[270px] bg-white rounded-lg shadow-sm shadow-gray-300 overflow-hidden max-[800px]:max-w-[200px] max-[800px]:max-h-[230px] max-[800px]:min-h-[230px]">
                     <div className="w-full h-[180px] relative max-[800px]:h-[140px]">
                       <Image
