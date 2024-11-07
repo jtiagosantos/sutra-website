@@ -63,7 +63,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     try {
       if (quantityOfQuestions === '5') {
         promises.push(
-          fetch(`${window.location.origin}/api/quiz/create`, {
+          fetch(`${window.location.origin}/api/ai/create-quiz`, {
             method: 'POST',
             body: JSON.stringify({
               bookName,
@@ -74,7 +74,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
         );
       } else if (quantityOfQuestions === '10') {
         promises.push(
-          fetch(`${window.location.origin}/api/quiz/create`, {
+          fetch(`${window.location.origin}/api/ai/create-quiz`, {
             method: 'POST',
             body: JSON.stringify({
               bookName,
@@ -84,7 +84,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
           }),
         );
         promises.push(
-          fetch(`${window.location.origin}/api/quiz/create`, {
+          fetch(`${window.location.origin}/api/ai/create-quiz`, {
             method: 'POST',
             body: JSON.stringify({
               bookName,
@@ -95,7 +95,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
         );
       } else if (quantityOfQuestions === '15') {
         promises.push(
-          fetch(`${window.location.origin}/api/quiz/create`, {
+          fetch(`${window.location.origin}/api/ai/create-quiz`, {
             method: 'POST',
             body: JSON.stringify({
               bookName,
@@ -105,7 +105,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
           }),
         );
         promises.push(
-          fetch(`${window.location.origin}/api/quiz/create`, {
+          fetch(`${window.location.origin}/api/ai/create-quiz`, {
             method: 'POST',
             body: JSON.stringify({
               bookName,
@@ -115,7 +115,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
           }),
         );
         promises.push(
-          fetch(`${window.location.origin}/api/quiz/create`, {
+          fetch(`${window.location.origin}/api/ai/create-quiz`, {
             method: 'POST',
             body: JSON.stringify({
               bookName,
