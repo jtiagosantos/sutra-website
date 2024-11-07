@@ -9,7 +9,7 @@ import {
   TableRow,
 } from '@/components/ui/table';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { getLeaderboardAction } from '@/actions/get-leaderboard';
+import { getLeaderboardAction } from '@/actions/get-leaderboard-action';
 import { useAction } from 'next-safe-action/hooks';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
 import { useUser } from '@/hooks/use-user';
