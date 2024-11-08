@@ -2,13 +2,11 @@
 
 import { Trophy, ScrollText, Crown, Bot, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { useUser } from '@/hooks/use-user';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
 import { QuizCard } from '@/components/quiz-card';
 import { createSlug } from '@/helpers/create-slug';
 import { useQuiz } from '@/hooks/use-quiz';
-
 
 export const Main = () => {
   const { user, loading } = useUser();

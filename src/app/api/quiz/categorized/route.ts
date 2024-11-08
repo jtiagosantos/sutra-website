@@ -26,11 +26,12 @@ export const GET = async () => {
   for (const category of categories) {
     const query = prisma.newQuiz.findMany({
       where: {
+        deletedAt: null,
         categories: {
           hasSome: [category.value],
         },
       },
-      take: 5,
+      take: 10,
       orderBy: {
         createdAt: 'desc',
       },
