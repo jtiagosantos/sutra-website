@@ -17,6 +17,11 @@ enum SubscriptionStatus {
   CANCELED
 }
 
+enum QuizStatus {
+  IN_ANALYSIS
+  DONE
+}
+
 model User {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
@@ -38,6 +43,7 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   quizzes        Quiz[]
+  newQuizzes     NewQuiz[]
   medals         UserMedal[]
   quizzesHistory QuizHistory[]
 
@@ -56,6 +62,27 @@ model Quiz {
   userId String @map("user_id") @db.ObjectId
 
   @@map("quizzes")
+}
+
+model NewQuiz {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  book         NewBook
+  questions    Question[]
+  timesPlayed  Int        @default(0) @map("times_played")
+  categories   String[]
+  tags         String[]
+  summary      String
+  purchaseLink String?    @map("purchase_link")
+  status       QuizStatus
+
+  createdAt DateTime  @default(now()) @map("created_at")
+  deletedAt DateTime? @map("deleted_at")
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @map("user_id") @db.ObjectId
+
+  @@map("newquizzes")
 }
 
 model Medal {
@@ -103,6 +130,15 @@ model QuizHistory {
   @@map("quizzes_history")
 }
 
+model QuizCategory {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name  String @unique
+  value String @unique
+
+  @@map("quiz_categories")
+}
+
 type Subscription {
   status SubscriptionStatus
 }
@@ -110,6 +146,12 @@ type Subscription {
 type Book {
   title  String
   author String
+}
+
+type NewBook {
+  title  String
+  author String
+  cover  String
 }
 
 type Question {

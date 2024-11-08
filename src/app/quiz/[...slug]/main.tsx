@@ -10,8 +10,13 @@ import {
 } from "@/components/ui/menubar";
 import Link from "next/link";
 import { BackButton } from "@/components/back-button";
+import { FC } from "react";
 
-export const Main = () => {
+type MainProps = {
+  quizId: string;
+}
+
+export const Main: FC<MainProps> = ({ quizId }) => {
   return (
     <main className="max-w-[1140px] w-full mx-auto mt-6 mb-10 px-3">
       <section className="w-full flex items-start gap-10 max-[880px]:flex-col max-[880px]:items-center">
