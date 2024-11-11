@@ -1,18 +1,19 @@
 'use client';
 
-import { FC, useState } from 'react';
+import { FC, FormEvent, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Bot, CircleUserRound, Gamepad2, House, LibraryBig } from 'lucide-react';
 import { AuthModal } from '@/components/auth-modal';
 import LogoImage from '@/assets/logo.svg';
 import LogoSmImage from '@/assets/logo-sm.svg';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import clsx from 'clsx';
 import { Input } from '@/components/ui/input';
 import { DrawerMenu } from './drawer-menu';
 import { Session } from 'next-auth';
 import { User } from './user';
+import { useRouter } from 'next/navigation';
 
 type HeaderContentProps = {
   session: Session | null;
@@ -21,11 +22,27 @@ type HeaderContentProps = {
 export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
   const [open, setOpen] = useState(false);
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const search = searchParams.get('busca');
+
+  const handleSearch = (event: FormEvent) => {
+    event.preventDefault();
+
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const searchValue = formData.get('busca');
+
+    if (!!searchValue) {
+      router.push(`/explorar/pesquisar?busca=${searchValue}`);
+    }
+  }
 
   return (
     <div className="max-w-[1464px] w-full h-full mx-auto px-3 flex items-center justify-between">
       <div className="w-full flex items-center gap-8 max-[1000px]:gap-5 max-[600px]:gap-2">
-        <DrawerMenu session={session} />
+        <DrawerMenu />
 
         <Link href="/" className="max-[600px]:hidden relative">
           <LogoImage />
@@ -52,10 +69,14 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
           Explorar
         </Link>
 
-        <form className="max-w-[500px] w-full ml-8 max-[1250px]:max-w-[300px] max-[1024px]:ml-0 max-[1000px]:hidden">
+        <form
+          onSubmit={handleSearch}
+          className="max-w-[500px] w-full ml-8 max-[1250px]:max-w-[300px] max-[1024px]:ml-0 max-[1000px]:hidden"
+        >
           <Input
             type="text"
             name="busca"
+            defaultValue={search ?? ''}
             placeholder='Pesquise no Sutra'
             className="w-full bg-[#ebeaea] border-[#ebeaea] h-[45.2px] rounded-xl text-slateGray placeholder:text-slateGray"
             autoComplete="off"

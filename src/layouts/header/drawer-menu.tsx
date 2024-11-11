@@ -2,19 +2,33 @@ import { Input } from "@/components/ui/input";
 import clsx from "clsx";
 import { AlignJustify, House, LibraryBig, X } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import LogoImage from '@/assets/logo.svg';
-import { Session } from "next-auth";
-import { FC } from "react";
+import { FC, FormEvent, useRef } from "react";
 import { useUser } from "@/hooks/use-user";
 
-type DrawerMenuProps = {
-  session: Session | null;
-}
-
-export const DrawerMenu: FC<DrawerMenuProps> = ({ session }) => {
+export const DrawerMenu = () => {
   const pathname = usePathname();
   const { user } = useUser();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const search = searchParams.get('busca');
+  const labelRef = useRef<HTMLLabelElement>(null);
+
+  const handleSearch = (event: FormEvent) => {
+    event.preventDefault();
+
+    const form = event.target as HTMLFormElement;
+    const formData = new FormData(form);
+
+    const searchValue = formData.get('busca');
+
+    labelRef.current?.click();
+
+    if (!!searchValue) {
+      router.push(`/explorar/pesquisar?busca=${searchValue}`);
+    }
+  }
 
   return (
     <div className="drawer w-fit hidden max-[1000px]:block">
@@ -33,7 +47,7 @@ export const DrawerMenu: FC<DrawerMenuProps> = ({ session }) => {
         ></label>
         <div className="bg-white min-h-full w-[50%] p-4 max-[700px]:w-[70%] max-[500px]:w-full">
           <input id="my-drawer" type="checkbox" className="drawer-toggle" />
-          <label htmlFor="my-drawer">
+          <label htmlFor="my-drawer" ref={labelRef}>
             <X size={28} className="text-dimGray mt-2 max-[600px]:hidden" />
             <X size={24} className="text-dimGray mt-2 hidden max-[600px]:block" />
           </label>
@@ -46,10 +60,11 @@ export const DrawerMenu: FC<DrawerMenuProps> = ({ session }) => {
               </Link>
             </div>
 
-            <form className="w-full mb-7">
+            <form onSubmit={handleSearch} className="w-full mb-7">
               <Input
                 type="text"
                 name="busca"
+                defaultValue={search ?? ''}
                 placeholder='Pesquise no Sutra'
                 className="w-full bg-antiFlashWhite border-antiFlashWhite h-[45.2px] rounded-xl text-slateGray placeholder:text-slateGray"
                 autoComplete="off"
