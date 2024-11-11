@@ -1,7 +1,7 @@
 'use client';
 
 import { Button } from "@/components/ui/button";
-import { Ellipsis, Gamepad2, Share2 } from "lucide-react";
+import { ChevronDown, Ellipsis, Gamepad2, Share2 } from "lucide-react";
 import Image from "next/image";
 import {
   Menubar,
@@ -10,10 +10,8 @@ import {
   MenubarMenu,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import Link from "next/link";
 import { BackButton } from "@/components/back-button";
 import { FC, useEffect, useState } from "react";
-import { useAction } from "next-safe-action/hooks";
 import { getQuizAction } from "@/actions/get-quiz-action";
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
 import { findQuizCategoriesAction } from "@/actions/find-quiz-categories-action";
@@ -51,6 +49,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
   const [quiz, setQuiz] = useState<QuizProps | null>(null);
   const [relatedQuizzes, setRelatedQuizzes] = useState<RelatedQuiz[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
+  const [openSummary, setOpenSummary] = useState(false);
 
   const handleLoadQuiz = async () => {
     const { data: quizData } = (await getQuizAction({ id: quizId }))!;
@@ -148,9 +147,21 @@ export const Main: FC<MainProps> = ({ quizId }) => {
               ))}
             </div>
 
-            <p className="max-w-[664px] w-full mt-5 mb-6 font-body font-normal text-davysGray leading-6">
-              {quiz?.summary}
+            <p className="max-w-[664px] w-full mt-5 font-body font-normal text-davysGray leading-6">
+              {openSummary ? quiz?.summary : quiz?.summary.slice(0, 250).concat('...')}
             </p>
+
+            <button
+              onClick={() => setOpenSummary(!openSummary)}
+              className="w-full flex items-center gap-1 text-tropicalIndigo font-body font-medium mt-2 mb-6"
+            >
+              Mostrar {openSummary ? 'menos' : 'mais'}
+              <ChevronDown
+                size={22}
+                strokeWidth={2.5}
+                className={`transform ${openSummary ? 'rotate-180' : 'rotate-0'} transition-transform duration-300`}
+              />
+            </button>
 
             <Button
               variant="outline"
@@ -162,7 +173,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
         </section>
       )}
 
-      <section className="w-full max-w-[1464px] mx-auto mt-[80px]">
+      <section className="w-full max-w-[1464px] mx-auto mt-[40px]">
         {isLoadingRelatedQuizzes && (
           <div className="mx-auto w-fit my-[30px]">
             <BubbleAnimation />

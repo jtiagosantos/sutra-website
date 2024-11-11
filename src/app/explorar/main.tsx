@@ -10,6 +10,7 @@ import { useAction } from 'next-safe-action/hooks';
 import { findQuizCategoriesAction } from '@/actions/find-quiz-categories-action';
 import { findQuizzesAction } from '@/actions/find-quizzes-action';
 import { createSlug } from '@/helpers/create-slug';
+import { useQueryState } from 'nuqs';
 
 type Quiz = {
   id: string;
@@ -26,20 +27,27 @@ type OrderBy = Record<By, string>;
 
 export const Main = () => {
   const { user, loading } = useUser();
-  const { result: quizCategoriesResult, status: quizCategoriesStatus } = useAction(findQuizCategoriesAction, {
-    executeOnMount: {}
-  });
-  const { result: quizzesResult, status: quizzesStatus } = useAction(findQuizzesAction, {
-    executeOnMount: {
-      input: {},
-    },
-  });
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [category, setCategory] = useState<Record<string, string> | null>(null);
   const [orderBy, setOrderBy] = useState<OrderBy | null>(null);
   const [isLoadingMore, setIsLoadingMore] = useState(false);
   const [isLoadingQuizzesByParams, setIsLoadingQuizzesByParams] = useState(false);
+  const [categoryNameByValue, setCategoryNameByValue] = useState<Record<string, string>>({});
   const [metadata, setMetadata] = useState<{ next: number | null }>({ next: null });
+  const { result: quizCategoriesResult, status: quizCategoriesStatus } = useAction(findQuizCategoriesAction, {
+    executeOnMount: {}
+  });
+  const { result: quizzesResult, status: quizzesStatus } = useAction(findQuizzesAction, {
+    executeOnMount: {
+      input: {
+        categories: category ? [Object.keys(category)[0]] : undefined,
+        createdAt: orderBy ? Object.keys(orderBy)[0] as By : undefined,
+      },
+    },
+  });
+
+  const [categoryParam, setCategoryParam] = useQueryState('categoria');
+  const [orderByParam, setOrderByParam] = useQueryState('ordenar');
 
   const isLoadingQuizCategories = ['idle', 'executing'].includes(quizCategoriesStatus);
   const isLoadingQuizzes = ['idle', 'executing'].includes(quizzesStatus);
@@ -79,6 +87,7 @@ export const Main = () => {
 
   const handleUnselectCategory = async () => {
     setCategory(null);
+    setCategoryParam(null);
 
     setIsLoadingQuizzesByParams(true);
 
@@ -97,6 +106,7 @@ export const Main = () => {
 
   const handleUnselectOrderBy = async () => {
     setOrderBy(null);
+    setOrderByParam(null);
 
     setIsLoadingQuizzesByParams(true);
 
@@ -126,6 +136,33 @@ export const Main = () => {
     }
   }, [category, orderBy]);
 
+  useEffect(() => {
+    if (!!quizCategoriesResult.data?.categories) {
+      const data = {} as Record<string, string>;
+
+      quizCategoriesResult?.data?.categories?.forEach(category => {
+        data[category.value] = category.name;
+      });
+
+      setCategoryNameByValue(data);
+    }
+  }, [quizCategoriesResult]);
+
+  useEffect(() => {
+    if (!!categoryParam && Object.keys(categoryNameByValue).includes(categoryParam)) {
+      const name = categoryNameByValue[categoryParam];
+      setCategory({ [categoryParam]: name });
+    }
+  }, [categoryParam, categoryNameByValue]);
+
+  useEffect(() => {
+    if (!!orderByParam) {
+      setOrderBy({
+        [orderByParam]: orderByParam === 'asc' ? 'Mais Antigos' : 'Mais Recentes'
+      } as OrderBy);
+    }
+  }, [orderByParam]);
+
   return (
     <main className="max-w-[1464px] w-full mx-auto mt-6 mb-10 px-3">
       {loading ? (
@@ -151,7 +188,7 @@ export const Main = () => {
         </div>
       ) : (
         <>
-          <div className="w-full mt-10 flex gap-4">
+          <div className="w-full mt-10 flex gap-3 max-[490px]:flex-col">
             <div className="max-w-[300px] w-full">
               <span className="font-body font-medium text-base text-tropicalIndigo block mb-1">Filtrar por categoria:</span>
               <select
@@ -160,6 +197,7 @@ export const Main = () => {
                 onChange={({ target }) => {
                   const [value, name] = target.value.split('--');
                   setCategory({ [value]: name });
+                  setCategoryParam(value);
                 }}
                 className="select w-full block bg-white disabled:bg-white border border-gray-300 disabled:border-gray-300 disabled:text-gray-500 disabled:opacity-100 min-h-[40px] h-[40px] focus:outline-tropicalIndigo font-body font-normal text-sm text-gray-500"
               >
@@ -185,6 +223,7 @@ export const Main = () => {
                 onChange={({ target }) => {
                   const [order, orderBy] = target.value.split('--');
                   setOrderBy({ [order]: orderBy } as OrderBy);
+                  setOrderByParam(order);
                 }}
                 className="select w-full block bg-white disabled:bg-white border border-gray-300 disabled:border-gray-300 disabled:text-gray-500 disabled:opacity-100 min-h-[40px] h-[40px] focus:outline-tropicalIndigo font-body font-normal text-sm text-gray-500"
               >

@@ -67,7 +67,7 @@ export const Main = () => {
               <h2 className="font-heading font-bold text-[22px] text-davysGray leading-[22px] max-[800px]:text-[18px]">
                 Recentes
               </h2>
-              <Link href="/explorar?categoria=Fantasia" className="min-w-[95px] bg-white py-[6px] px-[10px] rounded-lg font-body font-medium text-sm text-tropicalIndigo flex items-center gap-[6px]">
+              <Link href="/explorar" className="min-w-[95px] bg-white py-[6px] px-[10px] rounded-lg font-body font-medium text-sm text-tropicalIndigo flex items-center gap-[6px]">
                 Ver tudo
                 <ArrowRight size={16} />
               </Link>
