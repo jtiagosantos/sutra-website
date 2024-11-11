@@ -81,7 +81,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
       categories,
     }))!
 
-    setRelatedQuizzes(quizzesData?.quizzes!);
+    setRelatedQuizzes(quizzesData?.quizzes?.filter((quiz) => quiz.id !== quizId) ?? []);
   }
 
   useEffect(() => {
@@ -138,7 +138,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
             </p>
 
             <div className="w-full flex items-center gap-[6px] flex-wrap mt-3">
-              {quiz?.categories.map((category) => (
+              {quiz?.categories?.map((category) => (
                 <p
                   key={category}
                   className="h-[30px] flex justify-center items-center bg-dimGray rounded-lg text-white font-body font-normal text-[13px] py-[11px] w-fit px-2"

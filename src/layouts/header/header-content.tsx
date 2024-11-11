@@ -2,7 +2,7 @@
 
 import { FC, useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { CircleUserRound, Gamepad2, House, LibraryBig } from 'lucide-react';
+import { Bot, CircleUserRound, Gamepad2, House, LibraryBig } from 'lucide-react';
 import { AuthModal } from '@/components/auth-modal';
 import LogoImage from '@/assets/logo.svg';
 import LogoSmImage from '@/assets/logo-sm.svg';
@@ -92,8 +92,8 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
               <Button
                 variant="outline"
                 className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300 max-[600px]:text-sm">
-                <Gamepad2 size={24} className="max-[600px]:hidden" />
-                Jogar Quiz
+                <Bot size={24} className="max-[600px]:hidden" />
+                Criar Quiz
               </Button>
             </Link>
             <User />

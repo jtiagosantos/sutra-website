@@ -47,7 +47,7 @@ export const Main = () => {
           </p>
         </div>
         <p className="font-body font-normal text-davysGray text-base text-left">
-          2. Ao clicar no botão "Jogar Quiz" (no menu superior), ou na opção "Quiz Personalizado" (na início da página inicial),
+          2. Ao clicar no botão "Criar Quiz" (no menu superior), ou na opção "Quiz Personalizado" (na início da página inicial),
           você será redirecionado para a página de criação de quiz. Basta informar o nome do livro, o nome do autor e a quantidade de perguntas
           para criarmos um quiz personalizado para você.
         </p>
