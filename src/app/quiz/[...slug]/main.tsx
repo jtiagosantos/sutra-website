@@ -83,6 +83,14 @@ export const Main: FC<MainProps> = ({ quizId }) => {
     setRelatedQuizzes(quizzesData?.quizzes?.filter((quiz) => quiz.id !== quizId) ?? []);
   }
 
+  const handleShareQuiz = () => {
+    navigator.share({
+      title: 'Book Quiz',
+      text: 'Junte-se a mim e descubra o quanto você conhece sobre seus livros favoritos!',
+      url: window.location.href,
+    });
+  }
+
   useEffect(() => {
     handleLoadQuiz().then(() => setIsLoadingQuiz(false));
   }, []);
@@ -123,7 +131,10 @@ export const Main: FC<MainProps> = ({ quizId }) => {
                     <Ellipsis size={24} className="text-dimGray" />
                   </MenubarTrigger>
                   <MenubarContent>
-                    <MenubarItem className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300">
+                    <MenubarItem
+                      onClick={handleShareQuiz}
+                      className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300"
+                    >
                       <Share2 size={18} />
                       Compartilhar quiz
                     </MenubarItem>
