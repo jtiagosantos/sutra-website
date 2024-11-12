@@ -204,7 +204,7 @@ export const Main = () => {
                 <option className="font-body font-normal text-sm text-gray-500" value="none" disabled>
                   Selecione uma categoria
                 </option>
-                {quizCategoriesResult.data?.categories?.map((category) => (
+                {quizCategoriesResult.data?.categories?.sort((a, b) => a.name.localeCompare(b.name))?.map((category) => (
                   <option
                     key={category.id}
                     className="font-body font-normal text-sm text-gray-500"
@@ -230,11 +230,11 @@ export const Main = () => {
                 <option className="font-body font-normal text-sm text-gray-500" value="none" disabled>
                   Selecione uma ordenação
                 </option>
-                <option className="font-body font-normal text-sm text-gray-500" value="desc--Mais Recentes">
-                  Mais Recentes
-                </option>
                 <option className="font-body font-normal text-sm text-gray-500" value="asc--Mais Antigos">
                   Mais Antigos
+                </option>
+                <option className="font-body font-normal text-sm text-gray-500" value="desc--Mais Recentes">
+                  Mais Recentes
                 </option>
               </select>
             </div>
