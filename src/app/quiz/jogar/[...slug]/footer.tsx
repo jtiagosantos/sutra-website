@@ -10,10 +10,17 @@ type FooterProps = {
 }
 
 export const Footer: FC<FooterProps> = ({ footerRef }) => {
+  const { currentQuizGame } = useQuizEngine();
   const pathname = usePathname();
   const router = useRouter();
 
   const handleLeaveQuiz = () => {
+    if (currentQuizGame?.isNewQuiz) {
+      resetEngine();
+      router.push('/');
+      return;
+    }
+
     const [bookName, quizId] = pathname.replace('/quiz/jogar/', '').split('--');
 
     router.push(`/quiz/${bookName}--${quizId}`);

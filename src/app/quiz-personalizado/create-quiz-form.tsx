@@ -8,37 +8,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { Question, Quiz } from '@/types/quiz';
+import { Question } from '@/types/quiz';
 import { Crown } from 'lucide-react';
 import { FC, useEffect, useRef, useState } from 'react';
 import { CreateQuizError } from './create-quiz-error';
 import { CreateQuizSuccess } from './create-quiz-success';
-import { Book } from '@/types/book';
 import { BackButton } from '@/components/back-button';
+import { saveQuizAction } from '@/actions/save-quiz-action';
+import { useUser } from '@/hooks/use-user';
+import { useQuizEngine } from '@/hooks/use-quiz-engine';
+import { CreateQuizStatus } from './page';
 
 type CreateQuizFormProps = {
-  subscriptionStatus: 'ACTIVE' | 'INACTIVE' | 'CANCELED';
   onSubmit: () => void;
   onCreateQuiz: () => void;
-  createQuizStatus: 'SUCCESS' | 'ERROR' | 'CAN_PLAY';
-  setCreateQuizStatus: (status: 'SUCCESS' | 'ERROR' | 'CAN_PLAY' | null) => void;
-  setQuiz: (quiz: Quiz) => void;
-  setBook: (book: Book) => void;
+  createQuizStatus: CreateQuizStatus;
+  setCreateQuizStatus: (status: CreateQuizStatus) => void;
 };
 
 export const CreateQuizForm: FC<CreateQuizFormProps> = ({
-  subscriptionStatus,
   onSubmit,
   onCreateQuiz,
   createQuizStatus,
   setCreateQuizStatus,
-  setQuiz,
-  setBook,
 }) => {
+  const { user } = useUser();
+  const { setCurrentQuizGame } = useQuizEngine();
   const [bookName, setBookName] = useState('');
   const [authorName, setAuthorName] = useState('');
   const [quantityOfQuestions, setQuantityOfQuestions] = useState('');
   const [isOpenSelect, setIsOpenSelect] = useState(false);
+
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const isFilledForm = !!bookName && !!authorName && !!quantityOfQuestions;
@@ -49,7 +49,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
       return;
     }
 
-    if (subscriptionStatus !== 'ACTIVE' && Number(quantityOfQuestions) > 5) {
+    if (user!.subscription.status !== 'ACTIVE' && Number(quantityOfQuestions) > 5) {
       alert(
         'Você precisa ser usuário premium para criar quizzes com mais de 5 perguntas',
       );
@@ -146,8 +146,6 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
         return;
       }
 
-      setCreateQuizStatus('SUCCESS');
-
       const result: Question[] = [
         ...batch1?.data?.questions,
         ...(batch2?.data?.questions ?? []),
@@ -165,13 +163,41 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
           })),
       }));
 
-      setQuiz({ questions });
-      setBook({ title: bookName, author: authorName });
+      const saveQuizResult = await saveQuizAction({
+        book: {
+          title: bookName,
+          author: authorName,
+        },
+        questions,
+        id: user!.id,
+      });
+
+      setCurrentQuizGame({
+        id: saveQuizResult?.data?.registeredQuiz?.id!,
+        book: {
+          title: saveQuizResult?.data?.registeredQuiz?.book.title!,
+          author: saveQuizResult?.data?.registeredQuiz?.book.author!,
+          cover: saveQuizResult?.data?.registeredQuiz?.book.cover!,
+        },
+        questions: saveQuizResult?.data?.registeredQuiz?.questions!,
+        timesPlayed: saveQuizResult?.data?.registeredQuiz?.timesPlayed!,
+        isNewQuiz: true,
+      });
+
+      setCreateQuizStatus('SUCCESS');
       onCreateQuiz();
-    } catch {
+    } catch (error) {
       setCreateQuizStatus('ERROR');
     }
   };
+
+  if (createQuizStatus === 'SUCCESS') {
+    return <CreateQuizSuccess />;
+  }
+
+  if (createQuizStatus === 'ERROR') {
+    return <CreateQuizError tryAgain={handleCreateQuiz} />;
+  }
 
   useEffect(() => {
     return () => {
@@ -181,19 +207,8 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     };
   }, []);
 
-  if (createQuizStatus === 'SUCCESS') {
-    return <CreateQuizSuccess onPlay={() => setCreateQuizStatus('CAN_PLAY')} />;
-  }
-
-  if (createQuizStatus === 'ERROR') {
-    return <CreateQuizError tryAgain={handleCreateQuiz} />;
-  }
-
   return (
     <>
-      <h1 className="font-heading text-3xl text-center mt-8 text-[#8381D9] font-semibold">
-        Vamos Jogar?
-      </h1>
       <p className="font-body text-base text-gray-500 mt-4 text-center">
         Forneça as informações abaixo para criarmos o seu quiz
       </p>
@@ -247,7 +262,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="5">5 perguntas</SelectItem>
-                <SelectItem value="10" disabled={subscriptionStatus !== 'ACTIVE'}>
+                <SelectItem value="10" disabled={user!.subscription.status !== 'ACTIVE'}>
                   <span>10 perguntas </span>
                   <span className="inline-flex items-center text-yellow-500">
                     (
@@ -255,7 +270,7 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
                     Premium )
                   </span>
                 </SelectItem>
-                <SelectItem value="15" disabled={subscriptionStatus !== 'ACTIVE'}>
+                <SelectItem value="15" disabled={user!.subscription.status !== 'ACTIVE'}>
                   <span>15 perguntas </span>
                   <span className="inline-flex items-center text-yellow-500">
                     (

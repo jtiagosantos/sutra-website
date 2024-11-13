@@ -9,7 +9,7 @@ type CreateQuizErrorProps = {
 export const CreateQuizError: FC<CreateQuizErrorProps> = ({ tryAgain }) => {
   return (
     <>
-      <h1 className="font-heading text-3xl text-center mt-8 text-[#8381D9] font-semibold">
+      <h1 className="font-heading text-2xl text-center mt-8 text-[#8381D9] font-semibold">
         Ops! Algo deu errado
       </h1>
       <p className="font-body text-base text-gray-500 mt-4">
@@ -20,7 +20,7 @@ export const CreateQuizError: FC<CreateQuizErrorProps> = ({ tryAgain }) => {
 
       <Button
         onClick={tryAgain}
-        className="text-white max-w-[300px] w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-[#50B2C0] hover:scale-110 transition-all duration-300">
+        className="text-white max-w-[300px] w-full py-3 rounded-xl flex items-center justify-center gap-2 font-body text-[18px] bg-tropicalIndigo">
         <RotateCw size={24} />
         Tentar novamente
       </Button>

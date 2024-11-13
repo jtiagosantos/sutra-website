@@ -1,6 +1,7 @@
 import { createContext, FC, PropsWithChildren, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { getUserAction } from "@/actions/get-user-action";
+import { SubscriptionStatus } from "@prisma/client";
 
 type User = {
   id: string;
@@ -11,6 +12,9 @@ type User = {
   score: number;
   level: number;
   activeDailyRemainder: boolean;
+  subscription: {
+    status: SubscriptionStatus;
+  }
 }
 
 type UserContextProps = {
@@ -44,6 +48,9 @@ export const UserProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         score: response.data.user.score,
         level: response.data.user.level,
         activeDailyRemainder: response.data.user.preferences.active_daily_reminder,
+        subscription: {
+          status: response.data.user.subscription.status,
+        },
       });
     }
   }

@@ -16,6 +16,7 @@ export const findQuizzesAction = actionClient
   .action(async ({ parsedInput: { categories, page, take, createdAt } }) => {
     let where = {
       deletedAt: null,
+      status: 'DONE',
     } as Record<string, unknown>;
 
     if (categories) {
@@ -24,8 +25,6 @@ export const findQuizzesAction = actionClient
         categories: {
           hasSome: [...categories],
         },
-        deletedAt: null,
-        status: 'DONE',
       };
     }
 

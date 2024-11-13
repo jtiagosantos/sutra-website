@@ -5,7 +5,7 @@ import { Hourglass } from 'react-loader-spinner';
 export const CreateQuizLoading = () => {
   return (
     <>
-      <h1 className="font-heading text-3xl text-center mt-8 text-[#8381D9] font-semibold">
+      <h1 className="font-heading text-2xl text-center mt-8 text-[#8381D9] font-semibold">
         Estamos criando o seu quiz
       </h1>
       <p className="font-body text-base text-gray-500 mt-4 text-center">
@@ -21,7 +21,7 @@ export const CreateQuizLoading = () => {
         width="80"
         ariaLabel="hourglass-loading"
         wrapperClass="mt-[100px]"
-        colors={['#8381D9', '#2A2879']}
+        colors={['#7ac1cc', '#50B2C0']}
       />
     </>
   );
