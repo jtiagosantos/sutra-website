@@ -1,4 +1,4 @@
-import { createContext, FC, PropsWithChildren, useEffect, useState } from "react";
+import { createContext, FC, PropsWithChildren, useCallback, useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
 import { getUserAction } from "@/actions/get-user-action";
 import { SubscriptionStatus } from "@prisma/client";
@@ -19,10 +19,13 @@ type User = {
 
 type UserContextProps = {
   user: User | null;
-  setUser: (user: User | null) => void;
   progress?: number;
-  setProgress: (progress: number) => void;
   loading: boolean;
+  forceRefetchProgress: boolean;
+  setUser: (user: User | null) => void;
+  setProgress: (progress: number) => void;
+  refetchUser: () => void;
+  setForceRefetchProgress: (forceRefetchProgress: boolean) => void;
 };
 
 export const UserContext = createContext<UserContextProps | null>(null);
@@ -32,8 +35,9 @@ export const UserProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [progress, setProgress] = useState<number | undefined>(undefined);
   const [loading, setLoading] = useState(true);
+  const [forceRefetchProgress, setForceRefetchProgress] = useState(false);
 
-  const fetchUser = async () => {
+  const fetchUser = useCallback(async () => {
     const response = await getUserAction({
       email: session!.user!.email!,
     });
@@ -53,7 +57,14 @@ export const UserProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         },
       });
     }
-  }
+  }, [session]);
+
+  const refetchUser = useCallback(async () => {
+    setLoading(true);
+    await fetchUser();
+    setForceRefetchProgress(true);
+    setLoading(false);
+  }, [session]);
 
   useEffect(() => {
     if (status === 'authenticated') {
@@ -69,10 +80,13 @@ export const UserProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   return (
     <UserContext.Provider value={{
       user,
-      setUser,
       progress,
-      setProgress,
       loading: loading,
+      forceRefetchProgress,
+      setUser,
+      setProgress,
+      refetchUser,
+      setForceRefetchProgress,
     }}>
       {children}
     </UserContext.Provider>

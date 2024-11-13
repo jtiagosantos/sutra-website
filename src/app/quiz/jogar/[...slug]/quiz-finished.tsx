@@ -1,17 +1,20 @@
 import { BackButton } from "@/components/back-button";
 import { Button } from "@/components/ui/button";
 import { useQuizEngine } from "@/hooks/use-quiz-engine";
-import { Gamepad2, Share2 } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { FC } from "react";
+import { useUser } from "@/hooks/use-user";
+import { Gamepad2, MoveLeft, Share2 } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { FC, useEffect, useRef } from "react";
 
 type QuizFinishedProps = {
   executeOnMount: () => void;
 }
 
 export const QuizFinished: FC<QuizFinishedProps> = ({ executeOnMount }) => {
+  const { refetchUser } = useUser();
   const { numberOfQuestions, numberOfCorrectAnswers, resetEngine } = useQuizEngine();
   const pathname = usePathname();
+  const router = useRouter();
 
   const handlePlayAgain = () => {
     executeOnMount();
@@ -27,6 +30,17 @@ export const QuizFinished: FC<QuizFinishedProps> = ({ executeOnMount }) => {
       url: `${window.location.origin}/quiz/${bookName}--${quizId}`,
     });
   };
+
+  const handleBackToHome = () => {
+    router.push('/');
+    setTimeout(() => {
+      resetEngine();
+    }, 1000);
+  }
+
+  useEffect(() => {
+    refetchUser();
+  }, []);
 
   return (
     <>
@@ -65,9 +79,13 @@ export const QuizFinished: FC<QuizFinishedProps> = ({ executeOnMount }) => {
         </Button>
       </div>
 
-      <BackButton
-        title="voltar para o início"
-      />
+      <button
+        onClick={handleBackToHome}
+        className="w-fit mx-auto mt-10 text-[#8381D9] flex items-center justify-center gap-[6px] font-heading font-medium text-[18px] hover:underline underline-offset-4"
+      >
+        <MoveLeft className="w-5 h-5 pt-[3px]" />
+        voltar para o início
+      </button>
     </>
   );
 }

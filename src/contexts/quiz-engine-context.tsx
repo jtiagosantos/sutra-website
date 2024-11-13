@@ -76,7 +76,7 @@ export const QuizEngineContext = createContext<QuizEngineContextProps>({
 });
 
 export const QuizEngineProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
-  const { user } = useUser();
+  const { user, refetchUser } = useUser();
 
   const [currentQuizGame, setCurrentQuizGame] = useState<CurrentQuizGame | null>(null);
   const [questionIndex, setQuestionIndex] = useState(1);
@@ -145,6 +145,8 @@ export const QuizEngineProvider: FC<PropsWithChildren<unknown>> = ({ children })
       });
 
       setQuizStatus('FINISHED');
+
+      refetchUser();
     } finally {
       setIsCalculatingAnswers(false);
     }

@@ -25,7 +25,7 @@ import { useUser } from '@/hooks/use-user';
 const FULL_PROGRESS_BAR = 10;
 
 export const User = () => {
-  const { user, setUser, loading, progress, setProgress } = useUser();
+  const { user, setUser, loading, progress, setProgress, forceRefetchProgress, setForceRefetchProgress } = useUser();
 
   const calculateProgress = () => {
     const { score, level } = user!;
@@ -57,6 +57,13 @@ export const User = () => {
       clearTimeout(timeoutId);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (forceRefetchProgress) {
+      calculateProgress();
+      setForceRefetchProgress(false);
+    }
+  }, [forceRefetchProgress])
 
   if (loading || !user) {
     return (

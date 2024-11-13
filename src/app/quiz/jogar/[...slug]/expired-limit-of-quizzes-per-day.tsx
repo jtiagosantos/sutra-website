@@ -17,7 +17,7 @@ export const ExpiredLimitOfQuizzesPerDay: FC<ExpiredLimitOfQuizzesPerDayProps> =
 
       {subscriptionStatus === 'ACTIVE' && (
         <h2 className="font-heading text-xl text-center mt-8 text-[#50B2C0] font-medium">
-          Você atingiu o limite de 10 quizzes por dia.
+          Você atingiu o limite de 15 quizzes por dia.
           <span className="block text-[#8381D9]">Volte amanhã para mais diversão :)</span>
         </h2>
       )}
