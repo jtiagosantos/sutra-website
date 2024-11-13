@@ -51,10 +51,10 @@ export const POST = async (request: NextRequest) => {
         - A lista de perguntas deve ter exatamente a quantidade de perguntas fornecida como input
         - Cada pergunta deve ser bem formulada e fiél ao conteúdo do livro
         - Cada pergunta deve fazer sentido com o livro
-        - Cada pergunta deve ser bem detalhada e profunda
-        - Cada resposta deve ser bem detalhada, bem escrita, bem formulada, bem estruturada e com texto de tamanho médio/grande
+        - Cada pergunta deve ser bem detalhada, bem escrita, bem formulada, bem estruturada
         - Cada resposta deve ser fiél ao conteúdo do livro
         - Cada resposta deve fazer sentido com o livro
+        - Cada resposta deve ser bem detalhada, bem escrita, bem formulada, bem estruturada e com texto de tamanho médio/grande
 
       ## Output
         - Retornar conjunto de perguntas formatado no schema do zod:
