@@ -20,7 +20,7 @@ type HeaderContentProps = {
 }
 
 export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
-  const [open, setOpen] = useState(false);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -91,20 +91,24 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
         {!session && (
           <>
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenAuthModal(true)}
               variant="outline"
               className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300 max-[600px]:text-sm">
               <Bot size={24} className="max-[600px]:hidden" />
               Criar Quiz
             </Button>
             <Button
-              onClick={() => setOpen(true)}
+              onClick={() => setOpenAuthModal(true)}
               variant="outline"
               className="text-tropicalIndigo text-base px-4 py-[9px] font-body bg-transparent border-[2px] border-tropicalIndigo tracking-wider hover:border-white hover:bg-tropicalIndigo hover:text-white flex flex-row items-center gap-2 rounded-xl transition-all duration-300 max-[600px]:text-sm">
               <CircleUserRound size={24} className="max-[600px]:hidden" />
               Entrar
             </Button>
-            <AuthModal open={open} onOpenChange={setOpen} />
+            <AuthModal
+              open={openAuthModal}
+              onOpenChange={setOpenAuthModal}
+              redirectTo={window.location.href}
+            />
           </>
         )}
         {!!session && (

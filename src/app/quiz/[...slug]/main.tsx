@@ -201,7 +201,11 @@ export const Main: FC<MainProps> = ({ quizId }) => {
                   <Gamepad2 size={24} className="max-[600px]:hidden" />
                   Jogar Quiz
                 </Button>
-                <AuthModal open={openAuthModal} onOpenChange={setOpenAuthModal} />
+                <AuthModal
+                  redirectTo={`/quiz/${createSlug(quiz!.book.title!)}--${quiz!.id}`}
+                  open={openAuthModal}
+                  onOpenChange={setOpenAuthModal}
+                />
               </>
             ) : (
               <Link
