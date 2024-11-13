@@ -41,12 +41,12 @@ type QuizEngineContextProps = {
   isOpenLevelUpModal: boolean;
   numberOfCorrectAnswers: number;
   isCalculatingAnswers: boolean;
-  setSelectedAnswerId: (answerId: string | null) => void;
   setCurrentQuizGame: (quiz: CurrentQuizGame) => void;
   checkAnswer: (answerId: string) => void;
   goToNextQuestion: () => void;
   finishQuiz: () => Promise<void>;
   closeLevelUpModal: () => void;
+  selectAnswerId: (answerId: string | null) => void;
   resetEngine: () => void;
 }
 
@@ -67,11 +67,11 @@ export const QuizEngineContext = createContext<QuizEngineContextProps>({
   numberOfCorrectAnswers: 0,
   isCalculatingAnswers: false,
   setCurrentQuizGame: () => null,
-  setSelectedAnswerId: () => null,
   checkAnswer: () => null,
   goToNextQuestion: () => null,
   finishQuiz: () => Promise.resolve(),
   closeLevelUpModal: () => null,
+  selectAnswerId: () => null,
   resetEngine: () => null,
 });
 
@@ -154,6 +154,10 @@ export const QuizEngineProvider: FC<PropsWithChildren<unknown>> = ({ children })
     setIsOpenLevelUpModal(false);
   }, []);
 
+  const selectAnswerId = useCallback((answerId: string | null) => {
+    setSelectedAnswerId(answerId);
+  }, []);
+
   const resetEngine = useCallback(() => {
     setQuestionIndex(1);
     setQuizStatus('RUNNING');
@@ -183,11 +187,11 @@ export const QuizEngineProvider: FC<PropsWithChildren<unknown>> = ({ children })
       numberOfCorrectAnswers: numberOfCorrectAnswers.current,
       isCalculatingAnswers,
       setCurrentQuizGame,
-      setSelectedAnswerId,
       checkAnswer,
       goToNextQuestion,
       finishQuiz,
       closeLevelUpModal,
+      selectAnswerId,
       resetEngine,
     }}>
       {children}
