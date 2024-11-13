@@ -18,6 +18,7 @@ import { saveQuizAction } from '@/actions/save-quiz-action';
 import { useUser } from '@/hooks/use-user';
 import { useQuizEngine } from '@/hooks/use-quiz-engine';
 import { CreateQuizStatus } from './page';
+import { createQuiz } from '@/helpers/create-quiz';
 
 type CreateQuizFormProps = {
   onSubmit: () => void;
@@ -63,65 +64,41 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
     try {
       if (quantityOfQuestions === '5') {
         promises.push(
-          fetch(`${window.location.origin}/api/ai/create-quiz`, {
-            method: 'POST',
-            body: JSON.stringify({
-              bookName,
-              authorName,
-              quantityOfQuestions: 5,
-            }),
+          createQuiz({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
           }),
         );
       } else if (quantityOfQuestions === '10') {
         promises.push(
-          fetch(`${window.location.origin}/api/ai/create-quiz`, {
-            method: 'POST',
-            body: JSON.stringify({
-              bookName,
-              authorName,
-              quantityOfQuestions: 5,
-            }),
+          createQuiz({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
           }),
-        );
-        promises.push(
-          fetch(`${window.location.origin}/api/ai/create-quiz`, {
-            method: 'POST',
-            body: JSON.stringify({
-              bookName,
-              authorName,
-              quantityOfQuestions: 5,
-            }),
+          createQuiz({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
           }),
         );
       } else if (quantityOfQuestions === '15') {
         promises.push(
-          fetch(`${window.location.origin}/api/ai/create-quiz`, {
-            method: 'POST',
-            body: JSON.stringify({
-              bookName,
-              authorName,
-              quantityOfQuestions: 5,
-            }),
+          createQuiz({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
           }),
-        );
-        promises.push(
-          fetch(`${window.location.origin}/api/ai/create-quiz`, {
-            method: 'POST',
-            body: JSON.stringify({
-              bookName,
-              authorName,
-              quantityOfQuestions: 5,
-            }),
+          createQuiz({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
           }),
-        );
-        promises.push(
-          fetch(`${window.location.origin}/api/ai/create-quiz`, {
-            method: 'POST',
-            body: JSON.stringify({
-              bookName,
-              authorName,
-              quantityOfQuestions: 5,
-            }),
+          createQuiz({
+            bookName,
+            authorName,
+            quantityOfQuestions: 5,
           }),
         );
       }
