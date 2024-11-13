@@ -94,8 +94,8 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
               onClick={() => setOpen(true)}
               variant="outline"
               className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300 max-[600px]:text-sm">
-              <Gamepad2 size={24} className="max-[600px]:hidden" />
-              Jogar Quiz
+              <Bot size={24} className="max-[600px]:hidden" />
+              Criar Quiz
             </Button>
             <Button
               onClick={() => setOpen(true)}

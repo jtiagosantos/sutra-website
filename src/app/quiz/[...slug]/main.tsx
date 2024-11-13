@@ -20,6 +20,8 @@ import { createSlug } from "@/helpers/create-slug";
 import { QuizCard } from "@/components/quiz-card";
 import Link from "next/link";
 import { useQuizEngine } from "@/hooks/use-quiz-engine";
+import { useUser } from "@/hooks/use-user";
+import { AuthModal } from "@/components/auth-modal";
 
 type RelatedQuiz = {
   id: string;
@@ -46,6 +48,7 @@ type MainProps = {
 }
 
 export const Main: FC<MainProps> = ({ quizId }) => {
+  const { user, loading: isLoadingUser } = useUser();
   const { setCurrentQuizGame } = useQuizEngine();
   const [isLoadingQuiz, setIsLoadingQuiz] = useState(true);
   const [isLoadingRelatedQuizzes, setIsLoadingRelatedQuizzes] = useState(true);
@@ -53,6 +56,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
   const [relatedQuizzes, setRelatedQuizzes] = useState<RelatedQuiz[]>([]);
   const [categories, setCategories] = useState<string[]>([]);
   const [openSummary, setOpenSummary] = useState(false);
+  const [openAuthModal, setOpenAuthModal] = useState(false);
 
   const handleLoadQuiz = async () => {
     const { data: quizData } = (await getQuizAction({ id: quizId }))!;
@@ -117,7 +121,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
 
   return (
     <main className="max-w-[1140px] w-full mx-auto mt-6 mb-10 px-3">
-      {isLoadingQuiz ? (
+      {(isLoadingQuiz || isLoadingUser) ? (
         <div className="mx-auto w-fit my-[30px]">
           <BubbleAnimation />
         </div>
@@ -188,17 +192,30 @@ export const Main: FC<MainProps> = ({ quizId }) => {
               />
             </button>
 
-            <Link
-              href={`/quiz/jogar/${createSlug(quiz!.book.title!)}--${quiz!.id}`}
-              className="block w-fit"
-            >
-              <Button
-                variant="outline"
-                className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300">
-                <Gamepad2 size={24} className="max-[600px]:hidden" />
-                Jogar Quiz
-              </Button>
-            </Link>
+            {!user ? (
+              <>
+                <Button
+                  onClick={() => setOpenAuthModal(true)}
+                  variant="outline"
+                  className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300">
+                  <Gamepad2 size={24} className="max-[600px]:hidden" />
+                  Jogar Quiz
+                </Button>
+                <AuthModal open={openAuthModal} onOpenChange={setOpenAuthModal} />
+              </>
+            ) : (
+              <Link
+                href={`/quiz/jogar/${createSlug(quiz!.book.title!)}--${quiz!.id}`}
+                className="block w-fit"
+              >
+                <Button
+                  variant="outline"
+                  className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300">
+                  <Gamepad2 size={24} className="max-[600px]:hidden" />
+                  Jogar Quiz
+                </Button>
+              </Link>
+            )}
           </div>
         </section>
       )}
