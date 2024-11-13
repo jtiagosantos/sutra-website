@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { userCanPlayQuizAction } from '@/actions/user-can-play-quiz-action';
 import { useUser } from '@/hooks/use-user';
 import LogoImage from '@/assets/logo.svg';
+import { ExpiredLimitOfQuizzesPerDay } from '@/components/expired-limit-of-quizzes-per-day';
 
 export type CreateQuizStatus = 'SUCCESS' | 'ERROR' | 'CAN_PLAY' | null;
 
@@ -42,6 +43,13 @@ export default function Page() {
           onCreateQuiz={() => setIsCreatingQuiz(false)}
           createQuizStatus={createQuizStatus!}
           setCreateQuizStatus={setCreateQuizStatus}
+        />
+      )}
+
+      {result.data?.canPlay === false && !isCreatingQuiz && (
+        <ExpiredLimitOfQuizzesPerDay
+          subscriptionStatus={result.data?.subscriptionStatus!}
+          showLogoImage={false}
         />
       )}
 

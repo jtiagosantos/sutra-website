@@ -1,21 +1,15 @@
 'use client';
 
-import { Progress } from "@/components/ui/progress";
-import clsx from "clsx";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { FC, useEffect, useRef, useState } from "react";
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
-import { Button } from "@/components/ui/button";
-import { CircleCheck, CircleX, Gamepad2, MoveLeft, Share2 } from "lucide-react";
-import Link from "next/link";
 import { CalculationAnswersLoading } from "./calculation-answers-loading";
 import { LevelUpModal } from "@/components/level-up-modal";
 import { useAction } from "next-safe-action/hooks";
 import { useUser } from "@/hooks/use-user";
 import { userCanPlayQuizAction } from "@/actions/user-can-play-quiz-action";
-import { ExpiredLimitOfQuizzesPerDay } from "./expired-limit-of-quizzes-per-day";
+import { ExpiredLimitOfQuizzesPerDay } from "../../../../components/expired-limit-of-quizzes-per-day";
 import { useQuizEngine } from "@/hooks/use-quiz-engine";
-import { BackButton } from "@/components/back-button";
 import { CurrentQuestion } from "./current-question";
 import { QuizFinished } from "./quiz-finished";
 import { Footer } from "./footer";

@@ -142,8 +142,8 @@ export const CreateQuizForm: FC<CreateQuizFormProps> = ({
 
       const saveQuizResult = await saveQuizAction({
         book: {
-          title: bookName,
-          author: authorName,
+          title: bookName.trim(),
+          author: authorName.trim(),
         },
         questions,
         id: user!.id,

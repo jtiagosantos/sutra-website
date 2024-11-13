@@ -6,14 +6,16 @@ import { FC } from 'react';
 
 type ExpiredLimitOfQuizzesPerDayProps = {
   subscriptionStatus: 'ACTIVE' | 'INACTIVE' | 'CANCELED';
+  showLogoImage?: boolean;
 };
 
 export const ExpiredLimitOfQuizzesPerDay: FC<ExpiredLimitOfQuizzesPerDayProps> = ({
   subscriptionStatus,
+  showLogoImage = true,
 }) => {
   return (
     <>
-      <LogoImage />
+      {showLogoImage && <LogoImage />}
 
       {subscriptionStatus === 'ACTIVE' && (
         <h2 className="font-heading text-xl text-center mt-8 text-[#50B2C0] font-medium">
