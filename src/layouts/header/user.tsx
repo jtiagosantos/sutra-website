@@ -120,10 +120,7 @@ export const User = () => {
               Minhas medalhas
             </MenubarItem>
           </Link>
-          <ToggleDailyRemainder
-            email={user!.email}
-            activeDailyRemainder={user!.activeDailyRemainder}
-          />
+          <ToggleDailyRemainder />
           <MenubarItem
             className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300"
             onClick={handleSignOut}
