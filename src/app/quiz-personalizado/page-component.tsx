@@ -3,11 +3,9 @@
 import { CreateQuizLoading } from './creating-quiz-loading';
 import { CreateQuizForm } from './create-quiz-form';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
-import { Quiz } from './quiz';
 import { useAction } from 'next-safe-action/hooks';
 import { FC, useState } from 'react';
 import { userCanPlayQuizAction } from '@/actions/user-can-play-quiz-action';
-import { ExpiredLimitOfQuizzesPerDay } from './expired-limit-of-quizzes-per-day';
 import { Quiz as Quiztype } from '@/types/quiz';
 import { Book } from '@/types/book';
 
@@ -43,12 +41,6 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
 
   return (
     <main className="w-full flex flex-col items-center mt-10 mb-5 px-4">
-      {result.data?.canPlay === false && (
-        <ExpiredLimitOfQuizzesPerDay
-          subscriptionStatus={result.data?.subscriptionStatus!}
-        />
-      )}
-
       {result.data?.canPlay && !isCreatingQuiz && createQuizStatus !== 'CAN_PLAY' && (
         <CreateQuizForm
           subscriptionStatus={result.data?.subscriptionStatus!}
@@ -62,10 +54,6 @@ export const PageComponent: FC<PageComponentProps> = ({ user }) => {
       )}
 
       {isCreatingQuiz && <CreateQuizLoading />}
-
-      {!isCreatingQuiz && createQuizStatus === 'CAN_PLAY' && !!quiz && (
-        <Quiz quiz={quiz} book={book!} user={user} />
-      )}
     </main>
   );
 };

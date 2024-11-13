@@ -5,32 +5,20 @@ import { actionClient } from '@/lib/safe-action';
 import { prisma } from '@/lib/prisma';
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
   numberOfCorrect: z.number(),
   numberOfIncorrect: z.number(),
 });
 
 export const saveQuizInHistoryAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email, numberOfCorrect, numberOfIncorrect } }) => {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    if (!user) {
-      return {
-        code: 404,
-      };
-    }
-
+  .action(async ({ parsedInput: { id, numberOfCorrect, numberOfIncorrect } }) => {
     await prisma.quizHistory.create({
       data: {
         numberOfCorrect,
         numberOfIncorrect,
         numberOfQuestions: numberOfCorrect + numberOfIncorrect,
-        userId: user.id,
+        userId: id,
       }
     });
 

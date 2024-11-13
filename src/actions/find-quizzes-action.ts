@@ -24,6 +24,8 @@ export const findQuizzesAction = actionClient
         categories: {
           hasSome: [...categories],
         },
+        deletedAt: null,
+        status: 'DONE',
       };
     }
 

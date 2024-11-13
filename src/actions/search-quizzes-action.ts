@@ -23,6 +23,8 @@ export const searchQuizzesAction = actionClient
         tags: {
           hasEvery: [...tags],
         },
+        deletedAt: null,
+        status: 'DONE',
       };
     }
 

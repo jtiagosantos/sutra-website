@@ -8,16 +8,16 @@ import dayjs from 'dayjs';
 const SCORES_TO_INCREMENT_LEVEL = 20;
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
   score: z.number(),
 });
 
 export const quizDoneAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email, score } }) => {
+  .action(async ({ parsedInput: { id, score } }) => {
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        id,
       },
     });
 
@@ -37,7 +37,7 @@ export const quizDoneAction = actionClient
 
     await prisma.user.update({
       where: {
-        email,
+        email: user.email,
       },
       data: {
         score: {

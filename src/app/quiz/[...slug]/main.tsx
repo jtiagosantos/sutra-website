@@ -18,6 +18,8 @@ import { findQuizCategoriesAction } from "@/actions/find-quiz-categories-action"
 import { findQuizzesAction } from "@/actions/find-quizzes-action";
 import { createSlug } from "@/helpers/create-slug";
 import { QuizCard } from "@/components/quiz-card";
+import Link from "next/link";
+import { useQuizEngine } from "@/hooks/use-quiz-engine";
 
 type RelatedQuiz = {
   id: string;
@@ -44,6 +46,7 @@ type MainProps = {
 }
 
 export const Main: FC<MainProps> = ({ quizId }) => {
+  const { setCurrentQuizGame } = useQuizEngine();
   const [isLoadingQuiz, setIsLoadingQuiz] = useState(true);
   const [isLoadingRelatedQuizzes, setIsLoadingRelatedQuizzes] = useState(true);
   const [quiz, setQuiz] = useState<QuizProps | null>(null);
@@ -73,6 +76,17 @@ export const Main: FC<MainProps> = ({ quizId }) => {
       categories,
     });
     setCategories(quizData?.quiz?.categories!);
+    setCurrentQuizGame({
+      id: quizData?.quiz?.id!,
+      book: {
+        title: quizData?.quiz?.book.title!,
+        author: quizData?.quiz?.book.author!,
+        cover: quizData?.quiz?.book.cover!,
+      },
+      questions: quizData?.quiz?.questions!,
+      timesPlayed: quizData?.quiz?.timesPlayed!,
+      isNewQuiz: false,
+    });
   }
 
   const handleLoadRelatedQuizzes = async () => {
@@ -85,7 +99,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
 
   const handleShareQuiz = () => {
     navigator.share({
-      title: 'Book Quiz',
+      title: 'Sutra',
       text: 'Junte-se a mim e descubra o quanto você conhece sobre seus livros favoritos!',
       url: window.location.href,
     });
@@ -164,7 +178,7 @@ export const Main: FC<MainProps> = ({ quizId }) => {
 
             <button
               onClick={() => setOpenSummary(!openSummary)}
-              className="w-full flex items-center gap-1 text-tropicalIndigo font-body font-medium mt-2 mb-6"
+              className="w-fit flex items-center gap-1 text-tropicalIndigo font-body font-medium mt-2 mb-6"
             >
               Mostrar {openSummary ? 'menos' : 'mais'}
               <ChevronDown
@@ -174,12 +188,17 @@ export const Main: FC<MainProps> = ({ quizId }) => {
               />
             </button>
 
-            <Button
-              variant="outline"
-              className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300">
-              <Gamepad2 size={24} className="max-[600px]:hidden" />
-              Jogar Quiz
-            </Button>
+            <Link
+              href={`/quiz/jogar/${createSlug(quiz!.book.title!)}--${quiz!.id}`}
+              className="block w-fit"
+            >
+              <Button
+                variant="outline"
+                className="text-white text-base bg-tropicalIndigo px-4 py-[9px] font-body border-[2px] border-tropicalIndigo tracking-wider hover:border-tropicalIndigo hover:bg-white hover:text-tropicalIndigo flex flex-row items-center gap-2 rounded-xl transition-all duration-300">
+                <Gamepad2 size={24} className="max-[600px]:hidden" />
+                Jogar Quiz
+              </Button>
+            </Link>
           </div>
         </section>
       )}

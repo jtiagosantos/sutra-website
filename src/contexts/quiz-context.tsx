@@ -45,7 +45,7 @@ export const QuizProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
   const [isLoadingQuizzesByCategory, setIsLoadingQuizzesByCategory] = useState(true);
   const [recentQuizzes, setRecentQuizzes] = useState<Quiz[]>([]);
   const [hotQuizzes, setHotQuizzes] = useState<Quiz[]>([]);
-  const [quizzesByCategory, setQuizzesByCategory] = useState<QuizByCategory>({});
+  const [quizzesByCategory, setQuizzesByCategory] = useState<QuizByCategory>({})
 
   const handleLoadRecentQuizzes = useCallback(async () => {
     const response = await fetch(`${window.location.origin}/api/quiz/recent`);

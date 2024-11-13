@@ -1,5 +1,6 @@
 import LogoImage from '@/assets/logo.svg';
-import { Crown, MoveLeft } from 'lucide-react';
+import { BackButton } from '@/components/back-button';
+import { Crown } from 'lucide-react';
 import Link from 'next/link';
 import { FC } from 'react';
 
@@ -15,18 +16,18 @@ export const ExpiredLimitOfQuizzesPerDay: FC<ExpiredLimitOfQuizzesPerDayProps> =
       <LogoImage />
 
       {subscriptionStatus === 'ACTIVE' && (
-        <h2 className="font-heading text-2xl text-center mt-8 text-[#50B2C0] font-medium">
+        <h2 className="font-heading text-xl text-center mt-8 text-[#50B2C0] font-medium">
           Você atingiu o limite de 10 quizzes por dia.
           <span className="block text-[#8381D9]">Volte amanhã para mais diversão :)</span>
         </h2>
       )}
       {subscriptionStatus !== 'ACTIVE' && (
         <>
-          <h2 className="font-heading text-2xl text-center mt-8 text-[#50B2C0] font-medium">
-            Você atingiu o limite de 1 quiz por dia.
+          <h2 className="font-heading text-xl text-center mt-8 text-[#50B2C0] font-medium">
+            Você atingiu o limite de 3 quizzes por dia.
             <span className="block text-gray-500">
               Usuários premium podem
-              <span className="text-[#8381D9]"> jogar até 10 quizzes por dia :)</span>
+              <span className="text-[#8381D9]"> jogar até 15 quizzes por dia :)</span>
             </span>
           </h2>
           <Link
@@ -38,13 +39,7 @@ export const ExpiredLimitOfQuizzesPerDay: FC<ExpiredLimitOfQuizzesPerDayProps> =
         </>
       )}
 
-      <Link
-        href="/"
-        className="mt-10 text-[#8381D9] w-fit flex items-center gap-[6px] font-heading font-medium text-[18px] hover:underline hover:text-accent underline-offset-4"
-        prefetch={false}>
-        <MoveLeft className="w-5 h-5 pt-[3px]" />
-        voltar
-      </Link>
+      <BackButton />
     </>
   );
 };

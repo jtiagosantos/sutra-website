@@ -8,16 +8,16 @@ import Email from "@/email/medal-won"
 import dayjs from 'dayjs';
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
   level: z.number(),
 });
 
 export const assignMedalToUserAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email, level } }) => {
+  .action(async ({ parsedInput: { id, level } }) => {
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        id,
       },
     });
 
