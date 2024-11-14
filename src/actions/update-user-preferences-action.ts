@@ -8,6 +8,7 @@ const schema = z.object({
   id: z.string(),
   preferences: z.object({
     active_daily_reminder: z.boolean().optional(),
+    accept_terms_and_policy: z.boolean().optional(),
   }),
 });
 

@@ -12,6 +12,7 @@ type User = {
   score: number;
   level: number;
   activeDailyRemainder: boolean;
+  acceptTermsAndPolicy: boolean;
   subscription: {
     status: SubscriptionStatus;
   }
@@ -52,6 +53,7 @@ export const UserProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
         score: response.data.user.score,
         level: response.data.user.level,
         activeDailyRemainder: response.data.user.preferences.active_daily_reminder,
+        acceptTermsAndPolicy: response.data.user.preferences.accept_terms_and_policy,
         subscription: {
           status: response.data.user.subscription.status,
         },

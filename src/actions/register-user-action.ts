@@ -39,6 +39,7 @@ export const registerUserAction = actionClient
         },
         preferences: {
           active_daily_reminder: true,
+          accept_terms_and_policy: true,
         }
       },
     });

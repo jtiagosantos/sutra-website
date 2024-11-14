@@ -14,6 +14,7 @@ import { DrawerMenu } from './drawer-menu';
 import { Session } from 'next-auth';
 import { User } from './user';
 import { useRouter } from 'next/navigation';
+import { TermsAndPolicyModal } from '@/components/terms-and-policy-modal';
 
 type HeaderContentProps = {
   session: Session | null;
@@ -125,6 +126,8 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
           </>
         )}
       </div>
+
+      <TermsAndPolicyModal />
     </div>
   );
 };
