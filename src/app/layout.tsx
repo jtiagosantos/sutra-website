@@ -1,4 +1,6 @@
 import './globals.css';
+import 'react-notion-x/src/styles.css';
+
 import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
