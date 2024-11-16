@@ -109,14 +109,15 @@ export const Main = () => {
                   <PopoverTrigger>
                     <div key={medal.id} className="flex flex-col items-center">
                       <div className="relative">
-                        <div className="relative size-[100px] rounded-lg overflow-hidden shadow-md shadow-gray-500 grayscale">
+                        <div className="relative size-[120px] rounded-lg overflow-hidden shadow-md shadow-gray-500 grayscale">
                           <Image
                             src={medal.image}
                             alt={medal.name}
                             fill={true}
                             style={{ objectFit: 'cover' }}
                             className="rounded-lg"
-                            sizes='100px'
+                            sizes='120px'
+                            quality={100}
                           />
                         </div>
                         {medal.earnedAt && !medal.viewedAt && (
@@ -143,14 +144,15 @@ export const Main = () => {
             return (
               <div key={medal.id} className={`flex flex-col items-center ${!!medal.earnedAt && 'cursor-pointer'}`} onClick={() => setSelectedMedal(medal)}>
                 <div className="relative">
-                  <div className="relative size-[100px] rounded-lg overflow-hidden shadow-md shadow-gray-500">
+                  <div className="relative size-[120px] rounded-lg overflow-hidden shadow-md shadow-gray-500">
                     <Image
                       src={medal.image}
                       alt={medal.name}
                       fill={true}
                       style={{ objectFit: 'cover' }}
                       className="rounded-lg"
-                      sizes='100px'
+                      sizes='120px'
+                      quality={100}
                     />
                   </div>
                   {medal.earnedAt && !medal.viewedAt && (
