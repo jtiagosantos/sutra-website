@@ -7,6 +7,8 @@ import BubbleAnimation from '@/assets/bubble-spinner.svg';
 import { QuizCard } from '@/components/quiz-card';
 import { createSlug } from '@/helpers/create-slug';
 import { useQuiz } from '@/hooks/use-quiz';
+import { AuthModal } from '@/components/auth-modal';
+import { useState } from 'react';
 
 export const Main = () => {
   const { user, loading } = useUser();
@@ -18,6 +20,7 @@ export const Main = () => {
     hotQuizzes,
     quizzesByCategory,
   } = useQuiz();
+  const [openAuthModal, setOpenAuthModal] = useState(false);
 
   return (
     <main className="w-full mx-auto mt-6 mb-10">
@@ -36,10 +39,26 @@ export const Main = () => {
           </div>
 
           <div className="flex items-center gap-[10px] mt-5 max-w-[1464px] w-full mx-auto px-3 overflow-x-auto">
-            <Link href="/quiz-personalizado" className="mb-[10px] min-w-[183px] font-body text-tropicalIndigo font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-tropicalIndigo rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
-              <Bot size={22} />
-              Quiz Personalizado
-            </Link>
+            {!user ? (
+              <>
+                <button
+                  onClick={() => setOpenAuthModal(true)}
+                  className="mb-[10px] min-w-[183px] font-body text-tropicalIndigo font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-tropicalIndigo rounded-full px-3 py-[10px] shadow-md shadow-gray-300"
+                >
+                  <Bot size={22} />
+                  Quiz Personalizado
+                </button>
+                <AuthModal
+                  open={openAuthModal}
+                  onOpenChange={setOpenAuthModal}
+                />
+              </>
+            ) : (
+              <Link href="/quiz-personalizado" className="mb-[10px] min-w-[183px] font-body text-tropicalIndigo font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-tropicalIndigo rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
+                <Bot size={22} />
+                Quiz Personalizado
+              </Link>
+            )}
             <Link href="/classificacao" className="mb-[10px] font-body text-dimGray font-medium text-sm tracking-wide flex items-center gap-[6px] border-[2px] border-silver rounded-full px-3 py-[10px] shadow-md shadow-gray-300">
               <Trophy size={22} />
               Classificação
