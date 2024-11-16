@@ -11,9 +11,9 @@ export const POST = async () => {
     const users = await prisma.user.findMany({
       where: {
         preferences: {
-          equals: {
-            active_daily_reminder: true,
-          }
+          not: {
+            active_daily_remainder: false,
+          },
         }
       },
       select: {
