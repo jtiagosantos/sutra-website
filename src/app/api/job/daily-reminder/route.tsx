@@ -30,7 +30,7 @@ export const POST = async () => {
         subject,
         react: <Email
           userName={`${user.firstName} ${user.lastName}`}
-          quizLink="https://www.bookquiz.com.br/jogar"
+          quizLink="https://sutra.app.br/quiz-personalizado"
           firstText={firstText}
           secondText={secondText}
           thirdText={thirdText}

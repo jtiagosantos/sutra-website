@@ -39,7 +39,7 @@ export const MedalModal: FC<MedalModalProps> = ({ open, onClose, id, image, leve
             </div>
           )}
           {!isExecuting && (
-            <div className="w-full flex items-end justify-start gap-5">
+            <div className="w-full flex items-center justify-start gap-5">
               <div className="relative min-w-[150px] h-[150px] rounded-xl overflow-hidden shadow-lg shadow-gray-500">
                 <Image
                   src={image}

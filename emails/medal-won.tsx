@@ -54,7 +54,7 @@ export const Email = ({
       <Body style={main}>
         <Container style={container}>
           <Heading style={heading}>Parabéns, {userName}!</Heading>
-          <Text style={text}>Você acaba de ganhar uma nova medalha na Book Quiz 🎉</Text>
+          <Text style={text}>Você acaba de ganhar uma nova medalha na plataforma Sutra 🎉</Text>
 
           <Section style={medalSection}>
             <Img

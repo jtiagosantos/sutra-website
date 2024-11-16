@@ -23,7 +23,7 @@ export const Email = ({
   userName = 'John Doe',
   quizLink = 'https://exemplo.com/quiz',
   firstText = 'Que tal reservar um momento hoje para testar seu conhecimento sobre seus livros favoritos e se divertir? 🤩',
-  secondText = 'Lembre-se de acessar a Book Quiz e fazer seu quiz diário. Cada resposta certa te aproxima ainda mais do topo do ranking dos leitores mais afiados! 🚀',
+  secondText = 'Lembre-se de acessar a plataforma Sutra e fazer seu quiz diário. Cada resposta certa te aproxima ainda mais do topo do ranking dos leitores mais afiados! 🚀',
   thirdText = 'Acesse agora e veja como você se sai hoje!'
 }: EmailProps) => (
   <Html>
@@ -70,7 +70,7 @@ export const Email = ({
           </Section>
           <Text style={text}>
             Boa sorte e divirta-se,<br />
-            Equipe Book Quiz
+            Equipe Sutra
           </Text>
         </Container>
       </Body>
