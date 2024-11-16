@@ -9,7 +9,7 @@ type PageProps = {
 
 export default function Page({ params }: PageProps) {
   const [pathname] = params.slug;
-  const [_, quizId] = pathname.split('--');
+  const [quizId] = pathname.split('--').reverse();
 
   return (
     <>
