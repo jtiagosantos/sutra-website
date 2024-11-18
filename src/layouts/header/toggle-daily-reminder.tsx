@@ -15,7 +15,7 @@ import { useAction } from "next-safe-action/hooks";
 import { FC, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 
-export const ToggleDailyRemainder = () => {
+export const ToggleDailyReminder = () => {
   const { user } = useUser();
   const { isExecuting, executeAsync } = useAction(updateUserPreferencesAction);
   const [open, setOpen] = useState(false);

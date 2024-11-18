@@ -45,7 +45,7 @@ const textsByDay = {
   },
 }
 
-export const getDailyRemainderTexts = () => {
+export const getDailyReminderTexts = () => {
   const day = dayjs().day();
 
   return textsByDay[day];

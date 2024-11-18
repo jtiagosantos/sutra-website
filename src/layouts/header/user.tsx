@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
   buildStyles,
   CircularProgressbarWithChildren,
@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/menubar";
 import { LogOut, Medal, Zap } from 'lucide-react';
 import { signOut } from 'next-auth/react';
-import { ToggleDailyRemainder } from './toggle-daily-remainder';
+import { ToggleDailyReminder } from './toggle-daily-reminder';
 import Link from 'next/link';
 import { Oval } from 'react-loader-spinner';
 import { useUser } from '@/hooks/use-user';
@@ -120,7 +120,7 @@ export const User = () => {
               Minhas medalhas
             </MenubarItem>
           </Link>
-          <ToggleDailyRemainder />
+          <ToggleDailyReminder />
           <MenubarItem
             className="flex items-center gap-2 focus:bg-[#8381d9] hover:bg-[#8381d9] focus:text-white hover:text-white transition-all duration-300"
             onClick={handleSignOut}
