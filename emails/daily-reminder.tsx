@@ -50,7 +50,7 @@ export const Email = ({
       />
       <Body style={main}>
         <Container style={container}>
-          <Heading style={greetings}>Olá {userName} :)</Heading>
+          <Heading style={greetings}>Olá, {userName} :)</Heading>
           <Text style={text}>
             {firstText}
           </Text>

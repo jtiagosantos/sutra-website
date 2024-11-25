@@ -25,7 +25,7 @@ export const Email = ({
   userName = 'John Doe',
   medalName = 'Leitor Iniciante',
   medalDescription = 'Você alcançou o nível 1 e ganhou a medalha Leitor Iniciante',
-  medalImageUrl = 'https://bookquiz.s3.amazonaws.com/assets/medals/medal-1.png',
+  medalImageUrl = 'https://bookquiz.s3.amazonaws.com/assets/medals/medal-level-1.png',
   earnedDate = '16/10/2024',
   baseUrl = 'https://bookquiz.com.br/medalhas',
 }: EmailProps) => (
@@ -132,6 +132,7 @@ const medalSection = {
 
 const medalImage = {
   margin: '0 auto 16px',
+  borderRadius: 8
 };
 
 const textDescription = {
