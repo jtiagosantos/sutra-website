@@ -1,9 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { resend } from "@/lib/resend";
 import Email from '@/email/new-platform';
 import { prisma } from "@/lib/prisma";
+import { adminMiddleware } from "@/helpers/admin-middleware";
 
-export const POST = async () => {
+export const POST = async (request: NextRequest) => adminMiddleware(request, async () => {
   try {
     const users = await prisma.user.findMany({
       select: {
@@ -32,4 +33,4 @@ export const POST = async () => {
   } catch (error) {
     return NextResponse.json({ error, message: 'Temporary maintenance failed' }, { status: 500 })
   }
-}
+});

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const TOKEN = 'eyJhbGciOiJIUzI1NiIsInR5cGUiOiJKV1QifQ.eyJzdWIiOiI2NmYzMTdhODY5NmYzYjQ0ZmMwNGUyODcifQ.QWV41zLZWBYYqvOHa6M02vhFAr86Cjl4sxicz-LZVVI';
+const TOKEN = process.env.API_TOKEN;
 
 export const adminMiddleware = (request: NextRequest, callback: () => Promise<NextResponse<unknown>>) => {
   const token = request.headers.get('x-api-token');

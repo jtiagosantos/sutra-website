@@ -49,7 +49,7 @@ export const Email = ({
             alt="Logo do Sutra"
             style={logo}
           />
-          <Heading style={heading}>Grandes Novidades no Sutra! 😍🥳🤩</Heading>
+          <Heading style={heading}>Grandes Novidades na Plataforma! 😍🥳🤩</Heading>
           <Text style={{ ...text, marginBottom: 0, marginTop: 50, lineHeight: 0 }}>
             Olá, {userName} :)
           </Text>
