@@ -1,8 +1,11 @@
-import { auth } from '@/auth';
-import { PageComponent } from './page-component';
+import { Header } from '../../layouts/header/header';
+import { Main } from './main';
 
-export default async function Page() {
-  const session = (await auth())!;
-
-  return <PageComponent user={{ email: session.user?.email! }} />;
+export default function Page() {
+  return (
+    <>
+      <Header />
+      <Main />
+    </>
+  );
 }

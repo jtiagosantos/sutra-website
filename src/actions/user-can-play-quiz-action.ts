@@ -9,15 +9,15 @@ import isToday from 'dayjs/plugin/isToday';
 dayjs.extend(isToday);
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
 });
 
 export const userCanPlayQuizAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email } }) => {
+  .action(async ({ parsedInput: { id } }) => {
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        id,
       },
     });
 
@@ -42,7 +42,7 @@ export const userCanPlayQuizAction = actionClient
     if (!isLastQuizPlayedToday) {
       await prisma.user.update({
         where: {
-          email,
+          email: user.email,
         },
         data: {
           dailyQuizCount: 0,

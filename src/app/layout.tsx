@@ -1,7 +1,10 @@
 import './globals.css';
+import 'react-notion-x/src/styles.css';
+
 import { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import { Toaster } from '@/components/ui/toaster';
+import { Providers } from './providers';
 
 const roboto = Roboto({
   subsets: ['latin-ext'],
@@ -10,16 +13,16 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'Book Quiz',
+  title: 'Sutra',
   description:
     'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
   keywords: ['book', 'quiz', 'leitura', 'gamificação', 'desafio', 'interativo'],
   openGraph: {
-    title: 'Book Quiz',
+    title: 'Sutra',
     description:
       'Gamifique sua leitura ao participar de quizzes interativos e transforme cada página em um desafio!',
     url: 'www.bookquiz.com.br',
-    images: 'https://bookquiz.s3.amazonaws.com/assets/thumbnail.png',
+    images: 'https://bookquiz.s3.amazonaws.com/assets/cover.png',
     type: 'website',
   },
 };
@@ -30,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-br">
+    <html lang="pt-br" className='scrollbar-thumb-dimGray scrollbar-track-platinum'>
       <head>
         <script
           type="text/javascript"
@@ -47,7 +50,9 @@ export default function RootLayout({
       </head>
       <body className={`${roboto.variable} antialiased`}>
         <Toaster />
-        {children}
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

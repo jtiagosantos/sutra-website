@@ -17,9 +17,26 @@ const config: Config = {
         '2000': '2000ms',
       },
       borderRadius: {},
-      colors: {},
+      colors: {
+        davysGray: '#5B5B5D',
+        dimGray: '#71717A',
+        antiFlashWhite: '#F4F4F5',
+        slateGray: '#6B7280',
+        tropicalIndigo: '#8381D9',
+        moonstone: '#50B2C0',
+        silver: '#A9A9A9',
+        xanthous: '#EAB308',
+        jet: '#333333',
+        platinum: '#D9D9D9',
+        lavenderBlush: '#FDEDED',
+        indianRed: '#EB5D5F'
+      },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [
+    require('tailwindcss-animate'),
+    require('daisyui'),
+    require('tailwind-scrollbar'),
+  ],
 };
 export default config;

@@ -5,18 +5,19 @@ import { actionClient } from '@/lib/safe-action';
 import { prisma } from '@/lib/prisma';
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
   preferences: z.object({
     active_daily_reminder: z.boolean().optional(),
+    accept_terms_and_policy: z.boolean().optional(),
   }),
 });
 
 export const updateUserPreferencesAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email, preferences } }) => {
+  .action(async ({ parsedInput: { id, preferences } }) => {
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        id,
       },
     });
 
@@ -28,7 +29,7 @@ export const updateUserPreferencesAction = actionClient
 
     await prisma.user.update({
       where: {
-        email,
+        email: user.email,
       },
       data: {
         preferences: {

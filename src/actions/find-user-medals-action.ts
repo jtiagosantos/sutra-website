@@ -5,27 +5,15 @@ import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
 });
 
 export const findUserMedalsAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email } }) => {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    if (!user) {
-      return {
-        code: 404,
-      };
-    }
-
+  .action(async ({ parsedInput: { id } }) => {
     const userMedals = await prisma.userMedal.findMany({
       where: {
-        userId: user.id,
+        userId: id,
       },
       orderBy: {
         createdAt: 'asc',

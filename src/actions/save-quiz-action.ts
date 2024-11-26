@@ -5,7 +5,7 @@ import { actionClient } from '@/lib/safe-action';
 import { prisma } from '@/lib/prisma';
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
   book: z.object({
     title: z.string(),
     author: z.string(),
@@ -26,31 +26,25 @@ const schema = z.object({
 
 export const saveQuizAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email, book, questions } }) => {
-    const user = await prisma.user.findUnique({
-      where: {
-        email,
-      },
-    });
-
-    if (!user) {
-      return {
-        code: 404,
-      };
-    }
-
-    await prisma.quiz.create({
+  .action(async ({ parsedInput: { id, book, questions } }) => {
+    const registeredQuiz = await prisma.quiz.create({
       data: {
         book: {
           title: book.title.trim(),
           author: book.author.trim(),
+          cover: '',
         },
         questions,
-        userId: user.id,
+        status: 'IN_ANALYSIS',
+        summary: '',
+        deletedAt: null,
+        timesPlayed: 1,
+        userId: id,
       },
     });
 
     return {
       code: 202,
+      registeredQuiz,
     };
   });
