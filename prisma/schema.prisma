@@ -43,7 +43,6 @@ model User {
   updatedAt DateTime @updatedAt @map("updated_at")
 
   quizzes        Quiz[]
-  newQuizzes     NewQuiz[]
   medals         UserMedal[]
   quizzesHistory QuizHistory[]
 
@@ -51,20 +50,6 @@ model User {
 }
 
 model Quiz {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  book      Book
-  questions Question[]
-
-  createdAt DateTime @default(now()) @map("created_at")
-
-  user   User   @relation(fields: [userId], references: [id])
-  userId String @map("user_id") @db.ObjectId
-
-  @@map("quizzes")
-}
-
-model NewQuiz {
   id String @id @default(auto()) @map("_id") @db.ObjectId
 
   book         NewBook
@@ -82,7 +67,7 @@ model NewQuiz {
   user   User   @relation(fields: [userId], references: [id])
   userId String @map("user_id") @db.ObjectId
 
-  @@map("newquizzes")
+  @@map("quizzes")
 }
 
 model Medal {

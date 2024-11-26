@@ -28,13 +28,13 @@ export const searchQuizzesAction = actionClient
       };
     }
 
-    const quizzesCount = await prisma.newQuiz.count({
+    const quizzesCount = await prisma.quiz.count({
       where,
     });
 
     const totalPages = Math.ceil(quizzesCount / take);
 
-    const quizzes = await prisma.newQuiz.findMany({
+    const quizzes = await prisma.quiz.findMany({
       where,
       select: {
         id: true,

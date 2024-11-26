@@ -12,7 +12,7 @@ const schema = z.object({
 export const updateQuizTimesPlayedAction = actionClient
   .schema(schema)
   .action(async ({ parsedInput: { id, timesPlayed } }) => {
-    await prisma.newQuiz.update({
+    await prisma.quiz.update({
       where: {
         id,
       },

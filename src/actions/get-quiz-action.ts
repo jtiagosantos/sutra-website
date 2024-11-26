@@ -11,7 +11,7 @@ const schema = z.object({
 export const getQuizAction = actionClient
   .schema(schema)
   .action(async ({ parsedInput: { id } }) => {
-    const quiz = await prisma.newQuiz.findUnique({
+    const quiz = await prisma.quiz.findUnique({
       where: {
         id,
       },

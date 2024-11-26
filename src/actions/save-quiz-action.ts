@@ -27,7 +27,7 @@ const schema = z.object({
 export const saveQuizAction = actionClient
   .schema(schema)
   .action(async ({ parsedInput: { id, book, questions } }) => {
-    const registeredQuiz = await prisma.newQuiz.create({
+    const registeredQuiz = await prisma.quiz.create({
       data: {
         book: {
           title: book.title.trim(),

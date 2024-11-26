@@ -4,7 +4,7 @@ import { NextResponse } from "next/server";
 export const dynamic = 'force-dynamic';
 
 export const GET = async () => {
-  const quizzes = await prisma.newQuiz.findMany({
+  const quizzes = await prisma.quiz.findMany({
     where: {
       status: 'DONE',
       deletedAt: null,

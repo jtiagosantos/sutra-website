@@ -24,7 +24,7 @@ export const GET = async () => {
   const quizzesByCategory = {} as QuizByCategory;
 
   for (const category of categories) {
-    const query = prisma.newQuiz.findMany({
+    const query = prisma.quiz.findMany({
       where: {
         deletedAt: null,
         categories: {
