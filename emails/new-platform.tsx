@@ -172,8 +172,6 @@ export const Email = ({
           </Text>
           <Text style={text}>
             Boa leitura, bons quizzes e muita diversão! 😍
-
-          ////https://v0.dev/chat/1DD2gbBhjEK
           </Text>
         </Container>
       </Body>
