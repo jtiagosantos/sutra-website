@@ -22,6 +22,7 @@ import Link from "next/link";
 import { useQuizEngine } from "@/hooks/use-quiz-engine";
 import { useUser } from "@/hooks/use-user";
 import { AuthModal } from "@/components/auth-modal";
+import { generateRGBDataURL } from "@/helpers/generate-rgb-data-url";
 
 type RelatedQuiz = {
   id: string;
@@ -134,6 +135,8 @@ export const Main: FC<MainProps> = ({ quizId }) => {
               fill
               style={{ objectFit: 'cover' }}
               quality={100}
+              placeholder="blur"
+              blurDataURL={generateRGBDataURL(209, 213, 219)}
             />
           </div>
 
