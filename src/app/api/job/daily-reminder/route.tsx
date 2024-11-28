@@ -25,7 +25,7 @@ export const POST = async () => {
 
     const { data, error } = await resend.batch.send(
       users.map((user) => ({
-        from: 'Book Quiz <app@bookquiz.com.br>',
+        from: 'Sutra <contato@sutra.app.br>',
         to: [user.email],
         subject,
         react: <Email
