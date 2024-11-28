@@ -6,6 +6,7 @@ import { useAction } from 'next-safe-action/hooks';
 import Image from 'next/image';
 import { FC } from 'react';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
+import { generateRGBDataURL } from '@/helpers/generate-rgb-data-url';
 
 type MedalModalProps = {
   open: boolean;
@@ -47,6 +48,8 @@ export const MedalModal: FC<MedalModalProps> = ({ open, onClose, id, image, leve
                   className="rounded-lg"
                   sizes='160px'
                   quality={100}
+                  placeholder="blur"
+                  blurDataURL={generateRGBDataURL(209, 213, 219)}
                 />
               </div>
               <div>

@@ -21,6 +21,7 @@ export const QuizCard: FC<QuizCardProps> = ({ href, image, author, title }) => {
             fill
             style={{ objectFit: 'cover' }}
             placeholder="blur"
+            quality={100}
             blurDataURL={generateRGBDataURL(209, 213, 219)}
           />
         </div>

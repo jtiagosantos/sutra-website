@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import { MedalModal } from './medal-modal';
 import { BackButton } from '@/components/back-button';
 import { useUser } from '@/hooks/use-user';
+import { generateRGBDataURL } from '@/helpers/generate-rgb-data-url';
 
 type Medal = {
   id: string;
@@ -118,6 +119,8 @@ export const Main = () => {
                             className="rounded-lg"
                             sizes='120px'
                             quality={100}
+                            placeholder="blur"
+                            blurDataURL={generateRGBDataURL(209, 213, 219)}
                           />
                         </div>
                         {medal.earnedAt && !medal.viewedAt && (
@@ -153,6 +156,8 @@ export const Main = () => {
                       className="rounded-lg"
                       sizes='120px'
                       quality={100}
+                      placeholder="blur"
+                      blurDataURL={generateRGBDataURL(209, 213, 219)}
                     />
                   </div>
                   {medal.earnedAt && !medal.viewedAt && (
