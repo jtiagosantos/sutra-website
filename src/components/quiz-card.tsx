@@ -1,3 +1,4 @@
+import { generateRGBDataURL } from "@/helpers/generate-rgb-data-url";
 import Image from "next/image";
 import Link from "next/link";
 import { FC } from "react";
@@ -19,6 +20,8 @@ export const QuizCard: FC<QuizCardProps> = ({ href, image, author, title }) => {
             alt=""
             fill
             style={{ objectFit: 'cover' }}
+            placeholder="blur"
+            blurDataURL={generateRGBDataURL(209, 213, 219)}
           />
         </div>
         <div className="w-full p-2">
