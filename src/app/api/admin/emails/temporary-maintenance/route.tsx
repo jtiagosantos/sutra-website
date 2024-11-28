@@ -16,7 +16,7 @@ export const POST = async (request: NextRequest) => adminMiddleware(request, asy
 
     const { data, error } = await resend.batch.send(
       users.map((user) => ({
-        from: 'Book Quiz <app@bookquiz.com.br>',
+        from: 'Sutra <contato@sutra.app.br>',
         to: [user.email],
         subject: '⚠️ Manutenção Temporária ⚠️',
         react: <Email
