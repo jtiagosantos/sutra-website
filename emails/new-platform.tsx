@@ -159,7 +159,7 @@ export const Email = ({
           </Section>
 
           <Section style={buttonContainer}>
-            <Button style={button} href="https://sutra.app.br">
+            <Button style={button} href="https://www.sutra.app.br">
               Explorar as Novidades
             </Button>
           </Section>
@@ -172,8 +172,6 @@ export const Email = ({
           </Text>
           <Text style={text}>
             Boa leitura, bons quizzes e muita diversão! 😍
-
-          ////https://v0.dev/chat/1DD2gbBhjEK
           </Text>
         </Container>
       </Body>
