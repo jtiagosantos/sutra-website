@@ -28,7 +28,7 @@ export const CurrentQuestion: FC<CurrentQuestionProps> = ({ marginBottom }) => {
         <Progress value={progress} className="w-full bg-gray-200" />
       </div>
 
-      <div style={{ marginBottom: marginBottom + 20 }}>
+      <div style={{ marginBottom: marginBottom + 150 }}>
         <h2 className="w-full text-center mt-8 font-body text-[18px] text-gray-600 font-medium leading-7">
           {currentQuestion!.title}
         </h2>
