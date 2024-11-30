@@ -37,6 +37,8 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
   const [isCheckingUserCanPlay, setIsCheckingUserCanPlay] = useState(true);
   const footerRef = useRef<HTMLDivElement>(null);
 
+  console.log('currentQuizGame', marginBottom);
+
   const executeOnMount = async () => {
     setIsCheckingUserCanPlay(true);
 
@@ -60,7 +62,7 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
     if (footerRef.current?.offsetHeight) {
       setMarginBottom(footerRef.current.offsetHeight);
     }
-  }, [answerStatus]);
+  }, [answerStatus, footerRef]);
 
   useEffect(() => {
     executeOnMount();
@@ -88,7 +90,7 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
   }
 
   return (
-    <main className="max-w-[600px] w-full mx-auto my-10">
+    <main className="max-w-[600px] w-full mx-auto my-10 px-3">
       {quizStatus === 'RUNNING' && (
         <CurrentQuestion
           marginBottom={marginBottom}
