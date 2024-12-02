@@ -1,13 +1,8 @@
 import { Progress } from "@/components/ui/progress";
 import { useQuizEngine } from "@/hooks/use-quiz-engine";
 import clsx from "clsx";
-import { FC } from "react";
 
-type CurrentQuestionProps = {
-  marginBottom: number;
-}
-
-export const CurrentQuestion: FC<CurrentQuestionProps> = ({ marginBottom }) => {
+export const CurrentQuestion = () => {
   const {
     questionIndex,
     numberOfQuestions,
@@ -28,7 +23,7 @@ export const CurrentQuestion: FC<CurrentQuestionProps> = ({ marginBottom }) => {
         <Progress value={progress} className="w-full bg-gray-200" />
       </div>
 
-      <div style={{ marginBottom: marginBottom + 150 }}>
+      <div className="mb-[340px]">
         <h2 className="w-full text-center mt-8 font-body text-[18px] text-gray-600 font-medium leading-7">
           {currentQuestion!.title}
         </h2>

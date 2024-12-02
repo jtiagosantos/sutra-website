@@ -3,14 +3,19 @@ import { useQuizEngine } from "@/hooks/use-quiz-engine";
 import clsx from "clsx";
 import { CircleCheck, CircleX } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { FC, RefObject } from "react";
 
-type FooterProps = {
-  footerRef: RefObject<HTMLDivElement>
-}
-
-export const Footer: FC<FooterProps> = ({ footerRef }) => {
-  const { currentQuizGame } = useQuizEngine();
+export const Footer = () => {
+  const {
+    selectedAnswerId,
+    checkAnswer,
+    answerStatus,
+    currentCorrectAnswer,
+    isLastQuestion,
+    goToNextQuestion,
+    finishQuiz,
+    resetEngine,
+    currentQuizGame,
+  } = useQuizEngine();
   const pathname = usePathname();
   const router = useRouter();
 
@@ -28,19 +33,8 @@ export const Footer: FC<FooterProps> = ({ footerRef }) => {
     resetEngine();
   }
 
-  const {
-    selectedAnswerId,
-    checkAnswer,
-    answerStatus,
-    currentCorrectAnswer,
-    isLastQuestion,
-    goToNextQuestion,
-    finishQuiz,
-    resetEngine,
-  } = useQuizEngine();
-
   return (
-    <footer ref={footerRef} className={clsx('w-full border-t-[2px] mt-10 fixed bottom-0 left-0 z-20', {
+    <footer className={clsx('w-full border-t-[2px] mt-10 fixed bottom-0 left-0 z-20', {
       'border-t-gray-200 bg-white': !answerStatus,
       'border-t-green-100 bg-green-100': answerStatus === 'CORRECT',
       'border-t-red-100 bg-red-100': answerStatus === 'INCORRECT'

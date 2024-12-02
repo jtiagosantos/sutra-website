@@ -24,7 +24,6 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
   const {
     currentQuizGame,
     quizStatus,
-    answerStatus,
     level,
     isOpenLevelUpModal,
     isCalculatingAnswers,
@@ -32,12 +31,9 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
   } = useQuizEngine();
   const router = useRouter();
   const { result, executeAsync } = useAction(userCanPlayQuizAction);
-  const [marginBottom, setMarginBottom] = useState(0);
   const [isRedirecting, setIsRedirecting] = useState(false);
   const [isCheckingUserCanPlay, setIsCheckingUserCanPlay] = useState(true);
   const footerRef = useRef<HTMLDivElement>(null);
-
-  console.log('currentQuizGame', marginBottom);
 
   const executeOnMount = async () => {
     setIsCheckingUserCanPlay(true);
@@ -57,12 +53,6 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
 
     setIsCheckingUserCanPlay(false);
   }
-
-  useEffect(() => {
-    if (footerRef.current?.offsetHeight) {
-      setMarginBottom(footerRef.current.offsetHeight);
-    }
-  }, [answerStatus, footerRef]);
 
   useEffect(() => {
     executeOnMount();
@@ -92,9 +82,7 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
   return (
     <main className="max-w-[600px] w-full mx-auto my-10 px-3">
       {quizStatus === 'RUNNING' && (
-        <CurrentQuestion
-          marginBottom={marginBottom}
-        />
+        <CurrentQuestion />
       )}
 
       {quizStatus === 'FINISHED' && (
@@ -113,9 +101,7 @@ export const Main: FC<MainProps> = ({ bookName, quizId }) => {
       )}
 
       {quizStatus === 'RUNNING' && (
-        <Footer
-          footerRef={footerRef}
-        />
+        <Footer />
       )}
     </main>
   );
