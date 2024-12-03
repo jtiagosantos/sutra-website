@@ -8,16 +8,16 @@ import Email from "@/email/medal-won"
 import dayjs from 'dayjs';
 
 const schema = z.object({
-  email: z.string().email(),
+  id: z.string(),
   level: z.number(),
 });
 
 export const assignMedalToUserAction = actionClient
   .schema(schema)
-  .action(async ({ parsedInput: { email, level } }) => {
+  .action(async ({ parsedInput: { id, level } }) => {
     const user = await prisma.user.findUnique({
       where: {
-        email,
+        id,
       },
     });
 
@@ -60,7 +60,7 @@ export const assignMedalToUserAction = actionClient
     });
 
     await resend.emails.send({
-      from: 'Book Quiz <app@bookquiz.com.br>',
+      from: 'Sutra <contato@sutra.app.br>',
       to: [user.email],
       subject: `Parabéns! Você ganhou a medalha ${medal.name} 🎉`,
       react: <Email
@@ -69,7 +69,7 @@ export const assignMedalToUserAction = actionClient
         medalDescription={`Você alcançou o nível ${level} e ganhou a medalha ${medal.name}`}
         medalImageUrl={medal.image}
         earnedDate={dayjs(registeredMedal.createdAt).format('DD/MM/YYYY')}
-        baseUrl='https://www.bookquiz.com.br/medalhas'
+        baseUrl='https://www.sutra.app.br/medalhas'
       />
     });
 

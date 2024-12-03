@@ -1,12 +1,11 @@
 import { auth } from '@/auth';
+import { checkIsProtectedRoute } from './helpers/check-is-protected-route';
 
 export default auth((request) => {
-  const isProtectedRoute = ['/jogar', '/pagamento/processando', '/medalhas'].includes(
-    request.nextUrl.pathname,
-  );
-  const isUserAutehnticated = !!request.auth;
+  const isProtectedRoute = checkIsProtectedRoute(request.nextUrl.pathname);
+  const isUserAuthenticated = !!request.auth;
 
-  if (isProtectedRoute && !isUserAutehnticated) {
+  if (isProtectedRoute && !isUserAuthenticated) {
     const url = new URL('/', request.nextUrl.origin);
     return Response.redirect(url);
   }

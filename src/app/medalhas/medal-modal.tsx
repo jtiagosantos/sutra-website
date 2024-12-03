@@ -6,6 +6,7 @@ import { useAction } from 'next-safe-action/hooks';
 import Image from 'next/image';
 import { FC } from 'react';
 import BubbleAnimation from '@/assets/bubble-spinner.svg';
+import { generateRGBDataURL } from '@/helpers/generate-rgb-data-url';
 
 type MedalModalProps = {
   open: boolean;
@@ -19,7 +20,7 @@ type MedalModalProps = {
 }
 
 export const MedalModal: FC<MedalModalProps> = ({ open, onClose, id, image, levelRequired, name, earnedAt, viewedAt }) => {
-  const { isExecuting, result } = useAction(setUserMedalAsViewedAction, {
+  const { isExecuting } = useAction(setUserMedalAsViewedAction, {
     executeOnMount: !!viewedAt ? undefined : {
       input: {
         id
@@ -27,11 +28,9 @@ export const MedalModal: FC<MedalModalProps> = ({ open, onClose, id, image, leve
     },
   });
 
-  console.log({ isExecuting, result });
-
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="bg-white py-8 w-full">
+      <DialogContent className="bg-white py-7 w-full">
         <div className="w-full flex flex-col items-center">
           {isExecuting && (
             <div className="my-[35px]">
@@ -39,16 +38,18 @@ export const MedalModal: FC<MedalModalProps> = ({ open, onClose, id, image, leve
             </div>
           )}
           {!isExecuting && (
-            <div className="w-full flex items-end justify-start gap-5">
-              <div className="relative min-w-[150px] h-[150px] rounded-xl overflow-hidden shadow-lg shadow-gray-500">
+            <div className="w-full flex items-center justify-start gap-5">
+              <div className="relative min-w-[160px] h-[150px] rounded-xl overflow-hidden shadow-lg shadow-gray-500">
                 <Image
                   src={image}
                   alt={name}
                   fill={true}
                   style={{ objectFit: 'cover' }}
                   className="rounded-lg"
-                  sizes='150px'
+                  sizes='160px'
                   quality={100}
+                  placeholder="blur"
+                  blurDataURL={generateRGBDataURL(209, 213, 219)}
                 />
               </div>
               <div>
