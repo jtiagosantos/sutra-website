@@ -15,10 +15,15 @@ import { useAction } from "next-safe-action/hooks";
 import { FC, useState } from "react";
 import { ThreeDots } from "react-loader-spinner";
 
-export const ToggleDailyReminder = () => {
+type ToggleDailyReminderProps = {
+  defaultOpen?: boolean;
+  hideTrigger?: boolean;
+}
+
+export const ToggleDailyReminder: FC<ToggleDailyReminderProps> = ({ defaultOpen = false, hideTrigger = false }) => {
   const { user } = useUser();
   const { isExecuting, executeAsync } = useAction(updateUserPreferencesAction);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(defaultOpen);
 
   const handleConfirmAction = async () => {
     await executeAsync({
@@ -30,15 +35,17 @@ export const ToggleDailyReminder = () => {
 
     setOpen(false);
 
-    window.location.reload();
+    window.location.href = window.origin;
   }
 
   return (
     <Dialog defaultOpen={open} open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="flex items-center gap-2 focus:bg-tropicalIndigo hover:bg-tropicalIndigo focus:text-white hover:text-white transition-all duration-300 font-body text-gray-600 font-medium relative cursor-default select-none rounded-md px-2 py-2 hover:cursor-pointer text-sm outline-none focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-        {user!.activeDailyRemainder ? <BellOff size={18} /> : <Bell size={18} />}
-        {user!.activeDailyRemainder ? 'Desativar lembrete diário' : 'Ativar lembrete diário'}
-      </DialogTrigger>
+      {!hideTrigger && (
+        <DialogTrigger className="flex items-center gap-2 focus:bg-tropicalIndigo hover:bg-tropicalIndigo focus:text-white hover:text-white transition-all duration-300 font-body text-gray-600 font-medium relative cursor-default select-none rounded-md px-2 py-2 hover:cursor-pointer text-sm outline-none focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+          {user!.activeDailyRemainder ? <BellOff size={18} /> : <Bell size={18} />}
+          {user!.activeDailyRemainder ? 'Desativar lembrete diário' : 'Ativar lembrete diário'}
+        </DialogTrigger>
+      )}
       <DialogContent className="bg-white py-8">
         <DialogHeader>
           <DialogTitle className="mb-4">{user!.activeDailyRemainder ? 'Desativar lembrete diário?' : 'Ativar lembrete diário?'}</DialogTitle>
