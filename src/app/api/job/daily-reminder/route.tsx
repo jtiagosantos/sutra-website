@@ -34,6 +34,7 @@ export const POST = async () => {
           firstText={firstText}
           secondText={secondText}
           thirdText={thirdText}
+          unsubscribeLink="https://sutra.app.br?lembrete-diario=true"
         />
       }))
     );

@@ -8,6 +8,7 @@ import {
   Section,
   Tailwind,
   Text,
+  Link,
 } from '@react-email/components';
 import * as React from 'react';
 
@@ -17,6 +18,7 @@ interface EmailProps {
   firstText: string;
   secondText: string;
   thirdText: string;
+  unsubscribeLink: string;
 }
 
 export const Email = ({
@@ -24,7 +26,8 @@ export const Email = ({
   quizLink = 'https://exemplo.com/quiz',
   firstText = 'Que tal reservar um momento hoje para testar seu conhecimento sobre seus livros favoritos e se divertir? 🤩',
   secondText = 'Lembre-se de acessar a plataforma Sutra e fazer seu quiz diário. Cada resposta certa te aproxima ainda mais do topo do ranking dos leitores mais afiados! 🚀',
-  thirdText = 'Acesse agora e veja como você se sai hoje!'
+  thirdText = 'Acesse agora e veja como você se sai hoje!',
+  unsubscribeLink = 'https://sutra.app.br/unsubscribe',
 }: EmailProps) => (
   <Html>
     <Tailwind>
@@ -72,6 +75,12 @@ export const Email = ({
             Boa sorte e divirta-se,<br />
             Equipe Sutra
           </Text>
+          <Section>
+            <Text style={{ ...text, fontSize: 13, marginBottom: 0, textAlign: 'center' }}>
+              Caso não queira mais receber nosso lembrete diário, cancele a sua assinatura{' '}
+              <Link href={unsubscribeLink}>aqui</Link>
+            </Text>
+          </Section>
         </Container>
       </Body>
     </Tailwind>

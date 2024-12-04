@@ -15,17 +15,23 @@ import { Session } from 'next-auth';
 import { User } from './user';
 import { useRouter } from 'next/navigation';
 import { TermsAndPolicyModal } from '@/components/terms-and-policy-modal';
+import { ToggleDailyReminder } from './toggle-daily-reminder';
+import { useUser } from '@/hooks/use-user';
 
 type HeaderContentProps = {
   session: Session | null;
 }
 
 export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
+  const { user } = useUser();
   const [openAuthModal, setOpenAuthModal] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
   const searchParams = useSearchParams();
+
   const search = searchParams.get('busca');
+  const dailyReminderParam = searchParams.get('lembrete-diario');
+  const dailyReminderModalOpen = dailyReminderParam === 'true' && !!user;
 
   const handleSearch = (event: FormEvent) => {
     event.preventDefault();
@@ -128,6 +134,8 @@ export const HeaderContent: FC<HeaderContentProps> = ({ session }) => {
       </div>
 
       <TermsAndPolicyModal />
+
+      {dailyReminderModalOpen && <ToggleDailyReminder defaultOpen hideTrigger />}
     </div>
   );
 };
